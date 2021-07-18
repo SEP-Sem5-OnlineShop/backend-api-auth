@@ -11,6 +11,8 @@ const userValidationSchema = Joi.object({
     lName: Joi.string().required().min(2).max(50),
     telephone: Joi.string().pattern(new RegExp(regexp.telephoneRegexp)),
     role: Joi.string().required(),
+    password: Joi.string().required().min(8), // Should be validate with regexp,
+    password_confirmation: Joi.string().required().valid(Joi.ref('password')),
     location: Joi.object({
         type: Joi.string().required(),
         coordinates: Joi.array().required().items(Joi.number(), Joi.number()).length(2)

@@ -4,8 +4,8 @@ require("dotenv").config()
 const express = require("express")
 const cors = require("cors")
 const connection = require("./database/connection")
-const validator = require("./middlewares/validator")
-const User = require("./models/user")
+const apiRoutes = require("./routes/auth")
+const appRoutes = require("./routes/app")
 
 const PORT = Number(process.env.PORT) || 8000
 const app = express()
@@ -18,14 +18,6 @@ app.use(cors())
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})
 
-app.get("/", (req, res) => {
-    res.send('Hello world!')
-})
-app.post("/register", validator.userSchemaValidator, (req, res) => {
-    const user = User.createUser(req.body)
-    user.save(error => {
-        res.status(400).send({message: error})
-    })
-})
+app.use('/api', [apiRoutes, appRoutes])
 
 app.listen(PORT, () => console.log(`Listening at port ${PORT}`))

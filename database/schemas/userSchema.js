@@ -5,7 +5,6 @@ const mongoose = require("mongoose")
  * @type {module:mongoose.Schema<Document, Model<any, any, any>, undefined, ExtractMethods<Model<any, any, any>>>}
  */
 const userSchema = new mongoose.Schema({
-    _id: String,
     fName: {
         type: String,
         required: true,
@@ -42,6 +41,10 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String
+    },
+    password: {
+        type: String,
+        required: true
     }
 })
 

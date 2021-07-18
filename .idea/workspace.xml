@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8837d334-7e25-48cb-8697-2059a666b64d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/database/connection.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/schemas/userSchema.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/middlewares/validator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/regexp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/app/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/auth/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/auth/login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/auth/register.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/tokenHenadler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/schemas/userSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/database/schemas/userSchema.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middlewares/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/middlewares/validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/regexp.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/regexp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +34,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="14.16.1" />
     <property name="javascript.nodejs.core.library.typings.version" value="14.17.5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../pweb/backend-api" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -38,6 +42,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\projects\online-shop-sem5-sep\backend-api\routes\auth" />
       <recent name="C:\projects\online-shop-sem5-sep\backend-api\database\schemas" />
       <recent name="C:\projects\online-shop-sem5-sep\backend-api\middlewares" />
     </key>
@@ -50,7 +55,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1626437110767</updated>
-      <workItem from="1626437112992" duration="27880000" />
+      <workItem from="1626437112992" duration="47301000" />
     </task>
     <servers />
   </component>
