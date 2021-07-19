@@ -17,7 +17,11 @@ app.use(cors())
 
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})
-
+app.get('/', (req, res) => {
+    res.status(200).send({
+        message: "App is working fine!"
+    })
+})
 app.use('/api', [apiRoutes, appRoutes])
 
 app.listen(PORT, () => console.log(`Listening at port ${PORT}`))
