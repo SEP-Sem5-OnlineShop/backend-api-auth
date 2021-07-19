@@ -19,7 +19,7 @@ app.use(cors())
 connection.connect().then(() => {console.log('Connected to the db!')})
 app.get('/', (req, res) => {
     res.status(200).send({
-        message: "App is working fine!"
+        message: process.env.DB_USER
     })
 })
 app.get('/dashboard', (req, res) => {
