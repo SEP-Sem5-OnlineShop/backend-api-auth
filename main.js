@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
         message: "App is working fine!"
     })
 })
+app.get('/dashboard', (req, res) => {
+    res.status(200).send({
+        message: "This is dashboard"
+    })
+})
 app.use('/api', [apiRoutes, appRoutes])
 
 app.listen(PORT, () => console.log(`Listening at port ${PORT}`))
