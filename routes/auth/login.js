@@ -25,10 +25,9 @@ module.exports = async (req, res) => {
     const isValid = await bcrypt.compare(password, user['password'])
     if(!isValid) return res.status(400).send({message: "Password is incorrect!"})
 
-    return res.status(200).send({
+    return res.cookie('token', tokens.refreshToken, {httpOnly: true}).status(200).send({
         message: "Login Successful!",
         data: user,
         accessToken: tokens.accessToken,
-        refreshToken: tokens.refreshToken
     })
 }
