@@ -26,10 +26,10 @@ const alertSchema = new mongoose.Schema({
     },
   
     setTime: {
-        type: {
+
             type: String,
             required: true,
-        }
+        
     },
     
     updateTime: {
