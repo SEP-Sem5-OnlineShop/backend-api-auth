@@ -10,14 +10,14 @@ const locationSchema = new mongoose.Schema({
 })
 
 const vehicleSchema = new mongoose.Schema({
-    vehicle_id: {type: String, required: true},
-    plate_number: {type: String, required: true},
+    vehicleId: {type: String, required: true},
+    plateNumber: {type: String, required: true},
 })
 
 const driverSchema = new mongoose.Schema({
-    license_number: {type: String, required: true, unique: true},
-    license_file_url: {type: String, required: true},
-    vendor_id: {type: String, required: true},
+    licenseNumber: {type: String, required: true, unique: true},
+    licenseFileUrl: {type: String, required: true},
+    vendorId: {type: String, required: true},
     location: locationSchema,
 })
 
@@ -27,25 +27,25 @@ const customerSchema = new mongoose.Schema({
 
 const vendorSchema = new mongoose.Schema({
     location: locationSchema,
-    product_id: [{type: String}],
-    driver_id: [{type: String}],
+    productId: [{type: String}],
+    driverId: [{type: String}],
     vehicles: vehicleSchema,
-    permit_number: {type: String, required: true},
-    permit_file_url: {type: String, required: true},
+    permitNumber: {type: String, required: true},
+    permitFileUrl: {type: String, required: true},
     status: {type: String, enum: ["pending, accepted, rejected, detailsRequested"]}
 })
 
 const userSchema = new mongoose.Schema({
-    user_id: {type: String, required: true, unique: true},
-    first_name: {type: String, required: true,min: 2, max: 50,},
-    last_name: {type: String, required: true,min: 2, max: 50,},
+    userId: {type: String, required: true, unique: true},
+    firstName: {type: String, required: true,min: 2, max: 50,},
+    lastName: {type: String, required: true,min: 2, max: 50,},
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
     email: {type: String},
     password: {type: String, required: true},
-    customer: {type: customerSchema, required: () => this.role === "customer"},
-    driver: {type: driverSchema, required: () => this.role === "driver"},
-    vendor: {type: vendorSchema, required: () => this.role === "vendor"},
+    customer: {type: customerSchema, required: function() {this.role === "customer"}},
+    driver: {type: driverSchema, required: function() {this.role === "driver"}},
+    vendor: {type: vendorSchema, required: function() {this.role === "vendor"}},
 
 })
 
