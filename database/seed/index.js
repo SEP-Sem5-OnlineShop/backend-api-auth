@@ -13,7 +13,7 @@ seeds.forEach(item => {
     item.save((error, result) => {
         done++
         console.log(error)
-        if(done === users.length) mongoose.disconnect()
+        if(done === seeds.length) mongoose.disconnect()
 
     })
 })
