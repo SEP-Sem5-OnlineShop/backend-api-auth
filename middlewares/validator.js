@@ -6,7 +6,7 @@ const regexp = require("../utils/regexp")
  * Validation Schema for the mongoose user schema
  * @type {Joi.ObjectSchema<any>}
  */
-const userValidationSchema = Joi.object({
+const userRegistrationValidator = Joi.object({
     fName: Joi.string().required().min(2).max(50),
     lName: Joi.string().required().min(2).max(50),
     telephone: Joi.string().pattern(new RegExp(regexp.telephoneRegexp)),
@@ -39,5 +39,5 @@ const middlewareBody = async (req, res, next, validationSchema) => {
 }
 
 module.exports.userSchemaValidator = async (req, res, next) => {
-    await middlewareBody(req, res, next, userValidationSchema)
+    await middlewareBody(req, res, next, userRegistrationValidator)
 }

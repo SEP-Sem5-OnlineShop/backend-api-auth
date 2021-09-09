@@ -1,51 +1,52 @@
 const mongoose = require("mongoose")
 
 /**
- * Defining the schema for User model in the database
+ * Defining the schemas for User model in the database
  * @type {module:mongoose.Schema<Document, Model<any, any, any>, undefined, ExtractMethods<Model<any, any, any>>>}
  */
+const locationSchema = new mongoose.Schema({
+    type: {type: String, required: true, default: "Point"},
+    coordinates: {type: Array, required: true,}
+})
+
+const vehicleSchema = new mongoose.Schema({
+    vehicleId: {type: String, required: true},
+    plateNumber: {type: String, required: true},
+})
+
+const driverSchema = new mongoose.Schema({
+    licenseNumber: {type: String, required: true, unique: true},
+    licenseFileUrl: {type: String, required: true},
+    vendorId: {type: String, required: true},
+    location: locationSchema,
+})
+
+const customerSchema = new mongoose.Schema({
+    location: locationSchema,
+})
+
+const vendorSchema = new mongoose.Schema({
+    location: locationSchema,
+    productId: [{type: String}],
+    driverId: [{type: String}],
+    vehicles: vehicleSchema,
+    permitNumber: {type: String, required: true},
+    permitFileUrl: {type: String, required: true},
+    status: {type: String, enum: ["pending, accepted, rejected, detailsRequested"]}
+})
+
 const userSchema = new mongoose.Schema({
-    fName: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 50,
-    },
-    lName: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 50
-    },
-    telephone: {
-        type: String,
-        required: true,
-        unique: true,
-        min: 10,
-        max: 13,
-    },
-    role: {
-        type: String,
-        required: true,
-    },
-    location: {
-        type: {
-            type: String,
-            required: true,
-            default: "Point"
-        },
-        coordinates: {
-            type: Array,
-            required: true,
-        }
-    },
-    email: {
-        type: String
-    },
-    password: {
-        type: String,
-        required: true
-    }
+    userId: {type: String, required: true, unique: true},
+    firstName: {type: String, required: true,min: 2, max: 50,},
+    lastName: {type: String, required: true,min: 2, max: 50,},
+    telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
+    role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
+    email: {type: String},
+    password: {type: String, required: true},
+    customer: {type: customerSchema, required: function() {this.role === "customer"}},
+    driver: {type: driverSchema, required: function() {this.role === "driver"}},
+    vendor: {type: vendorSchema, required: function() {this.role === "vendor"}},
+
 })
 
 module.exports = mongoose.model('User', userSchema)
