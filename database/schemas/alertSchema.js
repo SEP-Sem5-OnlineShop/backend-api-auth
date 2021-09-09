@@ -20,7 +20,6 @@ const alertSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        unique: true,
         min: 2,
         max: 50,
     },

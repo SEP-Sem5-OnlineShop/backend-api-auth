@@ -26,7 +26,6 @@ const purchaseSchema = new mongoose.Schema({
     total_amount: {
         type: String,
         required: true,
-        unique: true,
         min: 2,
         max: 50,
     },
