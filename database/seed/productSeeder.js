@@ -1,69 +1,55 @@
 var Product = require('mongoose').model('Product');
-var User = require('mongoose').model('User');
 
 const products = [
-    {
+    new Product({
         product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
         image: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
         rating: 4.5,
         numReviews: 10,
-    },
-    {
+    }),
+    new Product({
         product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
         image: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
         rating: 4.5,
         numReviews: 10,
-    },
-    {
+    }),
+    new Product({
         product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
         image: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
         rating: 4.5,
         numReviews: 10,
-    },
-    {
+    }),
+    new Product({
         product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
         image: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
         rating: 4.5,
         numReviews: 10,
-    },
-    {
+    }),
+    new Product({
         product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
         image: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
         rating: 4.5,
         numReviews: 10,
-    },
+    }),
 ];
-
-// function seedProducts(products) {
-exports.seedProducts = function seedProducts(products) {
-    Product.find({}).exec(function (err, collection) {
-        if (collection.length === 0) {
-            seedProduct('0712345679', products[0]);
-            seedProduct('0712345679', products[1]);
-            seedProduct('0712345679', products[2]);
-            seedProduct('0712345679', products[3]);
-            seedProduct('0712345679', products[4]);
-        }
-    });
-    function seedProduct(telephoneNo, product) {
-        User.findOne({ telephone: telephoneNo }).exec()
-        .then(function (user) {
-            return Product.create({ product_name: product.product_name, image: product.image, price: product.price, stock: product.stock, status: product.status,  rating: product.rating, numReviews: product.numReviews, seller: user._id });
-        });
-    }
-};
+module.exports = products
