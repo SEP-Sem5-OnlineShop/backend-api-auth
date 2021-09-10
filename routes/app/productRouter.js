@@ -1,7 +1,7 @@
 const productRouter = require("express").Router()
 const expressAsyncHandler = require('express-async-handler')
 const Product = require("../../models/productModel")
-const data = require("../../data")
+const data = require("../../data");
 
 productRouter.get(
   '/:id',
