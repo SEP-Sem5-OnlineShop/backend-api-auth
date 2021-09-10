@@ -1,5 +1,5 @@
-var User = require('mongoose').model('User');
 var Product = require('mongoose').model('Product');
+var User = require('mongoose').model('User');
 
 const products = [
     {
@@ -53,17 +53,17 @@ const products = [
 exports.seedProducts = function seedProducts(products) {
     Product.find({}).exec(function (err, collection) {
         if (collection.length === 0) {
-            seedProducts('0712345679', products[0]);
-            seedProducts('0712345679', products[1]);
-            seedProducts('0712345679', products[2]);
-            seedProducts('0712345679', products[3]);
-            seedProducts('0712345679', products[4]);
+            seedProduct('0712345679', products[0]);
+            seedProduct('0712345679', products[1]);
+            seedProduct('0712345679', products[2]);
+            seedProduct('0712345679', products[3]);
+            seedProduct('0712345679', products[4]);
         }
     });
-    function seedProducts(telephoneNo, product) {
+    function seedProduct(telephoneNo, product) {
         User.findOne({ telephone: telephoneNo }).exec()
         .then(function (user) {
-            return Product.create({ product: product, seller: user._id });
+            return Product.create({ product_name: product.product_name, image: product.image, price: product.price, stock: product.stock, status: product.status,  rating: product.rating, numReviews: product.numReviews, seller: user._id });
         });
     }
 };

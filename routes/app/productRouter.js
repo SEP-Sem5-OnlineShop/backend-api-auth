@@ -1,7 +1,8 @@
 const productRouter = require("express").Router()
 const expressAsyncHandler = require('express-async-handler')
-const Product = require("../../models/productModel")
+const Product = require("../../database/schemas/productSchema")
 const data = require("../../data");
+const { seedProducts } = require("../../database/seed/productSeeder");
 
 productRouter.get(
   '/:id',
@@ -15,7 +16,8 @@ productRouter.get(
   '/seed',
   expressAsyncHandler(async (req, res) => {
     // await Product.remove({});
-    const createdProducts = await Product.insertMany(data.products);
+    // const createdProducts = await Product.insertMany(data.products);
+    const createdProducts = seedProducts();
     res.send({ createdProducts });
   })
 );
