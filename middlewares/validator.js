@@ -7,8 +7,8 @@ const regexp = require("../utils/regexp")
  * @type {Joi.ObjectSchema<any>}
  */
 const userRegistrationValidator = Joi.object({
-    fName: Joi.string().required().min(2).max(50),
-    lName: Joi.string().required().min(2).max(50),
+    firstName: Joi.string().required().min(2).max(50),
+    lastName: Joi.string().required().min(2).max(50),
     telephone: Joi.string().pattern(new RegExp(regexp.telephoneRegexp)),
     role: Joi.string().required(),
     password: Joi.string().required().min(8), // Should be validate with regexp,

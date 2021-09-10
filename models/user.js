@@ -10,8 +10,8 @@ module.exports.createUser = async (data) => {
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(data.password, salt)
         return new User({
-                fName: data.fName,
-                lName: data.lName,
+                firstName: data.firstName,
+                lastName: data.lastName,
                 telephone: data.telephone,
                 role: data.role,
                 location: data.location,
