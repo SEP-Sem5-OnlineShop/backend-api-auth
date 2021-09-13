@@ -36,7 +36,6 @@ const vendorSchema = new mongoose.Schema({
 })
 
 const userSchema = new mongoose.Schema({
-    userId: {type: String, required: true, unique: true},
     firstName: {type: String, required: true,min: 2, max: 50,},
     lastName: {type: String, required: true,min: 2, max: 50,},
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},

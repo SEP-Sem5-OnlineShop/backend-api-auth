@@ -14,7 +14,6 @@ seeds.forEach(item => {
         done++
         console.log(error)
         if(done === seeds.length) mongoose.disconnect()
-
     })
 })
 
