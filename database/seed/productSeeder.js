@@ -1,0 +1,55 @@
+var Product = require('mongoose').model('Product');
+
+const products = [
+    new Product({
+        product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
+        image: '/img/item1.png',
+        price: 100,
+        stock: 10,
+        status: 'available',
+        rating: 4.5,
+        numReviews: 10,
+    }),
+    new Product({
+        product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
+        image: '/img/item1.png',
+        price: 100,
+        stock: 10,
+        status: 'available',
+        rating: 4.5,
+        numReviews: 10,
+    }),
+    new Product({
+        product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
+        image: '/img/item1.png',
+        price: 100,
+        stock: 10,
+        status: 'available',
+        rating: 4.5,
+        numReviews: 10,
+    }),
+    new Product({
+        product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
+        image: '/img/item1.png',
+        price: 100,
+        stock: 10,
+        status: 'available',
+        rating: 4.5,
+        numReviews: 10,
+    }),
+    new Product({
+        product_name: 'Burger with some',
+        seller: '613a23c0dd295c38362b2cbe',
+        image: '/img/item1.png',
+        price: 100,
+        stock: 10,
+        status: 'available',
+        rating: 4.5,
+        numReviews: 10,
+    }),
+];
+module.exports = products
