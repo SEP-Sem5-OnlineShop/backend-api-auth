@@ -15,7 +15,19 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
-app.use(cors({origin: 'http://localhost:3000', credentials: true}))
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (['http://localhost:3000', 'https://ontheway-sep.netlify.app/'].indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true
+}
+
+app.use(cors(corsOptions))
 
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})
