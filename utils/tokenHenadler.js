@@ -22,6 +22,8 @@ const issueNewAccessToken = (payload) => {
     )
 }
 
+module.exports.issueNewAccessToken = issueNewAccessToken
+
 /**
  * Returns a new refresh token
  * @param payload
@@ -46,7 +48,7 @@ const issueNewRefreshToken = (payload) => {
     else storedRefreshToken.token = refreshToken
     return refreshToken
 }
-
+module.exports.issueNewRefreshToken = issueNewRefreshToken
 /**
  * Returns a object with both refresh and access tokens
  * @param payload
@@ -88,7 +90,7 @@ module.exports.verifyAccessToken = (req, res, next) => {
  */
 module.exports.verifyRefreshToken = (req, res, next) => {
     try {
-        const token = req.body.token
+        const token = req.cookies.token
         if(token) {
             const decoded = jwt.verify(token, process.env.JWT_SECRET_REFRESH || defaultRefreshSecret)
             req.userData = {
@@ -104,5 +106,13 @@ module.exports.verifyRefreshToken = (req, res, next) => {
     }
     catch (error) {
         res.status(401).send({message: "Invalid request!"})
+    }
+}
+
+module.exports.removeRefreshToken = (req, res, next) => {
+    const token = req.cookies.token
+    if(token) {
+        const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
+        storedRefreshToken.token = ''
     }
 }
