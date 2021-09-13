@@ -6,29 +6,29 @@ const Product = require("../../database/schemas/productSchema")
 productRouter.get(
   '/:id',
   expressAsyncHandler(async (req, res) => {
-    const createdProducts = await Product.insertMany([{
-      product_name: 'Burger with some',
-      seller: '613a23c0dd295c38362b2cbe',
-      image: '/img/item1.png',
-      price: 100,
-      stock: 10,
-      status: 'available',
-      rating: 4.5,
-      numReviews: 10,
-    },
-    {
-      product_name: 'Burger with some',
-      seller: '613a23c0dd295c38362b2cbe',
-      image: '/img/item1.png',
-      price: 100,
-      stock: 10,
-      status: 'available',
-      rating: 4.5,
-      numReviews: 10,
-    }
-    ]);
+    // const createdProducts = await Product.insertMany([{
+    //   product_name: 'Burger with some',
+    //   seller: '613a23c0dd295c38362b2cbe',
+    //   image: '/img/item1.png',
+    //   price: 100,
+    //   stock: 10,
+    //   status: 'available',
+    //   rating: 4.5,
+    //   numReviews: 10,
+    // },
+    // {
+    //   product_name: 'Burger with some',
+    //   seller: '613a23c0dd295c38362b2cbe',
+    //   image: '/img/item1.png',
+    //   price: 100,
+    //   stock: 10,
+    //   status: 'available',
+    //   rating: 4.5,
+    //   numReviews: 10,
+    // }
+    // ]);
     const products = await Product.find({});
-    res.send(products);
+    res.status(200).send(products);
   })
 );
 
