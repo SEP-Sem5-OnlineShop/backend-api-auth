@@ -13,13 +13,15 @@ module.exports = async (req, res) => {
     const telephone = req.body.telephone
     const password = req.body.password
     const user = await User.getUser(telephone)
-    const tokens = tokenHandler.issueTokens({
-        userId: user['_id'],
-        telephone: telephone,
-        role: user['role']
-    })
-
-    if(!user) return res.status(401).send({message: "User is not registered!"})
+    let tokens = ''
+    if(user) {
+        tokens = tokenHandler.issueTokens({
+            userId: user['_id'],
+            telephone: telephone,
+            role: user['role']
+        })
+    }
+    else return res.status(401).send({message: "User is not registered!"})
 
     // compare the password with hash password
     const isValid = await bcrypt.compare(password, user['password'])
