@@ -2,8 +2,13 @@ const VendorRequest = require('../models/vendorRequest')
 const VendorRequestController = {
     create: async function(req, res, next) {
         try {
-            await VendorRequest.createRequest(req.body)
-            res.status(200).send({message: "success"})
+            const vendorRequest = VendorRequest.createRequest(req.body)
+            await vendorRequest.save()
+            return res.status(201).send(
+                {
+                    message: "Request was sent successfully!",
+                }
+            )
         }
         catch(e) {
 
