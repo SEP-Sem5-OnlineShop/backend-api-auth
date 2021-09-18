@@ -28,6 +28,8 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+// app.use(cors())
+
 
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})
