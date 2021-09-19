@@ -11,6 +11,6 @@ const token = require("./token")
 router.post('/login', login)
 router.post('/register', validator.userSchemaValidator, register)
 router.get('/token', tokenHandler.verifyRefreshToken, token)
-router.get('/logout', tokenHandler.removeRefreshToken, logout)
+router.get('/logout', tokenHandler.verifyRefreshToken, tokenHandler.removeRefreshToken, logout)
 
 module.exports = router
