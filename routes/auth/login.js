@@ -29,7 +29,13 @@ module.exports = async (req, res) => {
 
     return res.cookie('token', tokens.refreshToken, {httpOnly: true}).status(200).send({
         message: "Login Successful!",
-        data: user,
+        data: {
+            _id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            telephone: user.telephone,
+        },
+        role: user.role,
         accessToken: tokens.accessToken,
     })
 }
