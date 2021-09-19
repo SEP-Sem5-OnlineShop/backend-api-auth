@@ -2,9 +2,9 @@ const Vendor = require("../database/schemas/userSchema")
 
 
 // get a vendor
-// module.exports.getVendor = (telephone) => {
-//     return Vendor.findOne({telephone: telephone})
-// }
+module.exports.getVendor = (id) => {
+    return Vendor.findOne({_id: id})
+}
 
 // get vendors
 module.exports.getVendors = async () => {
