@@ -43,7 +43,6 @@ const issueNewRefreshToken = (payload) => {
             telephone: payload.telephone,
             token: refreshToken
         })
-
     // if the token is already in the store for that telephone, just update it
     else storedRefreshToken.token = refreshToken
     return refreshToken
@@ -103,6 +102,7 @@ module.exports.verifyRefreshToken = (req, res, next) => {
             if(!storedRefreshToken) return res.status(401).send({message: "Token is invalid!"})
             next()
         }
+        else return res.status(401).send({message: "Token is invalid!"})
     }
     catch (error) {
         res.status(401).send({message: "Invalid request!"})
@@ -115,4 +115,6 @@ module.exports.removeRefreshToken = (req, res, next) => {
         const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
         storedRefreshToken.token = ''
     }
+    else return res.status(401).send({message: "Token is invalid!"})
+    next()
 }
