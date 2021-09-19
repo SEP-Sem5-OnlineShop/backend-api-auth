@@ -1,4 +1,5 @@
 const VendorRequest = require('../models/vendorRequest')
+
 const VendorRequestController = {
     create: async function(req, res, next) {
         try {
@@ -17,9 +18,11 @@ const VendorRequestController = {
     getRequest: function(req, res, next) {
 
     },
-    getRequests: function(req, res, next) {
-
+    getRequests:async function(req, res, next) {
+        const requests=await VendorRequest.getRequests()
+        res.status(200).send({data : requests})
     },
+
     update: function(req, res, next) {
 
     }
