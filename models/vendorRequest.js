@@ -1,5 +1,5 @@
 const VendorRequest = require("../database/schemas/vendorRequest")
-
+const Vendor = require("../database/schemas/userSchema")
 /**
  * Create a user
  * @param data
@@ -23,8 +23,12 @@ module.exports.getUser = (telephone) => {
         return User.findOne({telephone: telephone})
 }
 
-// get users
-
+// get vendor requests
+module.exports.getRequests = async () => {
+        // return await Vendor.find({ "role":"customer" }).select("-password")
+        return await VendorRequest.find({})
+        // return Vendor.find({role: {$elemMatch :"vendor"}})
+    }
 // update user
 
 // delete user
