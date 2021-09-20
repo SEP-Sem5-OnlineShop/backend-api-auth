@@ -25,9 +25,16 @@ const customerSchema = new mongoose.Schema({
     location: locationSchema,
 })
 
+const productSchema = new mongoose.Schema({
+    name: {type: String, required: true},
+    price:{type: Number, required: true},
+    rating:{type: Number, required: true},
+    imageUrl:{type: String, required: true},
+})
+
 const vendorSchema = new mongoose.Schema({
     location: locationSchema,
-    productId: [{type: String}],
+    products: productSchema,
     driverId: [{type: String}],
     vehicles: vehicleSchema,
     permitNumber: {type: String, required: true},

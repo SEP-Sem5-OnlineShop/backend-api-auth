@@ -1,5 +1,6 @@
 const Vendor = require('../models/vendor')
 
+
 const VendorController = {
     create: function(req, res, next) {
 
