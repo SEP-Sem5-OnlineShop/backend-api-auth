@@ -7,5 +7,6 @@ router.get('/admin/vendors', VendorController.getVendors)
 router.get('/admin/vendorRequests', VendorRequestController.getRequests)
 router.get('/admin/vendor/:id', VendorController.getVendor)
 router.get('/admin/Products/:id', productController.getProducts)
+router.get('/admin/singleProduct/:id', productController.getProduct)
 
 module.exports = router

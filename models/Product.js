@@ -1,10 +1,11 @@
 const Product = require("../database/schemas/productSchema")
 const mongoose = require("mongoose")
 
-// get a vendor
-// module.exports.getVendor = (id) => {
-//     return Vendor.findOne({_id: id})
-// }
+// get a product
+module.exports.getProduct = (id) => {
+    return Product.findOne({_id: id}) 
+    // return Product.find({_id: id})
+}
 
 // get vendors
 module.exports.getProducts = async (id) => {
