@@ -15,6 +15,10 @@ const ProductController = {
         const productList=await Product.getProducts(req.params.id)
         res.status(200).send({data: productList})
     },
+
+    getMaxProducts: async function(req, res, next) {
+        const productList=await Product.getMaxProducts()
+        res.status(200).send({data: productList})}
     
     
 

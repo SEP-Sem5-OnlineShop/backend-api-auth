@@ -17,6 +17,7 @@ const vendorRequestSchema = new mongoose.Schema({
     numberOfVehicles: {type: Number, required: true},
     vehicleNumber: {type: String, required: true},
     imageUrls: {type: String},
+    status:{type: String, enum: ["pending, accepted"]}
 })
 
 module.exports = mongoose.model('VendorRequest', vendorRequestSchema)

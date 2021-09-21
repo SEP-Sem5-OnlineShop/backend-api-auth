@@ -16,6 +16,11 @@ module.exports.getProducts = async (id) => {
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
 
+//get max ratings
+module.exports.getMaxProducts = async () =>{
+    return await Product.find({}).sort({"rating":-1}).limit(5)
+}
+
 
 // update user
 

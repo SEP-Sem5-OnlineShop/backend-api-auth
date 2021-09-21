@@ -15,8 +15,10 @@ const VendorRequestController = {
 
         }
     },
-    getRequest: function(req, res, next) {
-
+    getRequest:async function(req, res, next) {
+        console.log(req.params)
+        const request = await VendorRequest.getRequest(req.params.id)
+        res.status(200).send({data: request})
     },
     getRequests:async function(req, res, next) {
         const requests=await VendorRequest.getRequests()

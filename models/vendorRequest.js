@@ -19,8 +19,8 @@ module.exports.createRequest = (data) => {
 }
 
 // get a user
-module.exports.getUser = (telephone) => {
-        return User.findOne({telephone: telephone})
+module.exports.getRequest= (id) => {
+        return VendorRequest.findOne({_id: id})
 }
 
 // get vendor requests
