@@ -10,17 +10,16 @@ const mongoose = require("mongoose")
 
 
 const productSchema = new mongoose.Schema({
-    product_name: {type: String, required: true,min: 2, max: 50,},
-    seller: {type: String, required: true, unique: true, min: 10, max: 13,},
-    image: {type: String, required: true},
+    product_name: {type: String, required: true},
+    seller: {type: String, required: true},
     price: {type: Number, required: true},
-    stock: {type: Number},
+    imageThumbnailUrl: {type: String, required: true},
+    imageUrl: {type: String, required: true},
     status: {type: String, enum: ["available, notAvailable"]},
+    numReviews: {type: String},
+    stock: {type: Number},
     rating: {type: Number},
-    numReviews: {type: String, required: true},
     reviews: reviewSchema,
-    createdAt: {type: Date, required: true},
-    updatedAt: {type: Date},
-})
+},{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = mongoose.model('Product', productSchema)

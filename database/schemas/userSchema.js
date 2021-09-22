@@ -9,14 +9,7 @@ const locationSchema = new mongoose.Schema({
     coordinates: {type: Array, required: true,}
 })
 
-const vehicleSchema = new mongoose.Schema({
-    vehicleId: {type: String, required: true},
-    plateNumber: {type: String, required: true},
-    brand: {type: String, required: true},
-    model: {type: String, required: true},
-    imageUrl: {type: String, required: true},
-    documentUrl: {type: String, required: true}
-})
+const vehicleSchema = require("./vehicleSchema")
 
 const driverSchema = new mongoose.Schema({
     licenseNumber: {type: String, required: true, unique: true},
@@ -57,7 +50,6 @@ const userSchema = new mongoose.Schema({
     customer: {type: customerSchema, required: this.role === "customer"},
     driver: {type: driverSchema, required: this.role === "driver"},
     vendor: {type: vendorSchema, required: this.role === "vendor"},
-
 })
 
 module.exports = mongoose.model('User', userSchema)
