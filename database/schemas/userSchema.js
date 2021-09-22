@@ -41,6 +41,7 @@ const vendorSchema = new mongoose.Schema({
     products: [productSchema],
     driverId: [{type: String}],
     vehicles: vehicleSchema,
+    shopName: {type: String, required: true},
     permitNumber: {type: String, required: true},
     permitFileUrl: {type: String, required: true},
     // status:{type:String}

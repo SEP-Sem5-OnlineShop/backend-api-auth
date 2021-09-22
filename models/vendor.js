@@ -1,6 +1,6 @@
 const Vendor = require("../database/schemas/userSchema")
 const Product = require("../database/schemas/productSchema")
-
+const bcrypt = require("bcrypt")
 // get a vendor
 module.exports.getVendor = (id) => {
     return Vendor.findOne({_id: id}) 
@@ -21,7 +21,7 @@ module.exports.removeVendor = async (id) => {
     // return Vendor.updateOne(filter: {_id: id}, update: {status:'rejected'});
 
     return Vendor.updateOne({_id: id}, 
-        {'vendor.status':'accepted'}, function (err) {
+        {'vendor.status':'rejected'}, function (err) {
         if (err){
             console.log(err)
         }
@@ -32,24 +32,24 @@ module.exports.removeVendor = async (id) => {
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
 
+
 /**
  * Create a user
  * @param data
  */
- module.exports.createVendor = async (data) => {
-    // const salt = await bcrypt.genSalt(10)
-    // const hashPassword = await bcrypt.hash(data.password, salt)
+ module.exports.createVendor =(data) => {
+    // const salt =await bcrypt.genSalt(10)
+    // const hashPassword =await bcrypt.hash(data.password, salt)
+    console.log("Inside")
     return new Vendor({
             firstName: data.fullName,
             lastName: data.nic,
             telephone: data.telephone,
             role: 'vendor',
-            permitId:data.permitId,
-            address: data.regionToBeCovered,
-            permitNumber:data.shopName,
-            status:"accepted",
-            vehicleNumber:"234"
-            // password: hashPassword
+            email:data.email,
+            status:data.status,
+            password: data.password
+            
     });
 }
 

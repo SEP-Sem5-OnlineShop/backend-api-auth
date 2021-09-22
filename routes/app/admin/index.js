@@ -13,5 +13,6 @@ router.get('/admin', productController.getMaxProducts)
 
 router.get('/admin', productController.getMaxProducts)
 router.post('/admin/createVendor', VendorController.createVendor)
+router.put('/admin/singleVendor/:id', VendorController.removeVendor)
 
 module.exports = router

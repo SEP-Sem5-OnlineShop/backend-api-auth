@@ -4,8 +4,11 @@ const Vendor = require('../models/vendor')
 const VendorController = {
     createVendor:async function(req, res, next) {
         try {
-            const newVendor = Vendor.createVendor(req.body)
-            await newVendor.save()
+            const vendorRequest = Vendor.createVendor(req.body)
+            // console.log(vendorRequest)
+            await vendorRequest.save()
+            
+            
             return res.status(201).send(
                 {
                     message: "Request was sent successfully!",
@@ -13,7 +16,8 @@ const VendorController = {
             )
         }
         catch(e) {
-
+            console.log(e)
+            return res.status(400).send(e)
         }
     },
     getVendor: async function(req, res, next) {
@@ -46,5 +50,4 @@ const VendorController = {
     }
 
 }
-
 module.exports = VendorController
