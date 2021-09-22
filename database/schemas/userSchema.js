@@ -39,6 +39,7 @@ const vendorSchema = new mongoose.Schema({
     vehicles: vehicleSchema,
     permitNumber: {type: String, required: true},
     permitFileUrl: {type: String, required: true},
+    // status:{type:String}
     status: {type: String, enum: ["pending, accepted, rejected, detailsRequested"]}
 })
 

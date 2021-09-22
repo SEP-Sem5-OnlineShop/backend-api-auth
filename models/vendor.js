@@ -16,9 +16,19 @@ module.exports.getVendors = async () => {
 
 // remove user
 module.exports.removeVendor = async (id) => {
-    console.log('inside removeVendor')
-    console.log(id)
-    return await Vendor.findOneAndUpdate({_id: id},{"status":'rejected'})
+    console.log('inside removeVendor');
+    console.log(id);
+    // return Vendor.updateOne(filter: {_id: id}, update: {status:'rejected'});
+
+    return Vendor.updateOne({_id: id}, 
+        {'status':'rejected'}, function (err) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("Updated Docs  ");
+        }
+    });
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
 // delete user
