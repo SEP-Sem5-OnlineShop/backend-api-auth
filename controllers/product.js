@@ -1,9 +1,17 @@
-const Product = require('../models/Product')
+const Product = require('../models/product')
 
 const ProductController = {
-    // create: function(req, res, next) {
+    create: async function (req, res, next) {
+        try {
+            const product = Product.create()
+            await product.save()
+            return res.status(201).send({
+                message: "Successfully added a new product!"
+            })
+        } catch (e) {
 
-    // },
+        }
+    },
     getProduct: async function(req, res, next) {
         console.log(req.params)
         const product = await Product.getProduct(req.params.id)
@@ -18,10 +26,8 @@ const ProductController = {
 
     getMaxProducts: async function(req, res, next) {
         const productList=await Product.getMaxProducts()
-        res.status(200).send({data: productList})}
-    
-    
-
+        res.status(200).send({data: productList})
+    }
 }
 
 module.exports = ProductController
