@@ -2,8 +2,19 @@ const Vendor = require('../models/vendor')
 
 
 const VendorController = {
-    create: function(req, res, next) {
+    createVendor:async function(req, res, next) {
+        try {
+            const newVendor = Vendor.createVendor(req.body)
+            await newVendor.save()
+            return res.status(201).send(
+                {
+                    message: "Request was sent successfully!",
+                }
+            )
+        }
+        catch(e) {
 
+        }
     },
     getVendor: async function(req, res, next) {
         console.log(req.params)

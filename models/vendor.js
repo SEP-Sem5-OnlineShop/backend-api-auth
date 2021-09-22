@@ -9,7 +9,7 @@ module.exports.getVendor = (id) => {
 
 // get vendors
 module.exports.getVendors = async () => {
-    return await Vendor.find({ "role":"vendor" }).select("-password")
+    return await Vendor.find({ "role":"vendor"}).select("-password")
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
 
@@ -31,5 +31,25 @@ module.exports.removeVendor = async (id) => {
     });
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
-// delete user
+
+/**
+ * Create a user
+ * @param data
+ */
+ module.exports.createVendor = async (data) => {
+    // const salt = await bcrypt.genSalt(10)
+    // const hashPassword = await bcrypt.hash(data.password, salt)
+    return new Vendor({
+            firstName: data.fullName,
+            lastName: data.nic,
+            telephone: data.telephone,
+            role: 'vendor',
+            permitId:data.permitId,
+            address: data.regionToBeCovered,
+            permitNumber:data.shopName,
+            status:"accepted",
+            vehicleNumber:"234"
+            // password: hashPassword
+    });
+}
 
