@@ -4,7 +4,8 @@ const products = [
     new Product({
         product_name: 'Burger with some',
         seller: '613eb365af0d5b2c142fa326',
-        image: '/img/item1.png',
+        imageThumbnailUrl: '/img/item1.png',
+        imageUrl: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
@@ -26,7 +27,8 @@ const products = [
     new Product({
         product_name: 'Burger with some',
         seller: '613eb365af0d5b2c142fa326',
-        image: '/img/item1.png',
+        imageThumbnailUrl: '/img/item1.png',
+        imageUrl: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
@@ -36,7 +38,8 @@ const products = [
     new Product({
         product_name: 'Burger with some',
         seller: '613eb365af0d5b2c142fa326',
-        image: '/img/item1.png',
+        imageThumbnailUrl: '/img/item1.png',
+        imageUrl: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
@@ -46,7 +49,8 @@ const products = [
     new Product({
         product_name: 'Burger with some',
         seller: '613eb365af0d5b2c142fa326',
-        image: '/img/item1.png',
+        imageThumbnailUrl: '/img/item1.png',
+        imageUrl: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
@@ -56,7 +60,8 @@ const products = [
     new Product({
         product_name: 'Burger with some',
         seller: '613eb365af0d5b2c142fa326',
-        image: '/img/item1.png',
+        imageThumbnailUrl: '/img/item1.png',
+        imageUrl: '/img/item1.png',
         price: 100,
         stock: 10,
         status: 'available',
