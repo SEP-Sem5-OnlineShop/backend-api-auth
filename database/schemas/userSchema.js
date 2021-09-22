@@ -50,9 +50,9 @@ const userSchema = new mongoose.Schema({
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
     email: {type: String},
     password: {type: String, required: true},
-    customer: {type: customerSchema, required: function() {this.role === "customer"}},
-    driver: {type: driverSchema, required: function() {this.role === "driver"}},
-    vendor: {type: vendorSchema, required: function() {this.role === "vendor"}},
+    customer: {type: customerSchema, required: this.role === "customer"},
+    driver: {type: driverSchema, required: this.role === "driver"},
+    vendor: {type: vendorSchema, required: this.role === "vendor"},
 
 })
 

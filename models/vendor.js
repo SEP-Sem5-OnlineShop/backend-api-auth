@@ -9,7 +9,7 @@ module.exports.getVendor = (id) => {
 
 // get vendors
 module.exports.getVendors = async () => {
-    return await Vendor.find({ "role":"vendor" }).select("-password")
+    return Vendor.find({"role": "vendor"}).select("-password");
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
 
@@ -21,7 +21,7 @@ module.exports.removeVendor = async (id) => {
     // return Vendor.updateOne(filter: {_id: id}, update: {status:'rejected'});
 
     return Vendor.updateOne({_id: id}, 
-        {'status':'rejected'}, function (err) {
+        {'vendor.status':'accepted'}, function (err) {
         if (err){
             console.log(err)
         }
