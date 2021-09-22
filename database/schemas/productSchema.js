@@ -5,22 +5,28 @@ const mongoose = require("mongoose")
  * @type {module:mongoose.Schema<Document, Model<any, any, any>, undefined, ExtractMethods<Model<any, any, any>>>}
  */
  const reviewSchema = new mongoose.Schema({
+    rating: { type: Number, required: true },
     review: {type: String},
+    customer: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
+},
+{
+    timestamps: true,
 })
 
 
 const productSchema = new mongoose.Schema({
     product_name: {type: String, required: true,min: 2, max: 50,},
-    seller: {type: String, required: true, unique: true, min: 10, max: 13,},
+    seller: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     image: {type: String, required: true},
     price: {type: Number, required: true},
     stock: {type: Number},
-    status: {type: String, enum: ["available, notAvailable"]},
+    status: {type: String, enum: ["available", "notAvailable"]},
     rating: {type: Number},
-    numReviews: {type: String, required: true},
-    reviews: reviewSchema,
-    createdAt: {type: Date, required: true},
-    updatedAt: {type: Date},
+    numReviews: { type: Number, required: true },
+    reviews: [reviewSchema],
+},
+{
+    timestamps: true,
 })
 
 module.exports = mongoose.model('Product', productSchema)

@@ -4,8 +4,9 @@ connection.connect().then(() => {console.log('Connected to the db!')})
 const users = require('./userSeeder')
 const alerts = require('./alertSeeder')
 const purchases = require('./purchaseSeeder')
+const products = require('./productSeeder')
 
-const seeds = [...users,...alerts,...purchases]
+const seeds = [...users,...alerts,...purchases,...products]
 
 let done = 0
 
@@ -16,4 +17,3 @@ seeds.forEach(item => {
         if(done === seeds.length) mongoose.disconnect()
     })
 })
-
