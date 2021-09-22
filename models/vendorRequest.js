@@ -45,7 +45,7 @@ module.exports.updateRequest = async (telephone, data) => {
             shopName: data.shopName,
             permitId: data.permitId,
             regionToBeCovered: data.regionToBeCovered,
-            numberOfVehicles: data.vehicles.length,
+            numberOfVehicles: data.numberOfVehicles,
             vehicles: data.vehicles,
             imageUrls: data.imageUrl
         });

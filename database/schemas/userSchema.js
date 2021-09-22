@@ -12,6 +12,10 @@ const locationSchema = new mongoose.Schema({
 const vehicleSchema = new mongoose.Schema({
     vehicleId: {type: String, required: true},
     plateNumber: {type: String, required: true},
+    brand: {type: String, required: true},
+    model: {type: String, required: true},
+    imageUrl: {type: String, required: true},
+    documentUrl: {type: String, required: true}
 })
 
 const driverSchema = new mongoose.Schema({
@@ -34,7 +38,7 @@ const productSchema = new mongoose.Schema({
 
 const vendorSchema = new mongoose.Schema({
     location: locationSchema,
-    products: productSchema,
+    products: [productSchema],
     driverId: [{type: String}],
     vehicles: vehicleSchema,
     permitNumber: {type: String, required: true},
