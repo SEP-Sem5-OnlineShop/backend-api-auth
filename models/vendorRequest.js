@@ -6,29 +6,45 @@ const Vendor = require("../database/schemas/userSchema")
  */
 module.exports.createRequest = (data) => {
         return new VendorRequest({
-            fullName: data.name,
-            telephone: data.telephoneNumber,
-            nic: data.nicNumber,
+            fullName: data.fullName,
+            telephone: data.telephone,
+            nic: data.nic,
             address:  data.address,
             shopName: data.shopName,
             permitId: data.permitId,
-            regionToBeCovered: data.region,
-            numberOfVehicles: data.vehicles,
-            vehicleNumber: data.vehicleNo1,
+            regionToBeCovered: data.regionToBeCovered,
+            numberOfVehicles: data.vehicles.length,
+            vehicles: data.vehicles,
+            imageUrls: data.imageUrl
         });
 }
 
 // get a user
-module.exports.getUser = (telephone) => {
-        return User.findOne({telephone: telephone})
+module.exports.getRequest = async (telephone) => {
+        return VendorRequest.findOne({telephone: telephone});
 }
 
 // get vendor requests
 module.exports.getRequests = async () => {
         // return await Vendor.find({ "role":"customer" }).select("-password")
-        return await VendorRequest.find({})
+        return VendorRequest.find({});
         // return Vendor.find({role: {$elemMatch :"vendor"}})
     }
+
 // update user
+module.exports.updateRequest = async (telephone, data) => {
+        return VendorRequest.updateOne({telephone: telephone}, {
+            fullName: data.fullName,
+            telephone: data.telephone,
+            nic: data.nic,
+            address: data.address,
+            shopName: data.shopName,
+            permitId: data.permitId,
+            regionToBeCovered: data.regionToBeCovered,
+            numberOfVehicles: data.vehicles.length,
+            vehicles: data.vehicles,
+            imageUrls: data.imageUrl
+        });
+}
 
 // delete user

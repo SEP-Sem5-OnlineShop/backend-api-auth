@@ -72,9 +72,14 @@ module.exports.verifyAccessToken = (req, res, next) => {
         const authorizationHeader = req.headers.authorization
         if(authorizationHeader) {
             const token = authorizationHeader.split(' ')[1]
-            req.userData = jwt.verify(token, process.env.JWT_SECRET_ACCESS)
-            next()
+            if(token)
+            {
+                req.userData = jwt.verify(token, process.env.JWT_SECRET_ACCESS)
+                next()
+            }
+            return res.status(401).send({message: "Must login first!"})
         }
+        return res.status(401).send({message: "Must login first!"})
     }
     catch (error) {
         res.status(401).send({message: "Session is invalid!"})
@@ -105,7 +110,7 @@ module.exports.verifyRefreshToken = (req, res, next) => {
         else return res.status(401).send({message: "Token is invalid!"})
     }
     catch (error) {
-        res.status(401).send({message: "Invalid request!"})
+        res.status(401).send({message: "Token Expired!"})
     }
 }
 
