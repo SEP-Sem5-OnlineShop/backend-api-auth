@@ -17,6 +17,7 @@ const productSchema = new mongoose.Schema({
     imageUrl: {type: String, required: true},
     status: {type: String, enum: ["available, notAvailable"]},
     numReviews: {type: String},
+    discount: {type: Number},
     stock: {type: Number},
     rating: {type: Number},
     reviews: reviewSchema,

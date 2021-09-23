@@ -1,14 +1,28 @@
 const Product = require("../database/schemas/productSchema")
 const mongoose = require("mongoose")
 
-module.exports.create = () => {
+module.exports.create = (data) => {
     return new Product({
-        product_name: {type: String, required: true},
-        seller: {type: String, required: true},
-        imageThumbnailUrl: {type: String, required: true},
-        imageUrl: {type: String, required: true},
-        price: {type: Number, required: true},
+        product_name: data.name,
+        seller: data.name,
+        imageThumbnailUrl: data.imageThumbnail,
+        imageUrl: data.image,
+        price: data.price,
     })
+}
+
+module.exports.update = (id, data) => {
+    return Product.updateOne({_id: id},{
+        product_name: data.name,
+        seller: data.name,
+        imageThumbnailUrl: data.imageThumbnail,
+        imageUrl: data.image,
+        price: data.price,
+    })
+}
+
+module.exports.getList = () => {
+    return Product.find({})
 }
 
 // get a product
