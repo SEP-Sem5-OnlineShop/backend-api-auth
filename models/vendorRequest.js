@@ -51,4 +51,17 @@ module.exports.updateRequest = async (telephone, data) => {
         });
 }
 
-// delete user
+// update status after the create
+module.exports.updateStatus = async (id) => {
+        // console.log(VendorRequest.findOne({_id:id}))
+        return VendorRequest.updateOne({_id:id}, {
+            status:"accepted"
+        }, function (err) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("Updated Docs  ");
+                }
+        });
+}
