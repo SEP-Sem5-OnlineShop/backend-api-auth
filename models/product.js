@@ -75,5 +75,6 @@ module.exports.getVendorProductList = async (id) => {
     //     numReviews: 2,
     //   }
     // ]);
-    return Product.find({});
+    return Product.find({seller: id});
+    // return Product.find({});
 }
