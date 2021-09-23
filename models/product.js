@@ -8,6 +8,7 @@ module.exports.create = (data) => {
         imageThumbnailUrl: data.imageThumbnail,
         imageUrl: data.image,
         price: data.price,
+        description: data.description
     })
 }
 
@@ -18,6 +19,7 @@ module.exports.update = (id, data) => {
         imageThumbnailUrl: data.imageThumbnail,
         imageUrl: data.image,
         price: data.price,
+        description: data.description
     })
 }
 

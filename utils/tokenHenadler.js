@@ -76,10 +76,10 @@ module.exports.verifyAccessToken = (req, res, next) => {
             {
                 req.userData = jwt.verify(token, process.env.JWT_SECRET_ACCESS)
                 next()
+                return
             }
-            return res.status(401).send({message: "Must login first!"})
         }
-        return res.status(401).send({message: "Must login first!"})
+        res.status(401).send({message: "Must login first!"})
     }
     catch (error) {
         res.status(401).send({message: "Session is invalid!"})
@@ -104,10 +104,11 @@ module.exports.verifyRefreshToken = (req, res, next) => {
             }
             // look for the token in the refreshTokenStore
             const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
-            if(!storedRefreshToken) return res.status(401).send({message: "Token is invalid!"})
+            if(!storedRefreshToken) return res.status(401).send({message: "Token Expired!"})
             next()
+            return
         }
-        else return res.status(401).send({message: "Token is invalid!"})
+        else return res.status(401).send({message: "Token Expired!"})
     }
     catch (error) {
         res.status(401).send({message: "Token Expired!"})

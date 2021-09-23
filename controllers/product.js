@@ -3,7 +3,7 @@ const Product = require('../models/product')
 const ProductController = {
     create: async function (req, res, next) {
         try {
-            const product = Product.create(req.body)
+            const product = Product.create(req.body, req.userData)
             await product.save()
             return res.status(201).send({
                 message: "Successfully added a new product!"
@@ -29,14 +29,13 @@ const ProductController = {
             })
         }
         catch (e) {
-            return res.status(400).send({
+            res.status(400).send({
                 message: "Something went wrong!"
             })
         }
     },
 
     getProduct: async function(req, res, next) {
-        console.log(req.params)
         const product = await Product.getProduct(req.params.id)
         res.status(200).send({data: product})
     },

@@ -9,6 +9,6 @@ router.get('/test', tokenHandler.verifyAccessToken, (req,res) => {
     return res.status(200).send('You are in the test route')
 })
 
-router.use('/app',[admin, vendor, vendorRequests, product])
+router.use('/app',tokenHandler.verifyAccessToken, [admin, vendor, vendorRequests, product])
 
 module.exports = router

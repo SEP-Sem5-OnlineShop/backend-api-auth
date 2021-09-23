@@ -15,6 +15,7 @@ const productSchema = new mongoose.Schema({
     price: {type: Number, required: true},
     imageThumbnailUrl: {type: String, required: true},
     imageUrl: {type: String, required: true},
+    description: {type: String, required: true},
     status: {type: String, enum: ["available, notAvailable"]},
     numReviews: {type: String},
     discount: {type: Number},
