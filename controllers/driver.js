@@ -1,39 +1,46 @@
-const Vendor = require('../models/vendor')
+const Driver = require('../models/driver')
+const User = require('../models/user')
 
-
-const VendorController = {
-    create: function(req, res, next) {
-
-    },
-    getVendor: async function(req, res, next) {
-        console.log(req.params)
-        const vendor = await Vendor.getVendor(req.params.id)
-        res.status(200).send({data: vendor})
-    },
-
-    getVendors:async function(req, res, next) {
-        const vendorList=await Vendor.getVendors()
-        res.status(200).send({data: vendorList})
-    },
-    
-    removeVendor:async function(req, res, next) {
-        console.log(req.params.id)
+const DriverController = {
+    create: async (req, res, next) => {
         try {
-            const vendor = Vendor.removeVendor(req.params.id)
-            // await vendor.save()
-            return res.status(201).send(
-                {
-                    message: "Request was sent successfully!",
+            const userByTelephone = await User.getUserByTelephone(req.body.telephone)
+            const userByEmail = await User.getUserByEmail(req.body.email)
+            if (!userByTelephone) {
+                if (userByEmail===null) {
+                    await Driver.createDriver(req.userData.userId, req.body)
+                    return res.status(201).send({
+                        message: 'Driver is registered successfully!'
+                    })
                 }
-            )
+                return res.status(400).send({
+                    message: 'User is already registered using given email!'
+                })
+            }
+            return res.status(400).send({
+                message: 'User is already registered using give telephone number!'
+            })
+
         }
-        catch(e) {
-            console.log(e)
-            return res.send(e);
+        catch (e) {
+            return res.status(400).send({
+                message: e.message
+            })
         }
-        
+    },
+
+    update: async function (req, res, next) {
+    },
+
+    getDriver: async function (req, res, next) {
+    },
+
+    getDrivers: async function (req, res, next) {
+    },
+
+    delete: async function (req, res, next) {
     }
 
 }
 
-module.exports = VendorController
+module.exports = DriverController

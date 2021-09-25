@@ -3,8 +3,9 @@ const User = require("../database/schemas/userSchema")
 const {mongoose} = require("../database/connection")
 
 module.exports.create = async (data) => {
-    const session = await mongoose.connection.startSession()
+    let session;
     try {
+        session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
             await User.updateOne({ _id: data.seller },
             {$push: {
