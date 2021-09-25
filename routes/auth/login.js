@@ -12,7 +12,7 @@ const tokenHandler = require("../../utils/tokenHenadler")
 module.exports = async (req, res) => {
     const telephone = req.body.telephone
     const password = req.body.password
-    const user = await User.getUser(telephone)
+    const user = await User.getUserByTelephone(telephone)
     let tokens = ''
     if(user) {
         tokens = tokenHandler.issueTokens({

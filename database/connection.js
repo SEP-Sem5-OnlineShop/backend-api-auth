@@ -15,9 +15,10 @@ const connection_url = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.469sv.m
  * @returns {Promise<void>}
  */
 exports.connect = async function () {
-    await mongoose.connect(connection_url, {
+    return await mongoose.connect(connection_url, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
     })
 }
+exports.mongoose = mongoose
