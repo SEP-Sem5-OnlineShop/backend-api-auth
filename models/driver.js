@@ -1,5 +1,6 @@
 const User = require('../database/schemas/userSchema')
 const { mongoose } = require('../database/connection')
+const bcrypt = require('bcrypt')
 
 module.exports.createDriver = async (vendorId, data) => {
     let session;
@@ -23,7 +24,7 @@ module.exports.createDriver = async (vendorId, data) => {
                 await User.updateOne({ _id: vendorId },
                     {
                         $push: {
-                            'vendor.drivers': data
+                            'vendor.drivers': {...data, _id: driver._id}
                         }
                     })
             })
@@ -34,5 +35,16 @@ module.exports.createDriver = async (vendorId, data) => {
         finally {
             session.endSession()
         }
+    }
+}
+
+module.exports.createPassword = async (email, password) => {
+    const salt = await bcrypt.genSalt(10)
+    const hashPassword = await bcrypt.hash(password, salt)
+    try {
+        await User.updateOne({email: email}, {password: hashPassword})
+    }
+    catch(e) {
+        throw e
     }
 }

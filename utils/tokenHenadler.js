@@ -124,3 +124,15 @@ module.exports.removeRefreshToken = (req, res, next) => {
     else return res.status(401).send({message: "Token is invalid!"})
     next()
 }
+
+module.exports.createJwtTokenForEmailVerifications = (payload) => {
+    return jwt.sign(
+        payload,
+        process.env.JWT_EMAIL_SERVICE_SECRET,
+        {expiresIn: process.env.JWT_EXP_TIME_EMAIL_SERVICE}
+    )
+}
+
+module.exports.verifyEmailVerificationToken = (token) => {
+    return jwt.verify(token, process.env.JWT_EMAIL_SERVICE_SECRET)
+}
