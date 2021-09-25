@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 
 const User = require("../database/schemas/alertSchema")
+const Alert = require("../database/schemas/alertSchema")
 
 /**
  * Create a alert
@@ -22,3 +23,8 @@ module.exports.createAlert = async () => {
 // get a alert
 
 
+
+module.exports.getCustomerAlertList = async (id) => {
+        return Product.find({user_id: id});
+        // return Product.find({});
+}
