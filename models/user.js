@@ -19,9 +19,14 @@ module.exports.createUser = async (data) => {
         });
 }
 
-// get a user
-module.exports.getUser = (telephone) => {
+// get a user by telephone
+module.exports.getUserByTelephone = (telephone) => {
         return User.findOne({telephone: telephone})
+}
+
+// get a user by email
+module.exports.getUserByEmail = (email) => {
+        return User.findOne({email: email})
 }
 
 // get users
