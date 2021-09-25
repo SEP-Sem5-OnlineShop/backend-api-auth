@@ -31,7 +31,7 @@ module.exports.getRequestByTelephoneNumber = async (telephone) => {
 // get vendor requests
 module.exports.getRequests = async () => {
         // return await Vendor.find({ "role":"customer" }).select("-password")
-        return VendorRequest.find({});
+        return VendorRequest.find({'status':'pending'});
         // return Vendor.find({role: {$elemMatch :"vendor"}})
     }
 
@@ -53,15 +53,32 @@ module.exports.updateRequest = async (telephone, data) => {
 
 // update status after the create
 module.exports.updateStatus = async (id) => {
-        // console.log(VendorRequest.findOne({_id:id}))
-        return VendorRequest.updateOne({_id:id}, {
-            status:"accepted"
-        }, function (err) {
+        // const st=(VendorRequest.findOne({_id:id}))
+        // console.log(st.status)
+        console.log('this id-',id)
+        return VendorRequest.updateOne({_id: id}, 
+                {'status':'accepted'}, function (err) {
                 if (err){
                     console.log(err)
                 }
                 else{
-                    console.log("Updated Docs  ");
+                    console.log("Updated Docs");
                 }
-        });
+            });
+}
+
+// reject a vendor reques
+module.exports.rejectRequest = async (id) => {
+        // const st=(VendorRequest.findOne({_id:id}))
+        // console.log(st.status)
+        console.log('this id-',id)
+        return VendorRequest.updateOne({_id: id}, 
+                {'status':'rejected'}, function (err) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("Updated Docs");
+                }
+            });
 }

@@ -2,8 +2,22 @@ const Admin = require("../database/schemas/userSchema")
 const bcrypt = require("bcrypt")
 // get a vendor
 module.exports.getAdmin = (id) => {
-    return Admin.findOne({_id: '614cbc3a21345c9ab6805117'}).select('-password')
+    return Admin.findOne({_id: '614f3b459a76f2287c9bf0eb'}).select('-password')
     // return Product.find({_id: id})
+}
+
+module.exports.createAdmin =async (data) => {
+    const salt = await bcrypt.genSalt(10)
+    const hashPassword = await bcrypt.hash(data.password, salt)
+    return new Admin({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            telephone: data.telephone,
+            role: 'admin',
+            email:data.email,
+            password: hashPassword
+            
+    });
 }
 
 

@@ -62,9 +62,30 @@ const VendorRequestController = {
 
 
     updateStatus:async function(req, res, next) {
-        // console.log(req.params.id)
+        console.log('controller id',req.params.id)
+        
         try {
             const vendor = VendorRequest.updateStatus(req.params.id)
+            // await vendor.save()
+            return res.status(201).send(
+                {
+                    message: "Request was sent successfully!",
+                }
+            )
+        }
+        catch(e) {
+            console.log(e)
+            return res.send(e);
+        }
+        
+    },
+
+
+    rejectRequest:async function(req, res, next) {
+        console.log('controller id',req.params.id)
+        
+        try {
+            const vendor = VendorRequest.rejectRequest(req.params.id)
             // await vendor.save()
             return res.status(201).send(
                 {

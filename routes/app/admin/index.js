@@ -15,7 +15,9 @@ router.get('/admin', productController.getMaxProducts)
 router.get('/admin', productController.getMaxProducts)
 router.post('/admin/createVendor', VendorController.createVendor)
 router.put('/admin/singleVendor/:id', VendorController.removeVendor)
-router.put('/admin/updateStatus', VendorRequestController.updateStatus)
+router.put('/admin/updateStatus/:id', VendorRequestController.updateStatus)
+router.put('/admin/rejectRequest/:id', VendorRequestController.rejectRequest)
 router.get('/admin/adminProfile/:id', adminController.getAdmin)
+router.post('/admin/createAdmin', adminController.createAdmin)
 
 module.exports = router

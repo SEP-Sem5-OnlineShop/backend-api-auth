@@ -9,6 +9,25 @@ const adminController = {
         res.status(200).send({data: Admin})
     },
 
+    createAdmin:async function(req, res, next) {
+        try {
+            const adminCreate =await admin.createAdmin(req.body)
+            // console.log(vendorRequest)
+            await adminCreate.save()
+            
+            
+            return res.status(201).send(
+                {
+                    message: "Request was sent successfully!",
+                }
+            )
+        }
+        catch(e) {
+            console.log(e)
+            return res.status(400).send(e)
+        }
+    },
+
     
 
 }

@@ -4,7 +4,7 @@ const Vendor = require('../models/vendor')
 const VendorController = {
     createVendor:async function(req, res, next) {
         try {
-            const vendorRequest = Vendor.createVendor(req.body)
+            const vendorRequest =await Vendor.createVendor(req.body)
             // console.log(vendorRequest)
             await vendorRequest.save()
             

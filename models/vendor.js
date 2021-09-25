@@ -37,9 +37,9 @@ module.exports.removeVendor = async (id) => {
  * Create a user
  * @param data
  */
- module.exports.createVendor =(data) => {
-    // const salt =await bcrypt.genSalt(10)
-    // const hashPassword =await bcrypt.hash(data.password, salt)
+ module.exports.createVendor =async (data) => {
+    const salt =await bcrypt.genSalt(10)
+    const hashPassword =await bcrypt.hash(data.password, salt)
     console.log("Inside")
     return new Vendor({
             firstName: data.fullName,
@@ -48,7 +48,7 @@ module.exports.removeVendor = async (id) => {
             role: 'vendor',
             email:data.email,
             status:data.status,
-            password: data.password
+            password: hashPassword
             
     });
 }
