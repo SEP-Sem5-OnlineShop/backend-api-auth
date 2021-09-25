@@ -3,9 +3,7 @@ const Product = require('../models/product')
 const ProductController = {
     create: async function (req, res, next) {
         try {
-            console.log(req.userData)
-            const product = await Product.create({...req.body, seller: req.userData.userId})
-            await product.save()
+            await Product.create({...req.body, seller: req.userData.userId})
             return res.status(201).send({
                 message: "Successfully added a new product!"
             })

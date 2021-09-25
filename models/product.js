@@ -1,29 +1,37 @@
 const Product = require("../database/schemas/productSchema")
 const User = require("../database/schemas/userSchema")
-const mongoose = require("mongoose")
+const {mongoose} = require("../database/connection")
 
 module.exports.create = async (data) => {
+    const session = await mongoose.connection.startSession()
     try {
-        await User.updateOne({ _id: data.seller },
-        {$push: {
-            'vendor.products': {
-                name: data.name,
-                price: data.price,
+        await session.withTransaction(async () => {
+            await User.updateOne({ _id: data.seller },
+            {$push: {
+                'vendor.products': {
+                    name: data.name,
+                    price: data.price,
+                    imageUrl: data.image,
+                }
+            }})
+            const product = new Product({
+                product_name: data.name,
+                seller: data.name,
+                imageThumbnailUrl: data.imageThumbnail,
                 imageUrl: data.image,
-            }
-        }})
-        return new Product({
-            product_name: data.name,
-            seller: data.name,
-            imageThumbnailUrl: data.imageThumbnail,
-            imageUrl: data.image,
-            price: data.price,
-            description: data.description,
-            seller: data.seller
+                price: data.price,
+                description: data.description,
+                seller: data.seller
+            })
+            await product.save()
+            return product
         })
     }
     catch (e) {
         console.log(e)
+    }
+    finally {
+        session.endSession()
     }
 }
 
