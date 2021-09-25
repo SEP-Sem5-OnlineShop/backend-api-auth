@@ -27,7 +27,15 @@ const ProductController = {
     getMaxProducts: async function(req, res, next) {
         const productList=await Product.getMaxProducts()
         res.status(200).send({data: productList})
-    }
+    },
+    
+    getVendorProductList: async function(req, res, next) {
+        console.log(req.params);
+        const products = await Product.getVendorProductList(req.params.vendor_id);
+        res.status(200).send(products);
+    },
+    
+
 }
 
 module.exports = ProductController
