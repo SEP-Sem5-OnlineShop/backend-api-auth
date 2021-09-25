@@ -25,7 +25,7 @@ const customerSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema({
     name: {type: String, required: true},
     price:{type: Number, required: true},
-    rating:{type: Number, required: true},
+    rating:{type: Number},
     imageUrl:{type: String, required: true},
 })
 
