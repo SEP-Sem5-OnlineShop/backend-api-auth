@@ -25,6 +25,16 @@ module.exports.createAlert = async () => {
 
 
 module.exports.getCustomerAlertList = async (id) => {
-        return Product.find({user_id: id});
-        // return Product.find({});
+        return Alert.find({user_id: id});
+        // return Alert.find({});
+}
+module.exports.getdetailsAlert = async (customer_id,product_id) => {
+        // const createdAlerts = await Alert.insertMany([
+        //         {
+        //                 user_id: '613ebc89c71d2e07e0ec5e93',
+        //                 product_id: '614ed9ac4629cf154cb8d344',
+        //         }
+        // ]);
+        
+        return Alert.findOne({user_id: customer_id, product_id: product_id});
 }

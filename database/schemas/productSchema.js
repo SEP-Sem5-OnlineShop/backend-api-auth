@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
     status: {type: String, enum: ["available", "notAvailable"]},
     stock: {type: Number},
     rating: {type: Number},
-    numReviews: {type: String},
+    numReviews: {type: Number},
     reviews: [reviewSchema],
 },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 

@@ -14,7 +14,7 @@ const vehicleSchema = require("./vehicleSchema")
 const driverSchema = new mongoose.Schema({
     licenseNumber: {type: String, required: true, unique: true},
     licenseFileUrl: {type: String, required: true},
-    vendorId: {type: String, required: true},
+    vendorId: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true},
     location: locationSchema,
 })
 
@@ -30,9 +30,14 @@ const productSchema = new mongoose.Schema({
 })
 
 const vendorSchema = new mongoose.Schema({
+    vendor_name: {type: String, required: true,min: 2, max: 50,},
+    vendor_description: {type: String,  required: true},
+    imageUrl: {type: String, required: true},
     location: locationSchema,
     products: [productSchema],
-    driverId: [{type: String}],
+    rating: {type: Number},
+    numReviews: {type: Number},
+    driverId: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }],
     vehicles: vehicleSchema,
     permitNumber: {type: String, required: true},
     permitFileUrl: {type: String, required: true},
