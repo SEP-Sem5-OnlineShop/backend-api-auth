@@ -69,6 +69,18 @@ const DriverController = {
     },
 
     update: async function (req, res, next) {
+        try {
+            const result = await Driver.updateDriver(req.userData.userId, req.body)
+            console.log(result)
+            return res.status(200).send({
+                message: "Success"
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
     },
 
     getDriver: async function (req, res, next) {
