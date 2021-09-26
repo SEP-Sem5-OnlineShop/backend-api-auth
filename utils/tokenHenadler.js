@@ -136,3 +136,15 @@ module.exports.createJwtTokenForEmailVerifications = (payload) => {
 module.exports.verifyEmailVerificationToken = (token) => {
     return jwt.verify(token, process.env.JWT_EMAIL_SERVICE_SECRET)
 }
+
+module.exports.createJwtTokenForResetPassword = (payload) => {
+    return jwt.sign(
+        payload,
+        process.env.JWT_RESET_PASS_SECRET,
+        {expiresIn: process.env.JWT_EXP_TIME_RESET_PASS}
+    )
+}
+
+module.exports.verifyResetPasswordToken = (token) => {
+    return jwt.verify(token, process.env.JWT_RESET_PASS_SECRET)
+}
