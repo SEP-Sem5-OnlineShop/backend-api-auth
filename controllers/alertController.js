@@ -12,6 +12,12 @@ const AlertController = {
         console.log(alert);
         res.status(200).send(alert);
     },
+    setAlert: async function(req, res, next) {
+        console.log(req.params);
+        const newAlert = await Alert.setAlert(req.params.customer_id,req.params.product_id);
+        console.log(newAlert);
+        res.status(200).send(newAlert);
+    },
     
 
 }

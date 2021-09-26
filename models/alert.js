@@ -23,7 +23,15 @@ module.exports.createAlert = async () => {
 // get a alert
 
 
-
+module.exports.setAlert = async (customer_id,product_id) => {
+        const newAlert = await Alert.create(
+                {
+                        user_id: customer_id,
+                        product_id: product_id,
+                }
+        );
+        return newAlert;
+}
 module.exports.getCustomerAlertList = async (id) => {
         return Alert.find({user_id: id});
         // return Alert.find({});
