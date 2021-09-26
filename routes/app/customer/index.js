@@ -10,6 +10,7 @@ router.get('/customer/:customer_id/alerts/:product_id', AlertController.getdetai
 router.get('/customer/alerts/:customer_id', AlertController.getCustomerAlertList);
 router.post('/customer/:customer_id/alerts/:product_id', AlertController.setAlert);
 router.delete('/customer/:customer_id/alerts/:product_id', AlertController.removeAlert);
+router.post('/customer/sellingcart', AlertController.temp1);
+router.get('/customer/buyingcart/:order_id', AlertController.temp2);
 // router.get('/customer/orders/:customer_id', OrderController.getCustomerOrderList);
-
 module.exports = router;
