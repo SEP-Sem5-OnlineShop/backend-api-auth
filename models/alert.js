@@ -27,22 +27,23 @@ module.exports.setAlert = async (customer_id,product_id) => {
         const newAlert = await Alert.create(
                 {
                         user_id: customer_id,
-                        product_id: product_id,
+                        product_id: product_id
                 }
         );
         return newAlert;
 }
-module.exports.getCustomerAlertList = async (id) => {
-        return Alert.find({user_id: id});
-        // return Alert.find({});
+module.exports.removeAlert = async (customer_id,product_id) => {
+        const removeAlert = await Alert.deleteOne(
+                {
+                        user_id: customer_id,
+                        product_id: product_id
+                }
+        );
+        return removeAlert;
 }
 module.exports.getdetailsAlert = async (customer_id,product_id) => {
-        // const createdAlerts = await Alert.insertMany([
-        //         {
-        //                 user_id: '613ebc89c71d2e07e0ec5e93',
-        //                 product_id: '614ed9ac4629cf154cb8d344',
-        //         }
-        // ]);
-        
         return Alert.findOne({user_id: customer_id, product_id: product_id});
+}
+module.exports.getCustomerAlertList = async (customer_id) => {
+        return Alert.find({user_id: customer_id});
 }

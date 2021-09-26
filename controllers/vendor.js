@@ -38,10 +38,10 @@ const VendorController = {
         const vUser = await Vendor.getVendor(req.params.id);
         const vendor = {
             vendor_id: vUser._id || "613eb365af0d5b2c142fa326",
-            vendor_name: vUser.vendor_name || "Yummy Backers",
+            vendor_name: vUser.vendor.vendor_name || "Yummy Backers",
             vendor_description: vUser.vendor.vendor_description || "Healthy eating means eating a variety of foods that give you the nutrients you need to maintain your health, feel good, and have energy.",
             imageUrl: vUser.vendor.imageUrl || "/img/vendor.jpg",
-            rating: vUser.vendor.rating || '4.0',
+            rating: vUser.vendor.rating || 4,
             ratingCount: vUser.vendor.ratingCount || 2,
         };
         res.status(200).send(vendor);
