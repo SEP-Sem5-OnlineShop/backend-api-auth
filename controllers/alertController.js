@@ -27,15 +27,6 @@ const AlertController = {
         console.log(alerts);
         res.status(200).send(alerts);
     },
-    temp1: async function(req, res, next) {
-        console.log(req.body);
-        const id = '613eba8b94acbe3710fed691';
-        res.status(200).send(id);
-    },
-    temp2: async function(req, res, next) {
-        console.log(req.params);
-        res.status(200).send({a:'aaa',b:'bbb'});
-    },
 
 }
 

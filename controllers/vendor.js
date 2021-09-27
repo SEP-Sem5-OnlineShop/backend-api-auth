@@ -45,6 +45,11 @@ const VendorController = {
             ratingCount: vUser.vendor.ratingCount || 2,
         };
         res.status(200).send(vendor);
+    },
+    getVendorListForCustomer:async function(req, res, next) {
+        console.log(req.params);
+        const vendors = await Vendor.getVendors();
+        res.status(200).send(vendors);
     }
 
 }
