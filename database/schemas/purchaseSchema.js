@@ -5,41 +5,24 @@ const mongoose = require("mongoose")
  * @type {module:mongoose.Schema<Document, Model<any, any, any>, undefined, ExtractMethods<Model<any, any, any>>>}
  */
 const purchaseSchema = new mongoose.Schema({
-    user_id: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 50,
-    },
-    vendor_id: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 50,
-    },
-    product_id: {
-        type: Array,
-        required: true,
-        min: 2,
-        max: 50
-    },
-    total_amount: {
-        type: String,
-        required: true,
-        min: 2,
-        max: 50,
-    },
-  
-    Discount: {
-            type: String,
-            required: true,
-        
-    },
-    
-    dateTime: {
-        type: String,
-        required: true
-    }
+    vendor_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
+    customer_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
+    status: {type: String, enum: ["open", "closed"], required: true },
+    totalItems: {type: Number, required: true },
+    totalCost: {type: Number, required: true },
+    products: [
+        {
+            product_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
+            price: {type: Number, required: true},
+            items: {type: Number, required: true},
+            rating: { type: Number},
+            review: {type: String},
+        }
+    ],
+    discount: {type: Number,required: true,}
+},
+{
+    timestamps: true,
 })
 
 module.exports = mongoose.model('Purchase', purchaseSchema)
