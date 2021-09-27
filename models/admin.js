@@ -7,17 +7,28 @@ module.exports.getAdmin = (id) => {
 }
 
 module.exports.createAdmin =async (data) => {
-    const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(data.password, salt)
+    // const salt = await bcrypt.genSalt(10)
+    // const hashPassword = await bcrypt.hash(data.password, salt)
     return new Admin({
             firstName: data.firstName,
             lastName: data.lastName,
             telephone: data.telephone,
             role: 'admin',
             email:data.email,
-            password: hashPassword
+            // password: hashPassword
             
     });
+}
+
+module.exports.createPassword = async (email, password) => {
+    const salt = await bcrypt.genSalt(10)
+    const hashPassword = await bcrypt.hash(password, salt)
+    try {
+        await User.updateOne({email: email}, {password: hashPassword})
+    }
+    catch(e) {
+        throw e
+    }
 }
 
 

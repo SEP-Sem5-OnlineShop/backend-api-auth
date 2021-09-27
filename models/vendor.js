@@ -13,6 +13,11 @@ module.exports.getVendors = async () => {
     // return Vendor.find({role: {$elemMatch :"vendor"}})
 }
 
+module.exports.getEmail = (id) => {
+    return Vendor.findOne({_id: id},'email').exec()
+    // return Product.find({_id: id})
+}
+
 
 // remove user
 module.exports.removeVendor = async (id) => {
@@ -38,8 +43,8 @@ module.exports.removeVendor = async (id) => {
  * @param data
  */
  module.exports.createVendor =async (data) => {
-    const salt =await bcrypt.genSalt(10)
-    const hashPassword =await bcrypt.hash(data.password, salt)
+    // const salt =await bcrypt.genSalt(10)
+    // const hashPassword =await bcrypt.hash(data.password, salt)
     console.log("Inside")
     return new Vendor({
             firstName: data.fullName,
@@ -48,7 +53,7 @@ module.exports.removeVendor = async (id) => {
             role: 'vendor',
             email:data.email,
             status:data.status,
-            password: hashPassword
+            // password: hashPassword
             
     });
 }

@@ -10,6 +10,7 @@ const tokenHandler = require("../../utils/tokenHenadler")
  * @returns {Promise<*>}
  */
 module.exports = async (req, res) => {
+    console.log('inside the login')
     const telephone = req.body.telephone
     const password = req.body.password
     const user = await User.getUserByTelephone(telephone)
@@ -19,13 +20,17 @@ module.exports = async (req, res) => {
             userId: user['_id'],
             telephone: telephone,
             role: user['role']
+            
         })
+        console.log(role)
     }
     else return res.status(401).send({message: "User is not registered!"})
 
     // compare the password with hash password
     const isValid = await bcrypt.compare(password, user['password'])
-    if(!isValid) return res.status(400).send({message: "Password is incorrect!"})
+    if(!isValid) return res.status(400).send({
+        message: "Password is incorrect!"
+    })
 
     return res.cookie('token', tokens.refreshToken, {httpOnly: true}).status(200).send({
         message: "Login Successful!",

@@ -1,5 +1,5 @@
 const VendorRequest = require('../models/vendorRequest')
-
+const { sendEmail } = require('../utils/email-service/configuration')
 const VendorRequestController = {
 
     create: async function(req, res, next) {
@@ -83,9 +83,22 @@ const VendorRequestController = {
 
     rejectRequest:async function(req, res, next) {
         console.log('controller id',req.params.id)
-        
+        // console.log(req.params)
+        const email_address=await VendorRequest.getEmail(req.params.id)
+        console.log('controller email',email_address.email)
         try {
-            const vendor = VendorRequest.rejectRequest(req.params.id)
+            await VendorRequest.rejectRequest(req.params.id)
+            await sendEmail({
+                subject: "Your account has been removed",
+                to: email_address.email || "",
+                from: process.env.EMAIL_SERVICE_ADDRESS,
+                html: `
+                <h4 style="color: #264A75">Hi ${req.body.firstName || ""} ${req.body.lastName || ""}</h4>
+                <div>We have rejected your request due to some unavoidable reasons. You can reaply for a vendor account. </div>
+                `
+            })
+
+
             // await vendor.save()
             return res.status(201).send(
                 {

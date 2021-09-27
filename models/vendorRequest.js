@@ -82,3 +82,8 @@ module.exports.rejectRequest = async (id) => {
                 }
             });
 }
+
+module.exports.getEmail = (id) => {
+    return VendorRequest.findOne({_id: id},'email').exec()
+    // return Product.find({_id: id})
+}
