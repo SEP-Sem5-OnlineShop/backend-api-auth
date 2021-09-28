@@ -40,8 +40,13 @@ const vendorDriverSchema = new mongoose.Schema({
     licenseFileUrl: {type: String},
 })
 const vendorSchema = new mongoose.Schema({
+    vendor_name: {type: String, required: true,min: 2, max: 50,},
+    vendor_description: {type: String,  required: true},
+    imageUrl: {type: String, required: true},
     location: locationSchema,
     products: [productSchema],
+    rating: {type: Number},
+    numReviews: {type: Number},
     drivers: [vendorDriverSchema],
     vehicles: vehicleSchema,
     permitNumber: {type: String, required: true},
