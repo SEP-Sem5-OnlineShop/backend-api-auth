@@ -2,6 +2,7 @@ require('dotenv').config();
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis")
 const OAuth2 = google.auth.OAuth2
+const crypto = require('crypto')
 
 const EMAIL_SERVICE_ADDRESS = process.env.EMAIL_SERVICE_ADDRESS || ""
 const EMAIL_SERVICE_REFRESH_TOKEN = process.env.EMAIL_SERVICE_REFRESH_TOKEN || ""
@@ -63,7 +64,17 @@ const createTransporter = async () => {
  * from: email_from_address_here
  * } emailOptions 
  */
-module.exports.sendEmail = async (emailOptions) => {
+const sendEmail = async (emailOptions) => {
     const emailTransporter = await createTransporter()
     await emailTransporter.sendMail(emailOptions)
 }
+
+// sendEmail({
+//     subject: "Test",
+//     text: "I am sending an email from nodemailer!",
+//     to: "dsandaruwan7@gmail.com",
+//     from: process.env.EMAIL_SERVICE_ADDRESS
+//   });
+
+var token = crypto.randomBytes(48).toString('hex');
+console.log(token)

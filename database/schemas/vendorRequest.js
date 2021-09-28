@@ -11,7 +11,7 @@ const vendorRequestSchema = new mongoose.Schema({
     fullName: {type: String, required: true,min: 2, max: 50,},
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
     nic: {type: String, required: true},
-    email: {type: String,},
+    email: {type: String, required: true},
     address: {type: String, required: true},
     shopName: {type: String, required: true},
     permitId: {type: String, required: true},
