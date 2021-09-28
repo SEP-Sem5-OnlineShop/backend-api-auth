@@ -13,6 +13,7 @@ router.get('/test', tokenHandler.verifyAccessToken, (req,res) => {
 })
 
 router.use('/app',tokenHandler.verifyAccessToken, [admin, vendor, product, customerRouter, driverRouter])
+router.use('/gen',customerRouter)
 router.post('/driver/create_password', DriverController.createPassword)
 router.use('/general', [vendorRequests])
 
