@@ -12,6 +12,7 @@ router.get('/test', tokenHandler.verifyAccessToken, (req,res) => {
     return res.status(200).send('You are in the test route')
 })
 
+router.use('/app',customerRouter)
 router.use('/app',tokenHandler.verifyAccessToken, [admin, vendor, product, customerRouter, driverRouter])
 router.use('/gen',customerRouter)
 router.post('/driver/create_password', DriverController.createPassword)

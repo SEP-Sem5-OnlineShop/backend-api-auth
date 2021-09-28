@@ -110,7 +110,7 @@ module.exports.getVendorProductList = async (id) => {
     //         imageThumbnailUrl: '/img/item1.png',
     //         imageUrl: '/img/item1.png',
     //         price: 100,
-    //         stock: 10,
+    //         stock: 0,
     //         status: 'available',
     //         rating: 4.5,
     //         numReviews: 2,
@@ -152,4 +152,7 @@ module.exports.getVendorProductList = async (id) => {
     //     }
     // ]);
     return Product.find({seller: id});
+}
+module.exports.getVendorSellProductList = async (id) => {
+    return Product.find({seller: id}).where('stock').gte(1).exec();
 }

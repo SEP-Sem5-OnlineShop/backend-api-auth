@@ -16,5 +16,6 @@ router.post('/customer/purchase/', PurchaseController.createPurchase);
 router.get('/customer/purchase/:purchase_id', PurchaseController.getPurchase);
 router.get('/customer/purchases/:customer_id', PurchaseController.getCustomerPurchaseList);
 router.put('/customer/purchases/:purchase_id/product/:product_id', PurchaseController.addReview);
+router.get('/customer/products/sell/:vendor_id', ProductController.getVendorProductList);
 
 module.exports = router;

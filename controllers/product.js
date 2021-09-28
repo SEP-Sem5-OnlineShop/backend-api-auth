@@ -60,6 +60,16 @@ const ProductController = {
             res.status(401).send(error);
         }
     },
+    getVendorSellProductList: async function(req, res, next) {
+        console.log(req.params);
+        try{
+            const products = await Product.getSellVendorProductList(req.params.vendor_id);
+            res.status(200).send(products);
+        } catch (error) {
+            console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
     
 
 }
