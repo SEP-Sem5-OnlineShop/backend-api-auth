@@ -17,6 +17,7 @@ const driverSchema = new mongoose.Schema({
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
     location: locationSchema,
+    status: {type: String, enum: ["active, disabled"]}
 })
 
 const customerSchema = new mongoose.Schema({

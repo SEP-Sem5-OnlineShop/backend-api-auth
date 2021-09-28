@@ -26,11 +26,22 @@ module.exports.getUserByTelephone = (telephone) => {
 
 // get a user by email
 module.exports.getUserByEmail = (email) => {
+        console.log(email)
         return User.findOne({email: email})
 }
 
 // get users
 
 // update user
+
+// reset password
+module.exports.resetPassword = async (email) => {
+        return await User.findOne({email: email})
+}
+
+// create password
+module.exports.createPassword = async (userId, hashedPassword) => {
+        return await User.updateOne({_id: userId}, {password: hashedPassword})
+}
 
 // delete user

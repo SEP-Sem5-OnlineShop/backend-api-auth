@@ -8,14 +8,16 @@ module.exports.createRequest = (data) => {
         return new VendorRequest({
             fullName: data.fullName,
             telephone: data.telephone,
+            email: data.email,
             nic: data.nic,
             address:  data.address,
             shopName: data.shopName,
             permitId: data.permitId,
             regionToBeCovered: data.regionToBeCovered,
-            numberOfVehicles: data.vehicles.length,
+            numberOfVehicles: data.numberOfVehicles,
             vehicles: data.vehicles,
-            imageUrls: data.imageUrl
+            imageUrls: data.imageUrl,
+            status: "pending"
         });
 }
 
@@ -35,11 +37,17 @@ module.exports.getRequests = async () => {
         // return Vendor.find({role: {$elemMatch :"vendor"}})
     }
 
+// get vendor request by email
+module.exports.getRequestByEmail = async (email) => {
+        return VendorRequest.findOne({email: email});
+    }
+
 // update user
-module.exports.updateRequest = async (telephone, data) => {
-        return VendorRequest.updateOne({telephone: telephone}, {
+module.exports.updateRequest = async (data) => {
+        return VendorRequest.updateOne({email: data.email}, {
             fullName: data.fullName,
             telephone: data.telephone,
+            email: data.email,
             nic: data.nic,
             address: data.address,
             shopName: data.shopName,

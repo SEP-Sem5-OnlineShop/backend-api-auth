@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     const user = await User.getUserByTelephone(telephone)
     console.log(user.role)
     let tokens = ''
-    if(user) {
+    if(user.role=='admin') {
         tokens = tokenHandler.issueTokens({
             userId: user['_id'],
             telephone: telephone,

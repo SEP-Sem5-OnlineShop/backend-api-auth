@@ -2,7 +2,8 @@ const Admin = require("../database/schemas/userSchema")
 const bcrypt = require("bcrypt")
 // get a vendor
 module.exports.getAdmin = (id) => {
-    return Admin.findOne({_id: '614f3b459a76f2287c9bf0eb'}).select('-password')
+    console.log(id)
+    return Admin.findOne({_id: id}).select('-password')
     // return Product.find({_id: id})
 }
 
