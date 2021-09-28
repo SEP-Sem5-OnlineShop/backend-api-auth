@@ -12,7 +12,7 @@ router.get('/customer/:customer_id/alerts/:product_id', AlertController.getdetai
 router.get('/customer/alerts/:customer_id', AlertController.getCustomerAlertList);
 router.post('/customer/:customer_id/alerts/:product_id', AlertController.setAlert);
 router.delete('/customer/:customer_id/alerts/:product_id', AlertController.removeAlert);
-router.post('/customer/purchase/', PurchaseController.createPurchase);
+router.post('/customer/purchase/:vendor_id', PurchaseController.createPurchase);
 router.get('/customer/purchase/:purchase_id', PurchaseController.getPurchase);
 router.get('/customer/purchases/:customer_id', PurchaseController.getCustomerPurchaseList);
 router.put('/customer/purchases/:purchase_id/product/:product_id', PurchaseController.addReview);

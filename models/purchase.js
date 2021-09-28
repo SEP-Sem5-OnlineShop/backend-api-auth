@@ -1,22 +1,21 @@
 const Purchase = require("../database/schemas/purchaseSchema")
 
 //create a purchase
-module.exports.createPurchase = async (purchase) => {
+module.exports.createPurchase = async (vendor_id,products) => {
+    let p = [];
+    let c = 0;
+    for (var i in products) {
+        p[c] = {product_id: products[i]._id , price:products[i].price , items:products[i].items };
+        c += 1;
+    }
     const newPurchase = await Purchase.create(
             {
-                    vendor_id: "613eb365af0d5b2c142fa326",
-                    customer_id: "613eba8b94acbe3710fed690",
-                    status: "open",
-                    totalItems: 1,
-                    totalCost: 100,
-                    products: [
-                        {
-                            product_id: '614ed9a74629cf154cb8d335',
-                            price: 100,
-                            items: 1,
-                        }
-                    ],
-                    discount: 0,
+                vendor_id: vendor_id,
+                status: "open",
+                totalItems: 4,
+                totalCost: 400,
+                products: p,
+                discount: 0,
             }
     );
     return newPurchase;
