@@ -1,4 +1,6 @@
 const router = require("express").Router()
+
+const user = require("../../controllers/user")
 const admin = require("./admin/index")
 const vendor = require("./vendor/index")
 const vendorRequests = require("./vendor-requests/index")
@@ -14,7 +16,11 @@ router.get('/test', tokenHandler.verifyAccessToken, (req,res) => {
 
 router.use('/app',customerRouter)
 router.use('/app',tokenHandler.verifyAccessToken, [admin, vendor, product, customerRouter, driverRouter])
+<<<<<<< HEAD
 router.use('/gen',customerRouter)
+=======
+router.use('/update-password', tokenHandler.verifyAccessToken, user.forgetPassword)
+>>>>>>> dev2
 router.post('/driver/create_password', DriverController.createPassword)
 router.use('/general', [vendorRequests])
 

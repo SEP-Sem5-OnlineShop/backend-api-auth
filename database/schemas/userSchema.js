@@ -13,7 +13,7 @@ const vehicleSchema = require("./vehicleSchema")
 
 const driverSchema = new mongoose.Schema({
     licenseNumber: {type: String, required: true, unique: true},
-    licenseFileUrl: {type: String, required: true},
+    licenseFileUrl: {type: String},
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
     location: locationSchema,
@@ -37,7 +37,7 @@ const vendorDriverSchema = new mongoose.Schema({
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
     email: {type: String, required: true},
     licenseNumber: {type: String, required: true, unique: true},
-    licenseFileUrl: {type: String, required: true},
+    licenseFileUrl: {type: String},
 })
 const vendorSchema = new mongoose.Schema({
     vendor_name: {type: String, required: true,min: 2, max: 50,},
