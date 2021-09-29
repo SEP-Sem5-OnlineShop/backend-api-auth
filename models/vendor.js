@@ -3,7 +3,7 @@ const Product = require("../database/schemas/productSchema")
 const bcrypt = require("bcrypt")
 // get a vendor
 module.exports.getVendor = (id) => {
-    return Vendor.findOne({_id: id}) 
+    return Vendor.findOne({_id: id}).select("-password") 
     // return Product.find({_id: id})
 }
 
