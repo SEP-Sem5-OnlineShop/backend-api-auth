@@ -22,4 +22,8 @@ router.use('/update-password', tokenHandler.verifyAccessToken, user.forgetPasswo
 router.post('/driver/create_password', DriverController.createPassword)
 router.use('/general', [vendorRequests])
 
+///////////////////////////////
+router.use('/app',[admin, vendor, vendorRequests])
+/////////////////////////////
+
 module.exports = router

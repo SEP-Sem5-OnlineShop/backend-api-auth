@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon main.js"
+    "start": "nodemon main.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^27.2.3",
+    "mockingoose": "^2.15.2",
     "nodemon": "^2.0.12"
   },
   "dependencies": {
@@ -24,7 +27,7 @@
     "joi": "^17.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
-    "nodemailer": "^6.6.3"
+    "nodemailer": "^6.6.5"
   },
   "engines": {
     "node": "14.16.1"

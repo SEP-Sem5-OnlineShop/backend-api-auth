@@ -18,11 +18,10 @@ module.exports = async (req, res) => {
     const user = await User.getUserByTelephone(telephone)
     console.log(user.role)
     let tokens = ''
-    if(user) {
+    if(user.role=='admin') {
         tokens = tokenHandler.issueTokens({
             userId: user['_id'],
             telephone: telephone,
-            email: user['email'],
             role: user['role']
             
         })
@@ -32,10 +31,12 @@ module.exports = async (req, res) => {
 
     // compare the password with hash password
     const isValid = await bcrypt.compare(password, user['password'])
-    if(!isValid) return res.status(400).send({message: "Password is incorrect!"})
-    delete user.password
+    if(!isValid) return res.status(400).send({
+        message: "Password is incorrect!"
+    })
+
     return res.cookie('token', tokens.refreshToken, {httpOnly: true}).status(200).send({
-        message: "Success",
+        message: "Login Successful!",
         data: user,
         accessToken: tokens.accessToken,
     })
