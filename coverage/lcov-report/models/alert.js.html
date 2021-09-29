@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for models/admin.js</title>
+    <title>Code coverage report for models/alert.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> admin.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">models</a> alert.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.84% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.84% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
@@ -86,29 +86,22 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,55 +113,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Admin = require("../database/schemas/userSchema")
-const bcrypt = require("bcrypt")
-// get a vendor
-module.exports.getAdmin = (id) =&gt; {
-    // console.log(id)
-    // return id
-    const ad=Admin.findOne({_id: id}).select('-password')
-    return ad
-    // return Product.find({_id: id})
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const bcrypt = require("bcrypt")
+&nbsp;
+const User = require("../database/schemas/alertSchema")
+const Alert = require("../database/schemas/alertSchema")
+&nbsp;
+/**
+ * Create a alert
+ * @param data
+ */
+module.exports.createAlert = <span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {
+        const salt = <span class="cstat-no" title="statement not covered" >await bcrypt.genSalt(10)</span>
+        const hashPassword = <span class="cstat-no" title="statement not covered" >await bcrypt.hash(data.password, salt)</span>
+<span class="cstat-no" title="statement not covered" >        return new User({</span>
+                user_id: "abc12345",
+                product_id:"bcd123",
+                status: "sent",
+                setTime: "2020-08-31 12:00",
+                updateTime: "2020-08-31 12:02",
+                
+        });
 }
 &nbsp;
-module.exports.createAdmin =<span class="fstat-no" title="function not covered" >as</span>ync (data) =&gt; {
-    // const salt = await bcrypt.genSalt(10)
-    // const hashPassword = await bcrypt.hash(data.password, salt)
-<span class="cstat-no" title="statement not covered" >    return new Admin({</span>
-            firstName: data.firstName,
-            lastName: data.lastName,
-            telephone: data.telephone,
-            role: 'admin',
-            email:data.email,
-            // password: hashPassword
-            
-    });
-}
-&nbsp;
-module.exports.createPassword = <span class="fstat-no" title="function not covered" >as</span>ync (email, password) =&gt; {
-    const salt = <span class="cstat-no" title="statement not covered" >await bcrypt.genSalt(10)</span>
-    const hashPassword = <span class="cstat-no" title="statement not covered" >await bcrypt.hash(password, salt)</span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        await User.updateOne({email: email}, {password: hashPassword})</span>
-    }
-    catch(e) {
-<span class="cstat-no" title="statement not covered" >        throw e</span>
-    }
-}
+// get a alert
 &nbsp;
 &nbsp;
-&nbsp;</pre></td></tr></table></pre>
+&nbsp;
+module.exports.getCustomerAlertList = async (id) =&gt; {
+        return Product.find({user_id: id});
+        // return Product.find({});
+}</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
