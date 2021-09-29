@@ -6,8 +6,8 @@ const mongoose = require("mongoose")
  */
  const reviewSchema = new mongoose.Schema({
     rating: { type: Number, required: true },
-    review: {type: String},
-    customer: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
+    review: {type: String, required: true},
+    customer: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
 },
 {
     timestamps: true,
@@ -16,7 +16,8 @@ const mongoose = require("mongoose")
 
 const productSchema = new mongoose.Schema({
     product_name: {type: String, required: true},
-    seller: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
+    description:{type: String},
+    seller: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
     price: {type: Number, required: true},
     imageThumbnailUrl: {type: String, required: true},
     imageUrl: {type: String, required: true},
@@ -26,7 +27,7 @@ const productSchema = new mongoose.Schema({
     discount: {type: Number},
     stock: {type: Number},
     rating: {type: Number},
-    numReviews: {type: String},
+    numReviews: {type: Number},
     reviews: [reviewSchema],
 },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 

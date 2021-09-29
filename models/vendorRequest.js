@@ -6,7 +6,8 @@ const Vendor = require("../database/schemas/userSchema")
  */
 module.exports.createRequest = (data) => {
         return new VendorRequest({
-            fullName: data.fullName,
+            firstName: data.firstName,
+            lastName: data.lastName,
             telephone: data.telephone,
             email: data.email,
             nic: data.nic,
@@ -45,7 +46,8 @@ module.exports.getRequestByEmail = async (email) => {
 // update user
 module.exports.updateRequest = async (data) => {
         return VendorRequest.updateOne({email: data.email}, {
-            fullName: data.fullName,
+            firstName: data.fullName,
+            lastName: data.fullName,
             telephone: data.telephone,
             email: data.email,
             nic: data.nic,

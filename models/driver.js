@@ -1,6 +1,7 @@
 const User = require('../database/schemas/userSchema')
 const { mongoose } = require('../database/connection')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const { updateRequest } = require('./vendorRequest');
 
 module.exports.createDriver = async (vendorId, data) => {
     let session;
@@ -19,7 +20,7 @@ module.exports.createDriver = async (vendorId, data) => {
                     vendorId: vendorId,
                     driver: {
                         licenseNumber: data.licenseNumber,
-                        licenseFileUrl: data.licenseFileUrl,
+                        licenseFileUrl: data.licenseFileUrl || "",
                         vendorId: vendorId
                     }
                 }, { session })
@@ -59,15 +60,16 @@ module.exports.updateDriver = async (userId, data) => {
         await session.withTransaction(async () => {
             let obj = {}
             Object.keys(data).forEach(key => {
-                obj[`vendor.drivers.$.${key}`]=data[key]
+                obj[`vendor.drivers.$.${key}`] = data[key]
             })
             const driver = await User.findOne({ _id: userId })
             const result = await User.updateOne({ _id: userId },
-                { $set: data }, {session})
+                { $set: data }, { session })
             const updatedResult = await User.updateOne({ _id: driver.driver.vendorId, "vendor.drivers._id": userId },
                 {
                     $set: obj
                 }, { session })
+            console.log(updateRequest)
             return updatedResult
         })
     }
@@ -76,5 +78,18 @@ module.exports.updateDriver = async (userId, data) => {
     }
     finally {
         session.endSession()
+    }
+}
+
+module.exports.updateImage = async (userId, imageUrl) => {
+    try {
+        await User.updateOne({ _id: userId }, {
+            $set: {
+                'driver.imageUrl': imageUrl
+            }
+        })
+    }
+    catch (e) {
+        throw e
     }
 }

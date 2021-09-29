@@ -1,6 +1,7 @@
 const Vendor = require("../database/schemas/userSchema")
 const Product = require("../database/schemas/productSchema")
 const bcrypt = require("bcrypt")
+const { datacatalog_v1 } = require("googleapis")
 // get a vendor
 module.exports.getVendor = (id) => {
     return Vendor.findOne({_id: id}).select("-password") 
@@ -43,18 +44,8 @@ module.exports.removeVendor = async (id) => {
  * @param data
  */
  module.exports.createVendor =async (data) => {
-    // const salt =await bcrypt.genSalt(10)
-    // const hashPassword =await bcrypt.hash(data.password, salt)
     console.log("Inside")
-    return new Vendor({
-            firstName: data.fullName,
-            lastName: data.nic,
-            telephone: data.telephone,
-            role: 'vendor',
-            email:data.email,
-            status:data.status,
-            // password: hashPassword
-            
-    });
+    console.log(data)
+    return  new Vendor(data);
 }
 

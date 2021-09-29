@@ -13,7 +13,7 @@ const vehicleSchema = require("./vehicleSchema")
 
 const driverSchema = new mongoose.Schema({
     licenseNumber: {type: String, required: true, unique: true},
-    licenseFileUrl: {type: String, required: true},
+    licenseFileUrl: {type: String},
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
     location: locationSchema,
@@ -37,16 +37,22 @@ const vendorDriverSchema = new mongoose.Schema({
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
     email: {type: String, required: true},
     licenseNumber: {type: String, required: true, unique: true},
-    licenseFileUrl: {type: String, required: true},
+    licenseFileUrl: {type: String},
 })
 const vendorSchema = new mongoose.Schema({
+    imageUrl: {type: String, required: true},
     location: locationSchema,
+    address: {type: String,  required: true},
+    regionToBeCovered: {type: String, required: true},
+    nic: {type: String, required: true},
     products: [productSchema],
+    rating: {type: Number},
+    numReviews: {type: Number},
     drivers: [vendorDriverSchema],
-    vehicles: vehicleSchema,
+    vehicles: [vehicleSchema],
     shopName: {type: String, required: true},
     permitNumber: {type: String, required: true},
-    permitFileUrl: {type: String, required: true},
+    permitFileUrl: {type: String},
     description: {type: String},
     status: {type: String, enum: ["pending, accepted, rejected, detailsRequested"]}
 })

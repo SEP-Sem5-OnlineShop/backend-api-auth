@@ -89,6 +89,40 @@ const DriverController = {
     getDrivers: async function (req, res, next) {
     },
 
+    getImage: async function (req, res, next) {
+        try {
+            const result = await User.getUserByEmail(req.userData.email)
+            if(result) {
+                return res.status(200).send({
+                    message: "Success",
+                    data: result[req.userData.role].imageUrl
+                })
+            }
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
+    updateImage: async function (req,res,next) {
+        try {
+            console.log(req.userData.userId, req.body.imageUrl)
+            const result = await Driver.updateImage(req.userData.userId, req.body.imageUrl)
+            
+            return res.status(200).send({
+                message: "Success",
+                data: "Your profile image is updated"
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
     delete: async function (req, res, next) {
     }
 
