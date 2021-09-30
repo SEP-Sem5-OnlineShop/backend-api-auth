@@ -10,7 +10,8 @@ const dailyStock = new mongoose.Schema({
 const dailyStockSchema = new mongoose.Schema({
     vendorId: { type: mongoose.Schema.Types.ObjectID, required: true },
     vehicleId: { type: String, required: true },
-    dailyStock: [dailyStock]
+    dailyStock: [dailyStock],
+    route: {type: String, required: true}
 },
     { 
         timestamps: true,
