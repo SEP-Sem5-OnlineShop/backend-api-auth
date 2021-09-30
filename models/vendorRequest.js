@@ -17,7 +17,7 @@ module.exports.createRequest = (data) => {
             regionToBeCovered: data.regionToBeCovered,
             numberOfVehicles: data.numberOfVehicles,
             vehicles: data.vehicles,
-            imageUrls: data.imageUrl,
+            imageUrl: data.imageUrl,
             status: "pending"
         });
 }
@@ -45,6 +45,7 @@ module.exports.getRequestByEmail = async (email) => {
 
 // update user
 module.exports.updateRequest = async (data) => {
+        console.log(data)
         return VendorRequest.updateOne({email: data.email}, {
             firstName: data.fullName,
             lastName: data.fullName,
@@ -57,7 +58,7 @@ module.exports.updateRequest = async (data) => {
             regionToBeCovered: data.regionToBeCovered,
             numberOfVehicles: data.numberOfVehicles,
             vehicles: data.vehicles,
-            imageUrls: data.imageUrl
+            imageUrl: data.imageUrl
         });
 }
 
