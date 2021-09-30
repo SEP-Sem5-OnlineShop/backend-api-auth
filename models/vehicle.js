@@ -1,9 +1,9 @@
-const vehicleModel = require("../database/schemas/vehicleSchemaMain")
+const VehicleModel = require("../database/schemas/vehicleSchemaMain")
 
 module.exports.create = async (data, vendorId) => {
     try {
         data.forEach(async (item) => {
-            const vehicle = new vehicleModel({...item, vendorId: vendorId} || {})
+            const vehicle = new VehicleModel({...item, vendorId: vendorId} || {})
             await vehicle.save()
         })
         return
@@ -20,7 +20,7 @@ module.exports.update = (id, data) => {
 }
 
 module.exports.getList = (userId) => {
-    return VehicleModel.find({'driver.vendorId': userId})
+    return VehicleModel.find({vendorID: userId})
 }
 
 // get a product

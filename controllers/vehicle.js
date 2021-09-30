@@ -29,6 +29,7 @@ const ProductController = {
             })
         }
         catch (e) {
+            console.log(e)
             res.status(400).send({
                 message: "Something went wrong!"
             })
