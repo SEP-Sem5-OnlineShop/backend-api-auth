@@ -6,7 +6,8 @@ const Vendor = require("../database/schemas/userSchema")
  */
 module.exports.createRequest = (data) => {
         return new VendorRequest({
-            fullName: data.fullName,
+            firstName: data.firstName,
+            lastName: data.lastName,
             telephone: data.telephone,
             email: data.email,
             nic: data.nic,
@@ -16,7 +17,7 @@ module.exports.createRequest = (data) => {
             regionToBeCovered: data.regionToBeCovered,
             numberOfVehicles: data.numberOfVehicles,
             vehicles: data.vehicles,
-            imageUrls: data.imageUrl,
+            imageUrl: data.imageUrl,
             status: "pending"
         });
 }
@@ -33,7 +34,7 @@ module.exports.getRequestByTelephoneNumber = async (telephone) => {
 // get vendor requests
 module.exports.getRequests = async () => {
         // return await Vendor.find({ "role":"customer" }).select("-password")
-        return VendorRequest.find({});
+        return VendorRequest.find({'status':'pending'});
         // return Vendor.find({role: {$elemMatch :"vendor"}})
     }
 
@@ -44,8 +45,10 @@ module.exports.getRequestByEmail = async (email) => {
 
 // update user
 module.exports.updateRequest = async (data) => {
+        console.log(data)
         return VendorRequest.updateOne({email: data.email}, {
-            fullName: data.fullName,
+            firstName: data.fullName,
+            lastName: data.fullName,
             telephone: data.telephone,
             email: data.email,
             nic: data.nic,
@@ -55,8 +58,43 @@ module.exports.updateRequest = async (data) => {
             regionToBeCovered: data.regionToBeCovered,
             numberOfVehicles: data.numberOfVehicles,
             vehicles: data.vehicles,
-            imageUrls: data.imageUrl
+            imageUrl: data.imageUrl
         });
 }
 
-// delete user
+// update status after the create
+module.exports.updateStatus = async (id) => {
+        // const st=(VendorRequest.findOne({_id:id}))
+        // console.log(st.status)
+        console.log('this id-',id)
+        return VendorRequest.updateOne({_id: id}, 
+                {'status':'accepted'}, function (err) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("Updated Docs");
+                }
+            });
+}
+
+// reject a vendor reques
+module.exports.rejectRequest = async (id) => {
+        // const st=(VendorRequest.findOne({_id:id}))
+        // console.log(st.status)
+        console.log('this id-',id)
+        return VendorRequest.updateOne({_id: id}, 
+                {'status':'rejected'}, function (err) {
+                if (err){
+                    console.log(err)
+                }
+                else{
+                    console.log("Updated Docs");
+                }
+            });
+}
+
+module.exports.getEmail = (id) => {
+    return VendorRequest.findOne({_id: id},'email').exec()
+    // return Product.find({_id: id})
+}

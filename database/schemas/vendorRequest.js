@@ -8,7 +8,8 @@ const mongoose = require("mongoose")
 const vehicleSchema = require("./vehicleSchema")
 
 const vendorRequestSchema = new mongoose.Schema({
-    fullName: {type: String, required: true,min: 2, max: 50,},
+    firstName: {type: String, required: true,min: 2, max: 50,},
+    lastName: {type: String, required: true,min: 2, max: 50,},
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
     nic: {type: String, required: true},
     email: {type: String, required: true},
@@ -18,8 +19,8 @@ const vendorRequestSchema = new mongoose.Schema({
     regionToBeCovered: {type: String, required: true},
     numberOfVehicles: {type: Number, required: true},
     vehicles: {type: [vehicleSchema], required: true},
-    shopImageUrl: {type: String},
-    status:{type: String, enum: ["pending, accepted, rejected"]}
+    imageUrl: {type: String},
+    status:{type: String, enum: ["pending", "accepted", "rejected"]}
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = mongoose.model('VendorRequest', vendorRequestSchema)
