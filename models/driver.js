@@ -81,6 +81,16 @@ module.exports.updateDriver = async (userId, data) => {
     }
 }
 
+module.exports.getDriversList = async (userId) => {
+    try {
+        const drivers = await User.find({'driver.vendorId': userId})
+        return drivers
+    }
+    catch(e) {
+        throw e
+    }
+}
+
 module.exports.updateImage = async (userId, imageUrl) => {
     try {
         await User.updateOne({ _id: userId }, {

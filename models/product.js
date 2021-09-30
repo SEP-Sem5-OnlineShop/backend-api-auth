@@ -4,6 +4,7 @@ const {mongoose} = require("../database/connection")
 
 module.exports.create = async (data) => {
     let session;
+    console.log(data)
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
@@ -25,11 +26,12 @@ module.exports.create = async (data) => {
                 seller: data.seller
             })
             await product.save()
-            return product
+            const user = await User.findOne({_id: data.seller})
+            return user
         })
     }
     catch (e) {
-        console.log(e)
+        throw e
     }
     finally {
         session.endSession()
@@ -47,8 +49,8 @@ module.exports.update = (id, data) => {
     })
 }
 
-module.exports.getList = () => {
-    return Product.find({})
+module.exports.getList = (userId) => {
+    return Product.find({seller: userId})
 }
 
 // get a product

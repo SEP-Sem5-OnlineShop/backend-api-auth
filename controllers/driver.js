@@ -87,6 +87,19 @@ const DriverController = {
     },
 
     getDrivers: async function (req, res, next) {
+        try {
+            const result = await Driver.getDriversList(req.userData.userId)
+            console.log(result)
+            return res.status(200).send({
+                message: "Success",
+                data: result
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
     },
 
     getImage: async function (req, res, next) {

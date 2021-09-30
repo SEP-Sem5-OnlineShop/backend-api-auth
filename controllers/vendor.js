@@ -7,11 +7,11 @@ const { createJwtTokenForEmailVerifications, verifyEmailVerificationToken } = re
 const VendorController = {
     createVendor:async function(req, res, next) {
         try {
-            const vendorRequest =await Vendor.createVendor(req.body)
-            const vehicles = await Vehicle.create(req.body.vendor.vehicles || [])
+            const vendor =await Vendor.createVendor(req.body)
+            const vehicles = await Vehicle.create(req.body.vendor.vehicles || [], vendor._id)
             const token = createJwtTokenForEmailVerifications({ email: req.body.email })
-            // console.log(vendorRequest)
-            await vendorRequest.save()
+            // console.log(vendor)
+            await vendor.save()
             await sendEmail({
                 subject: "Verify your account",
                 to: req.body.email || "",
