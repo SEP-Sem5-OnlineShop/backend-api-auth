@@ -43,7 +43,7 @@ module.exports.addReview = (purchase_id,product_id,review) => {
 module.exports.payPurchase = (order_id,customer_id) => {
     return Purchase.findOneAndUpdate(
         { _id: order_id},
-        { customer_id: customer_id},
+        { customer_id: customer_id, status: "closed",},
         {useFindAndModify: false}
     );
 }
