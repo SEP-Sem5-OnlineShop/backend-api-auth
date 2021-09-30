@@ -19,7 +19,7 @@ const vendorRequestSchema = new mongoose.Schema({
     regionToBeCovered: {type: String, required: true},
     numberOfVehicles: {type: Number, required: true},
     vehicles: {type: [vehicleSchema], required: true},
-    shopImageUrl: {type: String},
+    imageUrl: {type: String},
     status:{type: String, enum: ["pending", "accepted", "rejected"]}
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
