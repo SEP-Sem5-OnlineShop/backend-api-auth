@@ -40,3 +40,10 @@ module.exports.addReview = (purchase_id,product_id,review) => {
         {useFindAndModify: false}
     );
 }
+module.exports.payPurchase = (order_id,customer_id) => {
+    return Purchase.findOneAndUpdate(
+        { _id: order_id},
+        { customer_id: customer_id},
+        {useFindAndModify: false}
+    );
+}
