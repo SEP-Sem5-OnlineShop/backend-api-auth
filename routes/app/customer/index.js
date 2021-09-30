@@ -2,6 +2,7 @@ const router = require("express").Router();
 const AlertController = require("../../../controllers/alertController");
 const ProductController = require("../../../controllers/product");
 const PurchaseController = require("../../../controllers/purchaseController");
+const StockController = require("../../../controllers/stockController");
 const VendorController = require("../../../controllers/vendor");
 
 router.get('/customer/products/:vendor_id', ProductController.getVendorProductList);
@@ -17,6 +18,7 @@ router.put('/customer/purchase/pay/:order_id', PurchaseController.payPurchase);
 router.get('/customer/purchase/:purchase_id', PurchaseController.getPurchase);
 router.get('/customer/purchases/:customer_id', PurchaseController.getCustomerPurchaseList);
 router.put('/customer/purchases/:purchase_id/product/:product_id', PurchaseController.addReview);
-router.get('/customer/products/sell/:vendor_id', ProductController.getVendorSellProductList);
+// router.get('/customer/products/sell/:vendor_id', ProductController.getVendorSellProductList);
+router.get('/customer/products/sell/:vendor_id', StockController.getDriverSellProductList);
 
 module.exports = router;

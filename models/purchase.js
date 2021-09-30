@@ -5,7 +5,7 @@ module.exports.createPurchase = async (vendor_id,products) => {
     let p = [];
     let c = 0;
     for (var i in products) {
-        p[c] = {product_id: products[i]._id , price:products[i].price , items:products[i].items };
+        p[c] = {product_id: products[i].productId , price:products[i].price , items:products[i].items };
         c += 1;
     }
     const newPurchase = await Purchase.create(

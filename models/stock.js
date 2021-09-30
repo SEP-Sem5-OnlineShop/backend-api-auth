@@ -41,3 +41,16 @@ module.exports.get = async (vendorId, vehicleId) => {
         throw e
     }
 }
+module.exports.getDriverSellProductList = async (vendorId) => {
+    var start = new Date()
+    start.setHours(0, 0, 0, 0)
+
+    var end = new Date()
+    end.setHours(23, 59, 59, 999)
+    try {
+        return await DailyStock.findOne({ vendorId: vendorId, createdAt: {$gte: start, $lt:end} })
+    }
+    catch (e) {
+        throw e
+    }
+}

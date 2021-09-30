@@ -47,6 +47,17 @@ const StockController = {
                 data: "Check your internet connection!"
             })
         }
+    },
+    getDriverSellProductList: async function(req, res, next) {
+        console.log(req.params);
+        try{
+            console.log(req.params);
+            const dailystock = await Stock.getDriverSellProductList(req.params.vendor_id);
+            res.status(200).send(dailystock);
+        } catch (error) {
+            console.log("error error error")
+            res.status(401).send(error);
+        }
     }
 }
 
