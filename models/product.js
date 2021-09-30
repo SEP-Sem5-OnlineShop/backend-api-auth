@@ -141,3 +141,15 @@ module.exports.getVendorProductList = async (id) => {
 module.exports.getVendorSellProductList = async (id) => {
     return Product.find({ seller:id, stock: { $gt: 0 } });
 }
+
+module.exports.addReviewProduct = (product_id,review) => {
+    console.log(product_id,review);
+    // return Purchase.findOneAndUpdate(
+    //     { "_id": product_id },
+    //     {$push : 
+    //         {
+    //             reviews:review
+    //         }
+    //     }
+    // );
+}

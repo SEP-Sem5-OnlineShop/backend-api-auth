@@ -15,7 +15,7 @@ router.get('/test', tokenHandler.verifyAccessToken, (req,res) => {
     return res.status(200).send('You are in the test route')
 })
 
-// router.use('/app',customerRouter)
+router.use('/app',customerRouter)
 router.use('/app',tokenHandler.verifyAccessToken, [admin, vendor, product, customerRouter, driverRouter, dailyStockRouter])
 router.use('/gen',customerRouter)
 router.use('/update-password', tokenHandler.verifyAccessToken, user.forgetPassword)
