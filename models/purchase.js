@@ -8,12 +8,19 @@ module.exports.createPurchase = async (vendor_id,products) => {
         p[c] = {product_id: products[i]._id , price:products[i].price , items:products[i].items };
         c += 1;
     }
+    let totItem = 0;
+    let totCost = 0;
+    console.log(p);
+    for (var x in p){
+        totItem += p[x].items;
+        totCost += p[x].items*p[x].price;
+    }
     const newPurchase = await Purchase.create(
             {
                 vendor_id: vendor_id,
                 status: "open",
-                totalItems: 4,
-                totalCost: 400,
+                totalItems: totItem,
+                totalCost: totCost,
                 products: p,
                 discount: 0,
             }
