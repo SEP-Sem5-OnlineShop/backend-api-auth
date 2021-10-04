@@ -45,7 +45,7 @@ module.exports.getRequestByEmail = async (email) => {
 
 // update user
 module.exports.updateRequest = async (data) => {
-        console.log(data)
+        // console.log(data)
         return VendorRequest.updateOne({email: data.email}, {
             firstName: data.fullName,
             lastName: data.fullName,
@@ -66,7 +66,7 @@ module.exports.updateRequest = async (data) => {
 module.exports.updateStatus = async (id) => {
         // const st=(VendorRequest.findOne({_id:id}))
         // console.log(st.status)
-        console.log('this id-',id)
+        // console.log('this id-',id)
         return VendorRequest.updateOne({_id: id}, 
                 {'status':'accepted'}, function (err) {
                 if (err){
@@ -82,14 +82,14 @@ module.exports.updateStatus = async (id) => {
 module.exports.rejectRequest = async (id) => {
         // const st=(VendorRequest.findOne({_id:id}))
         // console.log(st.status)
-        console.log('this id-',id)
+        // console.log('this id-',id)
         return VendorRequest.updateOne({_id: id}, 
                 {'status':'rejected'}, function (err) {
                 if (err){
                     console.log(err)
                 }
                 else{
-                    console.log("Updated Docs");
+                    // console.log("Updated Docs");
                 }
             });
 }

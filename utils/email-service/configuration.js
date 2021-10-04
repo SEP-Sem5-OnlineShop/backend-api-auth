@@ -10,7 +10,7 @@ const EMAIL_SERVICE_CLIENT_ID = process.env.EMAIL_SERVICE_CLIENT_ID || ""
 const EMAIL_SERVICE_REDIRECT_URL = process.env.EMAIL_SERVICE_REDIRECT_URL || ""
 
 const createTransporter = async () => {
-    console.log(EMAIL_SERVICE_ADDRESS)
+    // console.log(EMAIL_SERVICE_ADDRESS)
     /**
      * configure email client
      */

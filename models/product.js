@@ -4,7 +4,7 @@ const {mongoose} = require("../database/connection")
 
 module.exports.create = async (data) => {
     let session;
-    console.log(data)
+    // console.log(data)
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {

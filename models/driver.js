@@ -69,7 +69,7 @@ module.exports.updateDriver = async (userId, data) => {
                 {
                     $set: obj
                 }, { session })
-            console.log(updateRequest)
+            // console.log(updateRequest)
             return updatedResult
         })
     }

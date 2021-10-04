@@ -10,7 +10,7 @@ module.exports.createPurchase = async (vendor_id,products) => {
     }
     let totItem = 0;
     let totCost = 0;
-    console.log(p);
+    // console.log(p);
     for (var x in p){
         totItem += p[x].items;
         totCost += p[x].items*p[x].price;
