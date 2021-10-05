@@ -9,7 +9,7 @@ const appRoutes = require("./routes/app")
 const cookieParser = require("cookie-parser")
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-const alertHandler = require("./socket/index")
+const initializeSocket = require("./socket/index")
 
 const PORT = Number(process.env.PORT) || 8000
 
@@ -37,37 +37,7 @@ app.use(cors(corsOptions))
 
 // socket instance
 const io = new Server(httpServer, {cors : corsOptions});
-
-io.use((socket, next) => {
-    const username = socket.handshake.auth.username;
-    const role = socket.handshake.auth.role
-    if (!username) {
-        return next(new Error("invalid username"));
-    }
-    socket.username = username;
-    socket.role = role;
-    next();
-});
-
-io.on("connection", (socket) => {
-    console.log("bla")
-    const users = [];
-    for (let [id, socket] of io.of("/").sockets) {
-        users.push({
-            userID: id,
-            username: socket.username,
-        });
-    }
-    console.log(users)
-    socket.emit("users", users);
-    socket.on("remove-user", (arg) => {
-        console.log(arg)
-    })
-    alertHandler(io, socket)
-    // ...
-});
-
-
+initializeSocket(io)
 
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})
