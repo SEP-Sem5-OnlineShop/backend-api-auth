@@ -8,6 +8,7 @@ const product = require("./product")
 const driverRouter = require("./driver")
 const dailyStockRouter = require("./stock")
 const tokenHandler = require("../../utils/tokenHenadler")
+const adminController = require("../../controllers/admin")
 const customerRouter = require("./customer/index")
 const DriverController = require("../../controllers/driver")
 
@@ -21,7 +22,7 @@ router.use('/gen',customerRouter)
 router.use('/update-password', tokenHandler.verifyAccessToken, user.forgetPassword)
 router.post('/driver/create_password', DriverController.createPassword)
 router.use('/general', [vendorRequests])
-
+router.post('/admin/create_password', adminController.createPassword)
 ///////////////////////////////
 router.use('/app',[admin, vendor, vendorRequests])
 /////////////////////////////

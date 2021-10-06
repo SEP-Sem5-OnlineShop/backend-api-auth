@@ -51,4 +51,9 @@ module.exports.createPassword = async (userId, hashedPassword) => {
     return await User.updateOne({ _id: userId }, { password: hashedPassword })
 }
 
+//number of vendors
+module.exports.getNumberOfVendors = async () => {
+    return await User.count({role:'vendor'})
+}
+
 // delete user
