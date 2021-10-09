@@ -62,7 +62,6 @@ const VendorRequestController = {
         const email = req.body.email
         try {
             const vendorRequest = await VendorRequest.getRequestByEmail(email)
-            console.log(vendorRequest)
             if (vendorRequest) {
                 const token = createJwtTokenForEmailVerifications({email: email})
                 await sendEmail({
