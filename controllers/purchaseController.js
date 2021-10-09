@@ -30,6 +30,11 @@ const PurchaseController = {
         const purchase = await Purchase.payPurchase(req.params.order_id, req.body.customer_id);
         res.status(200).send(purchase);
     },
+    notify: async function(req, res, next) {
+        console.log("notify=====================");
+        console.log(req);
+        console.log(req.body);
+    },
 
 }
 
