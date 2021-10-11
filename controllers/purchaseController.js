@@ -33,7 +33,9 @@ const PurchaseController = {
     notify: async function(req, res, next) {
         console.log("notify=====================");
         console.log(req);
-        console.log(req.body);
+        console.log(req.params);
+        const purchase = await Purchase.notify(req.params);
+        // res.status(200).send(purchase);
     },
 
 }

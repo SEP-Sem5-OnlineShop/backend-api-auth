@@ -54,3 +54,10 @@ module.exports.payPurchase = (order_id,customer_id) => {
         {useFindAndModify: false}
     );
 }
+module.exports.notify = (det) => {
+    return Purchase.findOneAndUpdate(
+        { _id: det.order_id},
+        { status: "closed",},
+        {useFindAndModify: false}
+    );
+}
