@@ -13,6 +13,11 @@ const PurchaseController = {
         const purchase = await Purchase.getPurchase(req.params.purchase_id);
         res.status(200).send(purchase);
     },
+    getPurchaseCount:async function(req, res, next) {
+        const count=await Purchase.getPurchaseCount()
+        res.status(200).send({count})
+    },
+
     getCustomerPurchaseList: async function(req, res, next) {
         console.log(req.params);
         const purchases = await Purchase.getCustomerPurchaseList(req.params.customer_id);

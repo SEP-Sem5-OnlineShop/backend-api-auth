@@ -41,3 +41,12 @@ module.exports.addReview = (purchase_id,product_id,review) => {
         {useFindAndModify: false}
     );
 }
+
+module.exports.getPurchaseCount = async () => {
+    var myCurrentDate = new Date();
+    var date = myCurrentDate.getFullYear()+'-'+(myCurrentDate.getMonth()+1)+'-'+myCurrentDate.getDate() ;
+    console.log(date)
+    // console.log(Purchase.countDocuments({ 'created_at.substr(0,10)': date }))
+    // return await Purchase.countDocuments({ 'created_at.substr(0,10)': date }).exec();
+    
+}

@@ -44,6 +44,11 @@ const VendorController = {
         const vendorList=await Vendor.getVendors()
         res.status(200).send({data: vendorList})
     },
+
+    getNumberOfVendors:async function(req, res, next) {
+        const count=await Vendor.getNumberOfVendors()
+        res.status(200).send({count})
+    },
     
     removeVendor:async function(req, res, next) {
         console.log(req.params.id)
