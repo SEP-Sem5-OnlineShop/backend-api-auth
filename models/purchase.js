@@ -43,10 +43,14 @@ module.exports.addReview = (purchase_id,product_id,review) => {
 }
 
 module.exports.getPurchaseCount = async () => {
-    var myCurrentDate = new Date();
-    var date = myCurrentDate.getFullYear()+'-'+(myCurrentDate.getMonth()+1)+'-'+myCurrentDate.getDate() ;
-    console.log(date)
-    // console.log(Purchase.countDocuments({ 'created_at.substr(0,10)': date }))
-    // return await Purchase.countDocuments({ 'created_at.substr(0,10)': date }).exec();
+    var tomorrow = new Date();
+    var today = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    today.setHours(0,0,0,0);
+    tomorrow.setHours(0,0,0,0);
+    console.log(tomorrow)
+    console.log(today)
+    return await Purchase.countDocuments({ createdAt :  { $gt: today, $lt: tomorrow } }).exec();
+    // console.log(date);
     
 }

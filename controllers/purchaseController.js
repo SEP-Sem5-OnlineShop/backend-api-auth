@@ -14,6 +14,7 @@ const PurchaseController = {
         res.status(200).send(purchase);
     },
     getPurchaseCount:async function(req, res, next) {
+        console.log("Get purchase")
         const count=await Purchase.getPurchaseCount()
         res.status(200).send({count})
     },
