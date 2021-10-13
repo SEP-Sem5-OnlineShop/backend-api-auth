@@ -3,36 +3,36 @@ const User = require("../database/schemas/userSchema")
 const { mongoose } = require("../database/connection")
 
 module.exports.create = async (data) => {
-    let session;
-    // console.log(data)
+    let session
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
-            await User.updateOne({ _id: data.seller },
-                {
-                    $push: {
-                        'vendor.products': {
-                            name: data.name,
-                            price: data.price,
-                            imageUrl: data.image,
-                        }
-                    }
-                })
             const product = new Product({
                 product_name: data.product_name,
-                seller: data.name,
+                seller: data.seller,
                 imageThumbnailUrl: data.imageThumbnailUrl,
                 imageUrl: data.imageUrl,
                 price: data.price,
-                description: data.description,
-                seller: data.seller
+                description: data.description
             })
+            if (product && product._id)
+                await User.updateOne({ _id: data.seller },
+                    {
+                        $push: {
+                            'vendor.products': {
+                                _id: product._id,
+                                name: product.product_name,
+                                price: product.price,
+                                imageUrl: product.imageUrl,
+                            }
+                        }
+                    })
             await product.save()
-            const user = await User.findOne({ _id: data.seller })
-            return user
+            return User.findOne({_id: data.seller});
         })
     }
     catch (e) {
+        console.log(e)
         throw e
     }
     finally {
@@ -42,20 +42,19 @@ module.exports.create = async (data) => {
 
 module.exports.update = async (id, data, vendorId) => {
     let session;
-    console.log(id, data, vendorId)
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
-            const updatedProduct = Product.updateOne({ _id: data._id }, 
-                {$set: data},
+            const updatedProduct = await Product.updateOne({ _id: data._id },
+                { $set: data },
                 { session })
             const updateVendor = await User.updateOne({ _id: vendorId, "vendor.products._id": data._id },
                 {
-                    $set: {...data, name: data.product_name}
+                    $set: { ...data, name: data.product_name }
                 }, { session })
         })
     }
-    catch(e) {
+    catch (e) {
         throw e
     }
     finally {
@@ -88,9 +87,45 @@ module.exports.getMaxProducts = async () => {
 }
 
 
-// update user
+// update product
 
-// delete user
+// delete product
+module.exports.delete = async (id, vendorId) => {
+    let session;
+    let success = false
+    try {
+        session = await mongoose.connection.startSession()
+        await session.withTransaction(async () => {
+            const deletedProduct = await User.updateOne(
+                { _id: vendorId },
+                {
+                        $pull: {
+                            'vendor.products': {
+                                _id: id
+                            }
+                        }
+                    },
+                { session })
+            if(deletedProduct['nModified']) {
+                const updatedProduct = await Product.updateOne({ _id: id },
+                    {
+                        $set: {
+                            status: "notAvailable"
+                        }
+                    }, { session }
+                )
+                if(updatedProduct['nModified'])
+                    success = true
+            }
+            return 'Specified product is not available'
+        })
+        if(success) return 'Product is successfully deleted!'
+        return 'Specified product is not available'
+    }
+    catch (e) {
+        throw e
+    }
+}
 
 
 

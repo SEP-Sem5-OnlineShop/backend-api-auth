@@ -9,7 +9,11 @@ const ProductController = {
                 data: product
             })
         } catch (e) {
-            return res.status(400).send({message: "Something went wrong!"})
+            return res.status(400).send(
+                {
+                    message: "Failed",
+                    data: e.message
+                })
         }
     },
     update: async function(req, res, next) {
@@ -41,6 +45,22 @@ const ProductController = {
     getProduct: async function(req, res, next) {
         const product = await Product.getProduct(req.params.id)
         res.status(200).send({data: product})
+    },
+
+    deleteProduct: async function(req, res, next) {
+        try {
+            const data = await Product.delete(req.params.id, req.userData.userId)
+            return res.status(202).send({
+                message: "Success",
+                data: data
+            })
+        }
+        catch (e) {
+            return  res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
     },
 
     getProducts:async function(req, res, next) {
