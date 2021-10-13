@@ -6,13 +6,14 @@ const mongoose = require("mongoose")
  */
 
 const vehicleSchema = new mongoose.Schema({
-    plateNumber: {type: String},
+    plateNumber: {type: String, unique: true},
     brand: {type: String},
     model: {type: String},
     imageUrl: {type: String},
     documentUrl: {type: String},
     vendorId: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
     vehicleId: { type: mongoose.Schema.Types.ObjectID },
+    status: {type: String, enum: ["available", "notAvailable"], default: "available"}
 })
 
 module.exports = mongoose.model('VehicleSchema', vehicleSchema)
