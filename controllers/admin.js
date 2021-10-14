@@ -11,6 +11,19 @@ const adminController = {
         res.status(200).send({data: Admin})
     },
 
+    updateAdmin:  async function(req, res, next) {
+        try {
+            const result = await admin.updateAdmin(req.body)
+            console.log(result)
+            return res.status(200).send({
+                message: "Successfully updated!"
+            })
+        }
+        catch (e) {
+            return res.status(400).send({ message: "Something went wrong!" })
+        }
+    },
+
     createAdmin:async function(req, res, next) {
         try {
             const adminCreate =await admin.createAdmin(req.body)

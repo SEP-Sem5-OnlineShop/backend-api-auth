@@ -10,6 +10,17 @@ module.exports.getAdmin = (id) => {
     // return Product.find({_id: id})
 }
 
+module.exports.updateAdmin = async (data) => {
+    console.log(data)
+    return Admin.updateOne({email: data.email}, {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        telephone: data.telephone,
+        email: data.email,
+        
+    });
+}
+
 module.exports.createAdmin =async (data) => {
     // const salt = await bcrypt.genSalt(10)
     // const hashPassword = await bcrypt.hash(data.password, salt)
