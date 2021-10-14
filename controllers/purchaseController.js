@@ -1,4 +1,5 @@
 const Purchase = require('../models/purchase');
+const Product = require('../models/product');
 
 const PurchaseController = {
     createPurchase: async function (req, res, next) {
@@ -17,10 +18,11 @@ const PurchaseController = {
         res.status(200).send(purchases);
     },
     addReview: async function(req, res, next) {
-        console.log('review');
-        console.log(req.params);
-        console.log(req.body);
+        // console.log('review');
+        // console.log(req.params);
+        // console.log(req.body);
         const review = await Purchase.addReview(req.params.purchase_id,req.params.product_id,req.body);
+        const product = await Product.addReview(req.params.product_id,req.body);
         res.status(200).send(review);
     },
     payPurchase: async function(req, res, next) {

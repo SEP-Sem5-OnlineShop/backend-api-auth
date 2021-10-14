@@ -143,3 +143,22 @@ module.exports.getVendorProductList = async (id) => {
 module.exports.getVendorSellProductList = async (id) => {
     return Product.find({ seller:id, stock: { $gt: 0 } });
 }
+module.exports.addReview = async (product_id,review) => {
+    const prod = await module.exports.getProduct(product_id);
+    const newNumReviews = prod.numReviews + 1;
+    const newRating = (prod.rating*prod.numReviews + review.rating)/ newNumReviews ;
+    return Product.updateOne(
+        { "_id": product_id},
+        { 
+            "rating": newRating,
+            "numReviews": newNumReviews,
+            "$push": {
+                "reviews": {
+                    "customer" : review.customer_id,
+                    "rating" : review.rating,
+                    "review" : review.review
+                }
+            }
+        }
+    );
+}
