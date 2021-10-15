@@ -22,7 +22,7 @@ const ProductController = {
             })
         }
         catch (e) {
-            return  res.status(400).send({
+            return res.status(400).send({
                 message: "Failed",
                 data: e.message
             })

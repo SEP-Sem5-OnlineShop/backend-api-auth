@@ -34,7 +34,7 @@ module.exports.createSingle = async (data, vendorId) => {
             }
             // otherwise update the existing vehicle status and the vendor id
             // because if the previous vendor is sold the vehicle to a new owner
-            else {
+            else if (wasAVehicle.status === "notAvailable") {
                 const updatedVehicle = await VehicleModel.updateOne(
                     {_id: wasAVehicle._id},
                     {
@@ -51,6 +51,9 @@ module.exports.createSingle = async (data, vendorId) => {
                         return
                     }
                 }
+            else {
+                throw new Error("Vehicle is already registered!")
+            }
 
             if (vehicle._id) {
                 const updatedUser = await User.updateOne(
@@ -86,36 +89,29 @@ module.exports.update = async (id, data, vendorId) => {
         userVendorVehicles[`vendor.vehicles.$.${key}`] = data[key]
     })
     try {
-
-        const wasAVehicle = await VehicleModel.findOne({plateNumber: data.plateNumber})
         session = await mongoose.connection.startSession()
 
-        if(!wasAVehicle) {
-            await session.withTransaction(async () => {
-                const updatedUser = await User.updateOne(
-                    {_id: vendorId, 'vendor.vehicles._id' : id},
+        await session.withTransaction(async () => {
+            const updatedUser = await User.updateOne(
+                {_id: vendorId, 'vendor.vehicles._id' : id},
+                {
+                    $set: userVendorVehicles
+                },
+                {session})
+            console.log(updatedUser)
+            if(updatedUser['nModified']) {
+                const updatedVehicle = await VehicleModel.updateOne(
+                    {_id: id},
                     {
-                        $set: userVendorVehicles
+                        $set: data
                     },
                     {session})
-                console.log(updatedUser)
-                if(updatedUser['nModified']) {
-                    const updatedVehicle = await VehicleModel.updateOne(
-                        {_id: id},
-                        {
-                            $set: data
-                        },
-                        {session})
-                    if(updatedVehicle['nModified']) success = true
-                    else session.abortTransaction()
-                }
-            })
-            if(success) return 'Vehicle details are updated successfully!'
-            return  'Vehicle is not found!'
-        }
-        else {
-            throw new Error('Vehicle is already registered!')
-        }
+                if(updatedVehicle['nModified']) success = true
+                else await session.abortTransaction()
+            }
+        })
+        if(success) return 'Vehicle details are updated successfully!'
+        return  'Vehicle is not found!'
     }
     catch (e) {
         throw e

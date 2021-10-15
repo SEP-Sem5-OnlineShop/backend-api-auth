@@ -21,23 +21,23 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
 
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//         if (['http://localhost:3000', 'https://ontheway-sep.netlify.app'].indexOf(origin) !== -1) {
-//             callback(null, true)
-//         } else {
-//             callback(new Error('Not allowed by CORS'))
-//         }
-//     },
-//     credentials: true
-// }
-//
-// app.use(cors(corsOptions))
-app.use(cors())
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (['http://localhost:3000', 'https://ontheway-sep.netlify.app'].indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true
+}
+
+app.use(cors(corsOptions))
+// app.use(cors())
 
 // socket instance
-// const io = new Server(httpServer, {cors : corsOptions});
-// initializeSocket(io)
+const io = new Server(httpServer, {cors : corsOptions});
+initializeSocket(io)
 
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})

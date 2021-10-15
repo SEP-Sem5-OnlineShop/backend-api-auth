@@ -6,10 +6,10 @@ const mongoose = require("mongoose")
  */
 
 const vehicleSchema = new mongoose.Schema({
-    plateNumber: {type: String, unique: true},
-    brand: {type: String},
-    model: {type: String},
-    imageUrl: {type: String},
+    plateNumber: {type: String, unique: true, required: true},
+    brand: {type: String, required: true},
+    model: {type: String, required: true},
+    imageUrl: {type: String, required: true},
     documentUrl: {type: String},
     vendorId: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
     vehicleId: { type: mongoose.Schema.Types.ObjectID },
