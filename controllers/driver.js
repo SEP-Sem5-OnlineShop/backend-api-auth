@@ -71,7 +71,6 @@ const DriverController = {
     update: async function (req, res, next) {
         try {
             const result = await Driver.updateDriver(req.userData.userId, req.body)
-            console.log(result)
             return res.status(200).send({
                 message: "Success"
             })
@@ -89,7 +88,6 @@ const DriverController = {
     getDrivers: async function (req, res, next) {
         try {
             const result = await Driver.getDriversList(req.userData.userId)
-            console.log(result)
             return res.status(200).send({
                 message: "Success",
                 data: result

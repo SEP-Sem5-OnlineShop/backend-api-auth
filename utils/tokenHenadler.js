@@ -119,7 +119,7 @@ module.exports.removeRefreshToken = (req, res, next) => {
     const token = req.cookies.token
     if(token) {
         const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
-        storedRefreshToken.token = ''
+        if(storedRefreshToken) storedRefreshToken.token = ''
     }
     else return res.status(401).send({message: "Token is invalid!"})
     next()
