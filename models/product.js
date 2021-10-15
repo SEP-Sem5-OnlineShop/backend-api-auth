@@ -42,16 +42,27 @@ module.exports.create = async (data) => {
 
 module.exports.update = async (id, data, vendorId) => {
     let session;
+    const userVendorProducts = {}
+    Object.keys(data).forEach(key => {
+        userVendorProducts[`vendor.products.$.${key}`] = data[key]
+    })
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
-            const updatedProduct = await Product.updateOne({ _id: data._id },
+            const updatedProduct = await Product.updateOne(
+                { _id: data._id },
                 { $set: data },
                 { session })
-            const updateVendor = await User.updateOne({ _id: vendorId, "vendor.products._id": data._id },
-                {
-                    $set: { ...data, name: data.product_name }
-                }, { session })
+            if(updatedProduct['nModified']) {
+                await User.updateOne(
+                    { _id: vendorId, "vendor.products._id": id },
+                    {$set: userVendorProducts},
+                    { session })
+                await session.commitTransaction()
+            }
+            else {
+                await session.abortTransaction()
+            }
         })
     }
     catch (e) {
