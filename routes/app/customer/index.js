@@ -18,6 +18,7 @@ router.get('/customer/purchase/:purchase_id', PurchaseController.getPurchase);
 router.get('/customer/purchases/:customer_id', PurchaseController.getCustomerPurchaseList);
 router.put('/customer/purchases/:purchase_id/product/:product_id', PurchaseController.addReview);
 router.get('/customer/products/sell/:vendor_id', ProductController.getVendorSellProductList);
+router.get('/customer/details/:customer_id', ProductController.getCustomerForProductReview);
 router.post('/customer/notify', PurchaseController.notify);
 
 module.exports = router;

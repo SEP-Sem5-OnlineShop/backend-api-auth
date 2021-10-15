@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const User = require("../models/user")
 
 const ProductController = {
     create: async function (req, res, next) {
@@ -71,6 +72,11 @@ const ProductController = {
             console.log("error error error")
             res.status(401).send(error);
         }
+    },
+    getCustomerForProductReview: async function(req, res, next) {
+        const user = await User.getUserById(req.params.customer_id)
+        let userDetails = {_id:user._id, name:user.firstName+" "+user.lastName};
+        res.status(200).send(userDetails);
     },
     
 
