@@ -12,8 +12,10 @@ const vehicleSchema = new mongoose.Schema({
     imageUrl: {type: String, required: true},
     documentUrl: {type: String},
     vendorId: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
-    vehicleId: { type: mongoose.Schema.Types.ObjectID },
+    driverId: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     status: {type: String, enum: ["available", "notAvailable"], default: "available"}
+},{
+    timestamps: true,
 })
 
 module.exports = mongoose.model('VehicleSchema', vehicleSchema)

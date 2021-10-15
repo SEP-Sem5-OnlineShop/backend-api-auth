@@ -4,10 +4,10 @@ const DailyStock = require("../database/schemas/dailyStockSchema")
 const Product = require("../database/schemas/productSchema")
 
 module.exports.create = async (data) => {
-
+    let session;
     try {
-        const result = new DailyStock(data)
-        await result.save()
+        session = await mongoose.connection.startSession()
+        const result = await DailyStock.create([data], {session})
         return result
     }
     catch (e) {
@@ -24,13 +24,16 @@ module.exports.update = async (vendorId, vehicleId, data) => {
                 )
             })
         }
-        var start = new Date()
+        const start = new Date()
         start.setHours(0, 0, 0, 0)
 
-        var end = new Date()
+        const end = new Date()
         end.setHours(23, 59, 59, 999)
-        const result = await DailyStock.updateOne({ vendorId: vendorId, vehicleId: vehicleId, createdAt: { $gte: start, $lt: end } }, { $set: data }, { upsert: true })
-        return result
+        return await DailyStock.updateOne({
+            vendorId: vendorId,
+            vehicleId: vehicleId,
+            createdAt: {$gte: start, $lt: end}
+        }, {$set: data}, {runValidators: true})
     }
     catch (e) {
         throw e

@@ -16,6 +16,7 @@ const driverSchema = new mongoose.Schema({
     licenseFileUrl: {type: String},
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
+    vehicleId: {type: mongoose.Schema.Types.ObjectID},
     location: locationSchema,
     status: {type: String, enum: ["active, disabled"]}
 })
