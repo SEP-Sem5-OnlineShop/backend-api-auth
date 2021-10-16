@@ -9,8 +9,8 @@ const dailyStock = new mongoose.Schema({
 
 const dailyStockSchema = new mongoose.Schema({
     vendorId: { type: mongoose.Schema.Types.ObjectID, required: true },
-    driverId: { type: mongoose.Schema.Types.ObjectID, required: true },
-    vehicleId: { type: String, required: true },
+    driverId: { type: mongoose.Schema.Types.ObjectID },
+    vehicleId: { type: mongoose.Schema.Types.ObjectID, required: true },
     dailyStock: [dailyStock],
     region: {type: String, required: true}
 },
