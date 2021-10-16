@@ -119,7 +119,6 @@ const DriverController = {
 
     updateImage: async function (req,res,next) {
         try {
-            console.log(req.userData.userId, req.body.imageUrl)
             const result = await Driver.updateImage(req.userData.userId, req.body.imageUrl)
             
             return res.status(200).send({
@@ -130,6 +129,22 @@ const DriverController = {
         catch (e) {
             return res.status(400).send({
                 message: e.message
+            })
+        }
+    },
+
+    removeVehicle: async function (req, res, next) {
+        try {
+            await Driver.removeVehicle(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: "Vehicle removed"
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
             })
         }
     },

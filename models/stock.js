@@ -10,7 +10,6 @@ module.exports.create = async (data) => {
     try {
         await session.withTransaction(async () => {
             const result = await DailyStock.create([data], {session})
-            console.log(result[0])
             if(result[0]._id) {
                 const updatedDriver = await User.updateOne(
                     {_id: data.driverId},
@@ -19,7 +18,17 @@ module.exports.create = async (data) => {
                         }},
                     {session}
                 )
-                console.log(updatedDriver['nModified'])
+
+                await Promise.all(
+                    data.dailyStock.map(async (item) => {
+                        await Product.updateOne(
+                            { _id: item.productId },
+                            { $inc: { stock: item.stock }},
+                            {session}
+                        )
+                    })
+                )
+
                 if(updatedDriver['nModified']) await session.commitTransaction()
                 else await session.abortTransaction()
             }
@@ -49,27 +58,26 @@ module.exports.update = async (data) => {
 
             await DailyStock.findOne(
                 {vehicleId: data.vehicleId, updatedAt: {$gte: start, $lt: end}},
-                'driverId',
+                'driverId dailyStock',
                 async function (err, stock) {
                     if(err) throw err
                     if(stock.driverId !== mongoose.Types.ObjectId(data.driverId)) {
                         await User.updateOne({_id: stock.driverId},
-                            {$unset: {'driver.vehicleId': ""}}, {session})
+                            {$unset: {'driver.vehicleId': ""}})
                         await User.updateOne({_id: data.driverId},
-                            {$set: {'driver.vehicleId': data.vehicleId}}, {session})
+                            {$set: {'driver.vehicleId': data.vehicleId}})
                     }
-                }
-            )
 
-            if (data.dailyStock && data.dailyStock.length) {
-                for (let item of data.dailyStock) {
-                    await Product.updateOne(
-                        { _id: item.productId },
-                        { $set: { stock: item.stock }},
-                        {session}
+                    await Promise.all(
+                        data.dailyStock.map(async (item, index) => {
+                            await Product.updateOne(
+                                {_id: item.productId},
+                                {$inc: {stock: (item.stock - stock.dailyStock[index].stock)}}
+                            )
+                        })
                     )
                 }
-            }
+            )
 
             const updatedStock = await DailyStock.updateOne({
                 vehicleId: data.vehicleId,
