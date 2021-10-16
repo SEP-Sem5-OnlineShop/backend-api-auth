@@ -4,6 +4,6 @@ const StockController = require("../../controllers/stockController")
 
 router.post('/daily-stock', StockController.create)
 router.put('/daily-stock', StockController.update)
-router.get('/daily-stock', StockController.get)
+router.get('/daily-stock/:id', StockController.get)
 
 module.exports = router
