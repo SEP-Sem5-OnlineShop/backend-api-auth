@@ -14,8 +14,31 @@ const PurchaseController = {
         res.status(200).send(purchase);
     },
     getPurchaseCount:async function(req, res, next) {
-        console.log("Get purchase")
         const count=await Purchase.getPurchaseCount()
+        res.status(200).send({count})
+    },
+
+    getLastPurchaseDay1:async function(req, res, next) {
+        const count=await Purchase.getLastPurchaseDay1()
+        res.status(200).send({count})
+    },
+    getLastPurchaseDay2:async function(req, res, next) {
+        const count=await Purchase.getLastPurchaseDay2()
+        res.status(200).send({count})
+    },
+
+    getLastPurchaseDay3:async function(req, res, next) {
+        const count=await Purchase.getLastPurchaseDay3()
+        res.status(200).send({count})
+    },
+
+    getLastPurchaseDay4:async function(req, res, next) {
+        const count=await Purchase.getLastPurchaseDay4()
+        res.status(200).send({count})
+    },
+
+    getLastPurchaseDay5:async function(req, res, next) {
+        const count=await Purchase.getLastPurchaseDay5()
         res.status(200).send({count})
     },
 
