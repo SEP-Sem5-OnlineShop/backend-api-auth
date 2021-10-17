@@ -7,9 +7,14 @@ const connection = require("./database/connection")
 const apiRoutes = require("./routes/auth")
 const appRoutes = require("./routes/app")
 const cookieParser = require("cookie-parser")
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const initializeSocket = require("./socket/index")
 
 const PORT = Number(process.env.PORT) || 8000
-const app = express()
+
+const app = express();
+const httpServer = createServer(app);
 
 // middlewares
 app.use(express.json())
@@ -30,19 +35,12 @@ const corsOptions = {
 app.use(cors(corsOptions))
 // app.use(cors())
 
+// socket instance
+const io = new Server(httpServer, {cors : corsOptions});
+initializeSocket(io)
 
 // connect db
 connection.connect().then(() => {console.log('Connected to the db!')})
-app.get('/', (req, res) => {
-    res.status(200).send({
-        message: process.env.DB_USER
-    })
-})
-app.get('/dashboard', (req, res) => {
-    res.status(200).send({
-        message: "This is dashboard"
-    })
-})
 app.use('/api', [apiRoutes, appRoutes])
 
-app.listen(PORT, () => console.log(`Listening at port ${PORT}`))
+httpServer.listen(PORT, () => console.log(`Listening at port ${PORT}`))

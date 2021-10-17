@@ -16,6 +16,7 @@ const driverSchema = new mongoose.Schema({
     licenseFileUrl: {type: String},
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
+    vehicleId: {type: mongoose.Schema.Types.ObjectID},
     location: locationSchema,
     status: {type: String, enum: ["active, disabled"]}
 })
@@ -65,9 +66,9 @@ const userSchema = new mongoose.Schema({
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
     email: {type: String},
     password: {type: String, required: function(){return this.role === "customer"}},
-    customer: {type: customerSchema, required: this.role === "customer"},
-    driver: {type: driverSchema, required: this.role === "driver"},
-    vendor: {type: vendorSchema, required: this.role === "vendor"},
+    customer: {type: customerSchema, required: function () {return this.role === "customer"}},
+    driver: {type: driverSchema, required: function () {return this.role === "driver"}},
+    vendor: {type: vendorSchema, required: function () {return this.role === "vendor"}},
 })
 
 module.exports = mongoose.model('User', userSchema)

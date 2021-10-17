@@ -13,33 +13,83 @@ const ProductController = {
             return res.status(400).send({message: "Something went wrong!"})
         }
     },
-    update: async function(req, res, next) {
+    createSingle: async function(req, res, next) {
         try {
-            const data = await Vehicle.update(req.params.id, req.body)
+            const vehicle = await Vehicle.createSingle(req.body, req.userData.userId)
+            return res.status(201).send({
+                message: "Success",
+                data: vehicle
+            })
         }
         catch (e) {
-
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
+    },
+    update: async function(req, res, next) {
+        try {
+            const data = await Vehicle.update(req.params.id, req.body, req.userData.userId)
+            return res.status(200).send({
+                message: "Success",
+                data: data
+            })
+        }
+        catch (e) {
+            return  res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
         }
     },
     getList: async function(req, res, next) {
         try {
             const data = await Vehicle.getList(req.userData.userId)
             return res.status(200).send({
+                message: "Success",
                 data: data
             })
         }
         catch (e) {
-            console.log(e)
-            res.status(400).send({
-                message: "Something went wrong!"
+            return  res.status(400).send({
+                message: "Failed",
+                data: e.message
             })
         }
     },
 
     get: async function(req, res, next) {
-        const product = await Vehicle.get(req.params.id)
-        res.status(200).send({data: product})
+        try {
+            const data = await Vehicle.get(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: data
+            })
+        }
+        catch (e) {
+            return  res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
     },
+
+    delete: async function(req, res, next) {
+        try {
+            const data = await Vehicle.delete(req.params.id, req.userData.userId)
+            return res.status(200).send({
+                message: "Success",
+                data: data
+            })
+        }
+        catch (e) {
+            return  res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
+    }
 
     // getProducts:async function(req, res, next) {
     //     // const productList=await Product.getProducts(req.params.id)

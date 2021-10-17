@@ -10,13 +10,9 @@ const tokenHandler = require("../../utils/tokenHenadler")
  * @returns {Promise<*>}
  */
 module.exports = async (req, res) => {
-    console.log('inside the login')
     const telephone = req.body.telephone
-    console.log(telephone)
     const password = req.body.password
-    console.log(password)
     const user = await User.getUserByTelephone(telephone)
-    console.log(user.role)
     let tokens = ''
     if(user.role=='admin') {
         tokens = tokenHandler.issueTokens({

@@ -1,4 +1,5 @@
 const User = require('../database/schemas/userSchema')
+const DailyStock = require('../database/schemas/dailyStockSchema')
 const { mongoose } = require('../database/connection')
 const bcrypt = require('bcrypt');
 const { updateRequest } = require('./vendorRequest');
@@ -69,7 +70,7 @@ module.exports.updateDriver = async (userId, data) => {
                 {
                     $set: obj
                 }, { session })
-            console.log(updateRequest)
+            // console.log(updateRequest)
             return updatedResult
         })
     }
@@ -78,6 +79,41 @@ module.exports.updateDriver = async (userId, data) => {
     }
     finally {
         session.endSession()
+    }
+}
+
+module.exports.removeVehicle = async (vendorId) => {
+    const start = new Date()
+    start.setHours(0, 0, 0, 0)
+
+    const end = new Date()
+    end.setHours(23, 59, 59, 999)
+    let session;
+    try {
+        session = await mongoose.connection.startSession()
+        await session.withTransaction(async () => {
+            const updatedDriver = await User.updateMany(
+                {'driver.vendorId': vendorId},
+                {$unset: {'driver.vehicleId': ""}},
+                {session}
+            )
+            if(updatedDriver['nModified']) {
+                const updatedStock = await DailyStock.updateMany(
+                    {vendorId: vendorId, createdAt: { $gte: start, $lt: end }},
+                    {$unset: {driverId: ""}},
+                    {session}
+                )
+                if(updatedStock['nModified']) await session.commitTransaction()
+                else await session.abortTransaction()
+            }
+            else await session.abortTransaction()
+        })
+    }
+    catch (e) {
+        throw e
+    }
+    finally {
+        await session.endSession()
     }
 }
 

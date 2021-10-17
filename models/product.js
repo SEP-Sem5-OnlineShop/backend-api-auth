@@ -1,34 +1,69 @@
 const Product = require("../database/schemas/productSchema")
 const User = require("../database/schemas/userSchema")
-const {mongoose} = require("../database/connection")
+const { mongoose } = require("../database/connection")
 const Vendor = require('../models/vendor');
 
 module.exports.create = async (data) => {
-    let session;
-    console.log(data)
+    let session
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
-            await User.updateOne({ _id: data.seller },
-            {$push: {
-                'vendor.products': {
-                    name: data.name,
-                    price: data.price,
-                    imageUrl: data.image,
-                }
-            }})
             const product = new Product({
-                product_name: data.name,
-                seller: data.name,
-                imageThumbnailUrl: data.imageThumbnail,
-                imageUrl: data.image,
+                product_name: data.product_name,
+                seller: data.seller,
+                imageThumbnailUrl: data.imageThumbnailUrl,
+                imageUrl: data.imageUrl,
                 price: data.price,
-                description: data.description,
-                seller: data.seller
+                description: data.description
             })
+            if (product && product._id)
+                await User.updateOne({ _id: data.seller },
+                    {
+                        $push: {
+                            'vendor.products': {
+                                _id: product._id,
+                                name: product.product_name,
+                                price: product.price,
+                                imageUrl: product.imageUrl,
+                            }
+                        }
+                    })
             await product.save()
-            const user = await User.findOne({_id: data.seller})
-            return user
+            return User.findOne({_id: data.seller});
+        })
+    }
+    catch (e) {
+        console.log(e)
+        throw e
+    }
+    finally {
+        session.endSession()
+    }
+}
+
+module.exports.update = async (id, data, vendorId) => {
+    let session;
+    const userVendorProducts = {}
+    Object.keys(data).forEach(key => {
+        userVendorProducts[`vendor.products.$.${key}`] = data[key]
+    })
+    try {
+        session = await mongoose.connection.startSession()
+        await session.withTransaction(async () => {
+            const updatedProduct = await Product.updateOne(
+                { _id: data._id },
+                { $set: data },
+                { session })
+            if(updatedProduct['nModified']) {
+                await User.updateOne(
+                    { _id: vendorId, "vendor.products._id": id },
+                    {$set: userVendorProducts},
+                    { session })
+                await session.commitTransaction()
+            }
+            else {
+                await session.abortTransaction()
+            }
         })
     }
     catch (e) {
@@ -39,19 +74,8 @@ module.exports.create = async (data) => {
     }
 }
 
-module.exports.update = (id, data) => {
-    return Product.updateOne({ _id: id }, {
-        product_name: data.name,
-        seller: data.name,
-        imageThumbnailUrl: data.imageThumbnail,
-        imageUrl: data.image,
-        price: data.price,
-        description: data.description
-    })
-}
-
 module.exports.getList = (userId) => {
-    return Product.find({seller: userId})
+    return Product.find({ seller: userId })
 }
 
 // get a product
@@ -75,9 +99,45 @@ module.exports.getMaxProducts = async () => {
 }
 
 
-// update user
+// update product
 
-// delete user
+// delete product
+module.exports.delete = async (id, vendorId) => {
+    let session;
+    let success = false
+    try {
+        session = await mongoose.connection.startSession()
+        await session.withTransaction(async () => {
+            const deletedProduct = await User.updateOne(
+                { _id: vendorId },
+                {
+                        $pull: {
+                            'vendor.products': {
+                                _id: id
+                            }
+                        }
+                    },
+                { session })
+            if(deletedProduct['nModified']) {
+                const updatedProduct = await Product.updateOne({ _id: id },
+                    {
+                        $set: {
+                            status: "notAvailable"
+                        }
+                    }, { session }
+                )
+                if(updatedProduct['nModified'])
+                    success = true
+            }
+            return 'Specified product is not available'
+        })
+        if(success) return 'Product is successfully deleted!'
+        return 'Specified product is not available'
+    }
+    catch (e) {
+        throw e
+    }
+}
 
 
 
