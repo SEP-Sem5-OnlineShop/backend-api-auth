@@ -47,6 +47,13 @@ const PurchaseController = {
         const purchases = await Purchase.getCustomerPurchaseList(req.params.customer_id);
         res.status(200).send(purchases);
     },
+
+    getVendorPurchaseList: async function(req, res, next) {
+        console.log(req.params);
+        const purchases = await Purchase.getVendorPurchaseList(req.params.vendor_id);
+        res.status(200).send(purchases);
+    },
+
     addReview: async function(req, res, next) {
         console.log('review');
         console.log(req.params);

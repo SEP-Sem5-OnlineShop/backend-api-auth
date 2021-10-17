@@ -29,6 +29,11 @@ module.exports.getPurchase = (id) => {
 module.exports.getCustomerPurchaseList = (customer_id) => {
     return Purchase.find({customer_id: customer_id});
 }
+
+module.exports.getVendorPurchaseList = (vendor_id) => {
+  return Purchase.find({vendor_id: vendor_id});
+}
+
 module.exports.addReview = (purchase_id,product_id,review) => {
     return Purchase.findOneAndUpdate(
         { "_id": purchase_id, "products.product_id": product_id },
