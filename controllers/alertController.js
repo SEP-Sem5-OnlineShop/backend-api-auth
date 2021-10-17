@@ -13,13 +13,13 @@ const AlertController = {
     },
     getdetailsAlert: async function(req, res, next) {
         const alert = await Alert.getdetailsAlert(req.params.customer_id,req.params.product_id);
-        console.log(alert);
+        // console.log(alert);
         res.status(200).send(alert);
     },
     getCustomerAlertList: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         const alerts = await Alert.getCustomerAlertList(req.params.customer_id);
-        console.log(alerts);
+        // console.log(alerts);
         res.status(200).send(alerts);
     },
     socket: {

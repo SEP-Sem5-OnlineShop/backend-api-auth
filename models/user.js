@@ -31,8 +31,8 @@ module.exports.getUserByEmail = (email) => {
 
 // get a user by Id
 module.exports.getUserById = (id) => {
-    console.log("id")
-    console.log(id)
+    // console.log("id")
+    // console.log(id)
     return User.findOne({_id: id}).select("-password") 
 }
 // get users

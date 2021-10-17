@@ -8,12 +8,12 @@ const PurchaseController = {
         res.status(200).send(newPurchase._id);
     },
     getPurchase: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         const purchase = await Purchase.getPurchase(req.params.purchase_id);
         res.status(200).send(purchase);
     },
     getCustomerPurchaseList: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         const purchases = await Purchase.getCustomerPurchaseList(req.params.customer_id);
         res.status(200).send(purchases);
     },
@@ -26,9 +26,9 @@ const PurchaseController = {
         res.status(200).send(review);
     },
     payPurchase: async function(req, res, next) {
-        console.log(req.params);
-        console.log('customer_id');
-        console.log(req.body);
+        // console.log(req.params);
+        // console.log('customer_id');
+        // console.log(req.body);
         const purchase = await Purchase.payPurchase(req.params.order_id, req.body.customer_id);
         res.status(200).send(purchase);
     },
