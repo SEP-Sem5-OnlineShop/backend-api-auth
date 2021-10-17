@@ -6,19 +6,6 @@ const main = (io) => {
 
     const sessionStorage = new Map()
 
-    const alertNameSpace = io.of("/alert")
-
-    // if the user is logged into the system create a separate room for the user
-    alertNameSpace.on("connection", (socket) => {
-        socket.on("join", (data) => {
-            socket.join(data.userId)
-        })
-    })
-
-    alertNameSpace.on("connection", (socket) => {
-        alertHandler(alertNameSpace, socket)
-    });
-
     const driverNameSpace = io.of("/driver")
 
     driverNameSpace.use((socket, next) => {
@@ -49,7 +36,11 @@ const main = (io) => {
         socket.emit("driver:session", {
             sessionID: socket.sessionID,
         });
+        socket.on("join", (data) => {
+            socket.join(data.userId)
+        })
         driverHandler(driverNameSpace, socket)
+        alertHandler(driverNameSpace, socket)
     })
 }
 
