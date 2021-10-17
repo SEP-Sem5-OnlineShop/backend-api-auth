@@ -18,7 +18,8 @@ const driverSchema = new mongoose.Schema({
     vendorId: {type: String, required: true},
     vehicleId: {type: mongoose.Schema.Types.ObjectID},
     location: locationSchema,
-    status: {type: String, enum: ["active, disabled"]}
+    status: {type: String, enum: ["active", "disabled"]},
+    loginStatus: {type: String, enum: ["login", "logout"]}
 })
 
 const customerSchema = new mongoose.Schema({
@@ -66,7 +67,8 @@ const userSchema = new mongoose.Schema({
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
     email: {type: String},
     password: {type: String, required: function(){return this.role === "customer"}},
-    customer: {type: customerSchema, required: function () {return this.role === "customer"}},
+    customer: {type: customerSchema, default: {type: "Point", coordinates: [0,0]},
+        required: function () {return this.role === "customer"}},
     driver: {type: driverSchema, required: function () {return this.role === "driver"}},
     vendor: {type: vendorSchema, required: function () {return this.role === "vendor"}},
 })

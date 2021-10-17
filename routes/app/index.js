@@ -19,7 +19,7 @@ router.get('/test', tokenHandler.verifyAccessToken, (req,res) => {
 })
 
 router.use('/app',customerRouter)
-router.use('/app',tokenHandler.verifyAccessToken, [
+router.use('/app', [
     admin,
     vendor,
     product,

@@ -117,6 +117,29 @@ module.exports.removeVehicle = async (vendorId) => {
     }
 }
 
+module.exports.getDriver = async (driverId) => {
+    try {
+        return  await User.findOne(
+            {_id: driverId, 'driver.loginStatus': "login"},
+            {password: 0}
+            )
+    }
+    catch(e) {
+        throw e
+    }
+}
+
+module.exports.getLoggedDriverList = async (vendorId) => {
+    try {
+        return await User.find(
+            {'driver.vendorId': vendorId, 'driver.loginStatus': "login"},
+            {password: 0}
+        )
+    } catch (e) {
+        throw e
+    }
+}
+
 module.exports.getDriversList = async (userId) => {
     try {
         const drivers = await User.find({'driver.vendorId': userId})
@@ -134,6 +157,18 @@ module.exports.updateImage = async (userId, imageUrl) => {
                 'driver.imageUrl': imageUrl
             }
         })
+    }
+    catch (e) {
+        throw e
+    }
+}
+
+module.exports.updateLoginStatus = async (userId, loginStatus) => {
+    try {
+        return await User.updateOne(
+            {_id: userId},
+            {$set: {'driver.loginStatus': loginStatus}},
+            )
     }
     catch (e) {
         throw e
