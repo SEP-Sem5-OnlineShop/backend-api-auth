@@ -1,4 +1,5 @@
 const User = require('../database/schemas/userSchema')
+const Location = require('../database/schemas/locationSchema')
 const DailyStock = require('../database/schemas/dailyStockSchema')
 const { mongoose } = require('../database/connection')
 const bcrypt = require('bcrypt');
@@ -117,10 +118,50 @@ module.exports.removeVehicle = async (vendorId) => {
     }
 }
 
+module.exports.getDriver = async (driverId) => {
+    try {
+        return  await User.findOne(
+            {_id: driverId, 'driver.loginStatus': "login"},
+            {password: 0}
+            )
+    }
+    catch(e) {
+        throw e
+    }
+}
+
+module.exports.getLoggedDriverList = async (vendorId) => {
+    try {
+        return await User.find(
+            {'driver.vendorId': vendorId, 'driver.loginStatus': "login"},
+            {password: 0}
+        )
+    } catch (e) {
+        throw e
+    }
+}
+
+module.exports.getLoggedDriverListNearby = async ({lat, lng}) => {
+    try {
+        return await Location.find(
+            {
+                location: {
+                    $near: {
+                        $geometry: { type: "Point",  coordinates: [ parseFloat(lat), parseFloat(lng) ] },
+                        $maxDistance: 5000
+                    }
+                },
+                loginStatus: "login"
+            }
+        )
+    } catch (e) {
+        throw e
+    }
+}
+
 module.exports.getDriversList = async (userId) => {
     try {
-        const drivers = await User.find({'driver.vendorId': userId})
-        return drivers
+        return await User.find({'driver.vendorId': userId})
     }
     catch(e) {
         throw e
@@ -137,5 +178,33 @@ module.exports.updateImage = async (userId, imageUrl) => {
     }
     catch (e) {
         throw e
+    }
+}
+
+module.exports.updateLoginStatus = async (userId, loginStatus) => {
+    let session;
+    try {
+        session = await mongoose.connection.startSession()
+        await session.withTransaction(async () => {
+            const updatedDriver = await User.updateOne(
+                {_id: userId},
+                {$set: {'driver.loginStatus': loginStatus}},
+            )
+            if(updatedDriver['nModified']) {
+                const updateDocument = await Location.updateOne(
+                    {user_id: userId},
+                    {$set: {loginStatus: loginStatus}}
+                )
+                if(updateDocument['nModified']) return session.commitTransaction();
+                return session.abortTransaction();
+            }
+            return session.abortTransaction()
+        })
+    }
+    catch (e) {
+        throw e
+    }
+    finally {
+        session.endSession()
     }
 }

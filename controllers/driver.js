@@ -83,11 +83,55 @@ const DriverController = {
     },
 
     getDriver: async function (req, res, next) {
+        try {
+            const driver = await Driver.getDriver(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: driver
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
+    },
+
+    getLoggedDriverList: async function (req, res, next) {
+        try {
+            const drivers = await Driver.getLoggedDriverList(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: drivers
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
     },
 
     getDrivers: async function (req, res, next) {
         try {
             const result = await Driver.getDriversList(req.userData.userId)
+            return res.status(200).send({
+                message: "Success",
+                data: result
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
+    getDriversNearby: async function (req, res, next) {
+        try {
+            const result = await Driver.getLoggedDriverListNearby(req.query)
             return res.status(200).send({
                 message: "Success",
                 data: result
