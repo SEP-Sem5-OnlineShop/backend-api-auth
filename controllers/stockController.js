@@ -47,6 +47,24 @@ const StockController = {
                 data: "Check your internet connection!"
             })
         }
+    },
+    getByDriverId: async (req, res, next) => {
+        try {
+            console.log("test")
+            console.log(req.params.id)
+            const stock = await Stock.getByDriverId(req.params.id)
+            console.log(stock)
+            return res.status(200).send({
+                message: "Success",
+                data: stock
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: "Check your internet connection!"
+            })
+        }
     }
 }
 
