@@ -129,6 +129,21 @@ const DriverController = {
         }
     },
 
+    getDriversNearby: async function (req, res, next) {
+        try {
+            const result = await Driver.getLoggedDriverListNearby(req.query)
+            return res.status(200).send({
+                message: "Success",
+                data: result
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
     getImage: async function (req, res, next) {
         try {
             const result = await User.getUserByEmail(req.userData.email)

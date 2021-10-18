@@ -4,10 +4,6 @@ const mongoose = require("mongoose")
  * Defining the schemas for User model in the database
  * @type {module:mongoose.Schema<Document, Model<any, any, any>, undefined, ExtractMethods<Model<any, any, any>>>}
  */
-const locationSchema = new mongoose.Schema({
-    type: {type: String, required: true, default: "Point"},
-    coordinates: {type: Array, required: true,}
-})
 
 const vehicleSchema = require("./vehicleSchema")
 
@@ -17,13 +13,8 @@ const driverSchema = new mongoose.Schema({
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
     vehicleId: {type: mongoose.Schema.Types.ObjectID},
-    location: locationSchema,
     status: {type: String, enum: ["active", "disabled"]},
     loginStatus: {type: String, enum: ["login", "logout"]}
-})
-
-const customerSchema = new mongoose.Schema({
-    location: locationSchema,
 })
 
 // Schemas specifically needed for vendor
@@ -43,7 +34,6 @@ const vendorDriverSchema = new mongoose.Schema({
 })
 const vendorSchema = new mongoose.Schema({
     imageUrl: {type: String, required: true},
-    location: locationSchema,
     address: {type: String,  required: true},
     regionToBeCovered: {type: String, required: true},
     nic: {type: String, required: true},
@@ -67,10 +57,12 @@ const userSchema = new mongoose.Schema({
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
     email: {type: String},
     password: {type: String, required: function(){return this.role === "customer"}},
-    customer: {type: customerSchema, default: {type: "Point", coordinates: [0,0]},
-        required: function () {return this.role === "customer"}},
     driver: {type: driverSchema, required: function () {return this.role === "driver"}},
     vendor: {type: vendorSchema, required: function () {return this.role === "vendor"}},
+    location: {
+        type: {type: String, default: "Point", required: true, enum: ["Point"]},
+        coordinates: {type: [Number], default: [0,0], required: true },
+    }
 })
-
+userSchema.index({location: '2dsphere'})
 module.exports = mongoose.model('User', userSchema)
