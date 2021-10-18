@@ -1,6 +1,7 @@
 const User = require('../database/schemas/userSchema')
 const Location = require('../database/schemas/locationSchema')
 const DailyStock = require('../database/schemas/dailyStockSchema')
+const Alert = require('../database/schemas/alertSchema')
 const { mongoose } = require('../database/connection')
 const bcrypt = require('bcrypt');
 const { updateRequest } = require('./vendorRequest');
@@ -157,6 +158,52 @@ module.exports.getLoggedDriverListNearby = async ({lat, lng}) => {
     } catch (e) {
         throw e
     }
+}
+
+module.exports.getRelevantDriver = async (productId, vendorId, customerId, alertId) => {
+    const start = new Date()
+    start.setHours(0, 0, 0, 0)
+
+    const end = new Date()
+    end.setHours(23, 59, 59, 999)
+    const customerCoordinates = await Location.findOne(
+        {user_id: customerId},
+        'location.coordinates'
+    )
+    const latLng = customerCoordinates.location.coordinates
+    const dailyStockDrivers = await DailyStock.find(
+        {
+            vendorId: vendorId,
+            createdAt: { $gte: start, $lt: end }
+        }, 'driverId'
+    )
+    const drivers = await Location.find(
+        {
+            loginStatus: "login",
+            role: "driver",
+            location: {
+                $near: {
+                    $geometry: { type: "Point",  coordinates: [ parseFloat(latLng[0]), parseFloat(latLng[1]) ] },
+                }
+            },
+        },
+        'user_id'
+    )
+    let roomId = ""
+    dailyStockDrivers.forEach(dailyDriver => {
+        drivers.forEach(driver => {
+            if(dailyDriver.driverId.toString() === driver.user_id.toString()) {
+                roomId = driver.user_id
+            }
+        })
+    })
+    if(roomId) {
+        await Alert.updateOne(
+            {_id: alertId},
+            {$set: {driver_id: roomId}}
+        )
+    }
+    return roomId.toString()
 }
 
 module.exports.getDriversList = async (userId) => {

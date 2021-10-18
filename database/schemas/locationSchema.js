@@ -6,7 +6,8 @@ const locationSchema = new mongoose.Schema({
         type: {type: String, required: true, default: "Point"},
         coordinates: {type: [Number], required: true },
     },
-    loginStatus: {type: String, required: true, enum: ["login", "logout"], default: "logout"}
+    loginStatus: {type: String, required: true, enum: ["login", "logout"], default: "logout"},
+    role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]}
 })
 locationSchema.index({location: '2dsphere'})
 module.exports = mongoose.model('Location', locationSchema)

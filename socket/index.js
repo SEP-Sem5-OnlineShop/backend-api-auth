@@ -12,7 +12,7 @@ const main = (io) => {
         const sessionID = socket.handshake.auth.sessionID;
         if (sessionID) {
             // find existing session
-            const session = sessionStorage.get("sessionID");
+            const session = sessionStorage.get(sessionID);
             if (session) {
                 socket.sessionID = sessionID;
                 socket.userID = session.userID;
@@ -28,7 +28,7 @@ const main = (io) => {
         socket.sessionID = uuidv4();
         socket.userID = socket.handshake.auth.userID;
         socket.username = username;
-        sessionStorage.set("sessionID", socket)
+        sessionStorage.set(`${socket.sessionID}`, socket)
         next();
     });
 

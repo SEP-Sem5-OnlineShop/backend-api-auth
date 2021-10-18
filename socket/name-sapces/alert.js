@@ -1,14 +1,18 @@
-const alertController = require("../../controllers/alertController")
-
+const Driver = require("../../models/driver")
 module.exports = (io, socket) => {
 
-    const createAlert = (payload) => {
-        console.log(payload)
-        socket.to(payload.room).emit("alert:set", payload.payload)
+    const createAlert = async (payload) => {
+        const driverId = await Driver.getRelevantDriver(
+            payload.payload.productId,
+            payload.payload.vendor_id,
+            payload.payload.customer._id,
+            payload.payload.alertId
+        )
+        console.log(driverId)
+        socket.to(driverId).emit("alert:set", payload.payload)
     }
     const removeAlert = (payload) => {
-        console.log(payload)
-        socket.to(payload.room).emit("alert:unset", payload.payload)
+        socket.to(payload.payload.driver_id).emit("alert:unset", payload.payload)
     }
 
     // const readAlert = (orderId, callback) => {

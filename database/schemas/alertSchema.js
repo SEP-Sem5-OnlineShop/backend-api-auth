@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 const alertSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
     product_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Product', required: true },
+    driver_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
 },
 {
     timestamps: true,

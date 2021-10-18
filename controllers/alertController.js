@@ -17,10 +17,23 @@ const AlertController = {
         res.status(200).send(alert);
     },
     getCustomerAlertList: async function(req, res, next) {
-        console.log(req.params);
         const alerts = await Alert.getCustomerAlertList(req.params.customer_id);
-        console.log(alerts);
         res.status(200).send(alerts);
+    },
+    getDriverAlerts: async function(req, res, next) {
+        try {
+            const alerts = await Alert.getDriverAlertList(req.params.driver_id);
+            res.status(200).send({
+                message: "Success",
+                data: alerts
+            })
+        }
+        catch (e) {
+            res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
     },
     socket: {
         setAlert: (payload) => {
