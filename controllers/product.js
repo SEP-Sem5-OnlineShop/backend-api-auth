@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const User = require("../models/user")
 
 const ProductController = {
     create: async function (req, res, next) {
@@ -75,25 +76,30 @@ const ProductController = {
     },
     
     getVendorProductList: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         try{
             const products = await Product.getVendorProductList(req.params.vendor_id);
             res.status(200).send(products);
         } catch (error) {
-            console.log("error error error")
+            // console.log("error error error")
             res.status(401).send(error);
         }
     },
     getVendorSellProductList: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         try{
-            console.log(req.params);
+            // console.log(req.params);
             const products = await Product.getVendorSellProductList(req.params.vendor_id);
             res.status(200).send(products);
         } catch (error) {
-            console.log("error error error")
+            // console.log("error error error")
             res.status(401).send(error);
         }
+    },
+    getCustomerForProductReview: async function(req, res, next) {
+        const user = await User.getUserById(req.params.customer_id)
+        let userDetails = {_id:user._id, name:user.firstName+" "+user.lastName};
+        res.status(200).send(userDetails);
     },
     
 

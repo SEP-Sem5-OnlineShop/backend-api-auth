@@ -49,3 +49,17 @@ module.exports.removeVendor = async (id) => {
     return  new Vendor(data);
 }
 
+module.exports.addRating = async (vendor_id,rating) => {
+    const user = await module.exports.getVendor(vendor_id);
+    const newNumReviews = user.vendor.numReviews + 1;
+    const newRating = (user.vendor.rating*user.vendor.numReviews + rating)/ newNumReviews ;
+    return Vendor.findOneAndUpdate(
+        { _id: vendor_id},
+        { vendor:{
+            rating: newRating,
+            numReviews: newNumReviews
+            }
+        },
+        {useFindAndModify: false},
+    );
+}

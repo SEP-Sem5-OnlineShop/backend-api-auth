@@ -28,6 +28,13 @@ module.exports.getUserByTelephone = (telephone) => {
 module.exports.getUserByEmail = (email) => {
     return User.findOne({ email: email })
 }
+
+// get a user by Id
+module.exports.getUserById = (id) => {
+    // console.log("id")
+    // console.log(id)
+    return User.findOne({_id: id}).select("-password") 
+}
 // get users
 
 // update user

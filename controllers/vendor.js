@@ -84,7 +84,7 @@ const VendorController = {
             vendor_description: vUser.vendor.vendor_description || "Healthy eating means eating a variety of foods that give you the nutrients you need to maintain your health, feel good, and have energy.",
             imageUrl: vUser.vendor.imageUrl || "5368f9d8-672a-4090-9be3-b7a95076bd43.jfif",
             rating: vUser.vendor.rating || 0,
-            ratingCount: vUser.vendor.ratingCount || 0,
+            ratingCount: vUser.vendor.numReviews || 0,
         };
         res.status(200).send(vendor);
     },
@@ -96,9 +96,3 @@ const VendorController = {
 
 }
 module.exports = VendorController
-
-
-
-
-
-
