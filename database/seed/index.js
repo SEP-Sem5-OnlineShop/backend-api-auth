@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const connection_url = `mongodb+srv://admin:SPHS41nip3XYHyFB@cluster0.469sv.mongodb.net/online_shop_db?retryWrites=true&w=majority`
-
+const Location = require("../schemas/locationSchema")
 /**
  * Connect backend api to the database
  * @returns {Promise<void>}
@@ -24,10 +24,15 @@ const seeds = [...locations]
 
 let done = 0
 
-seeds.forEach(item => {
-    item.save((error, result) => {
-        done++
-        console.log(error)
-        if(done === seeds.length) mongoose.disconnect().then(r => {console.log("disconnected")})
-    })
-})
+// seeds.forEach(item => {
+//     item.save((error, result) => {
+//         done++
+//         console.log(error)
+//         if(done === seeds.length) mongoose.disconnect().then(r => {console.log("disconnected")})
+//     })
+// })
+Location.updateOne(
+    {user_id: mongoose.Types.ObjectId("613eba8b94acbe3710fed690")},
+    {$set: {'location.coordinates': [6.732, 81.135]}}
+).then(() => {console.log("Success")})
+

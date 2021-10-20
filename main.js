@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser")
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const initializeSocket = require("./socket/index")
+const locationChangeStream = require("./database/change-streams/location")
 
 const PORT = Number(process.env.PORT) || 8000
 
@@ -40,7 +41,13 @@ const io = new Server(httpServer, {cors : corsOptions});
 initializeSocket(io)
 
 // connect db
-connection.connect().then(() => {console.log('Connected to the db!')})
+connection.connect().then(() => {
+    console.log('Connected to the db!')
+})
 app.use('/api', [apiRoutes, appRoutes])
+
+locationChangeStream.on('change', change => {
+    console.log(change)
+})
 
 httpServer.listen(PORT, () => console.log(`Listening at port ${PORT}`))
