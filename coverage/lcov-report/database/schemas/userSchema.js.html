@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,22 +123,8 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,6 +132,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,6 +159,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,35 +183,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require("mongoose")
 &nbsp;
 /**
  * Defining the schemas for User model in the database
  * @type {module:mongoose.Schema&lt;Document, Model&lt;any, any, any&gt;, undefined, ExtractMethods&lt;Model&lt;any, any, any&gt;&gt;&gt;}
  */
-const locationSchema = new mongoose.Schema({
-    type: {type: String, required: true, default: "Point"},
-    coordinates: {type: Array, required: true,}
-})
 &nbsp;
 const vehicleSchema = require("./vehicleSchema")
 &nbsp;
 const driverSchema = new mongoose.Schema({
     licenseNumber: {type: String, required: true, unique: true},
-    licenseFileUrl: {type: String, required: true},
+    licenseFileUrl: {type: String},
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
-    location: locationSchema,
-    status: {type: String, enum: ["active, disabled"]}
-})
-&nbsp;
-const customerSchema = new mongoose.Schema({
-    location: locationSchema,
+    vehicleId: {type: mongoose.Schema.Types.ObjectID},
+    status: {type: String, enum: ["active", "disabled"]},
+    loginStatus: {type: String, enum: ["login", "logout"]}
 })
 &nbsp;
 // Schemas specifically needed for vendor
@@ -228,16 +223,21 @@ const vendorDriverSchema = new mongoose.Schema({
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
     email: {type: String, required: true},
     licenseNumber: {type: String, required: true, unique: true},
-    licenseFileUrl: {type: String, required: true},
+    licenseFileUrl: {type: String},
 })
 const vendorSchema = new mongoose.Schema({
-    location: locationSchema,
+    imageUrl: {type: String, required: true},
+    address: {type: String,  required: true},
+    regionToBeCovered: {type: String, required: true},
+    nic: {type: String, required: true},
     products: [productSchema],
+    rating: {type: Number, default: 0},
+    numReviews: {type: Number, default: 0},
     drivers: [vendorDriverSchema],
-    vehicles: vehicleSchema,
+    vehicles: [vehicleSchema],
     shopName: {type: String, required: true},
     permitNumber: {type: String, required: true},
-    permitFileUrl: {type: String, required: true},
+    permitFileUrl: {type: String},
     description: {type: String},
     status: {type: String, enum: ["pending, accepted, rejected, detailsRequested"]}
 })
@@ -250,11 +250,14 @@ const userSchema = new mongoose.Schema({
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
     email: {type: String},
     password: {type: String, required: <span class="fstat-no" title="function not covered" >fu</span>nction(){<span class="cstat-no" title="statement not covered" >return this.role === "customer"}</span>},
-    customer: {type: customerSchema, required: this.role === "customer"},
-    driver: {type: driverSchema, required: this.role === "driver"},
-    vendor: {type: vendorSchema, required: this.role === "vendor"},
+    driver: {type: driverSchema, required: <span class="fstat-no" title="function not covered" >fu</span>nction () {<span class="cstat-no" title="statement not covered" >return this.role === "driver"}</span>},
+    vendor: {type: vendorSchema, required: <span class="fstat-no" title="function not covered" >fu</span>nction () {<span class="cstat-no" title="statement not covered" >return this.role === "vendor"}</span>},
+    location: {
+        type: {type: String, default: "Point", required: true, enum: ["Point"]},
+        coordinates: {type: [Number], default: [0,0], required: true },
+    }
 })
-&nbsp;
+userSchema.index({location: '2dsphere'})
 module.exports = mongoose.model('User', userSchema)</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -262,7 +265,7 @@ module.exports = mongoose.model('User', userSchema)</pre></td></tr></table></pre
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 29 2021 10:53:48 GMT+0530 (India Standard Time)
+                at Thu Oct 21 2021 08:59:16 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

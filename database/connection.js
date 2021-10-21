@@ -15,10 +15,14 @@ const connection_url = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.469sv.m
  * @returns {Promise<void>}
  */
 exports.connect = async function () {
-    return await mongoose.connect(connection_url, {
+    return mongoose.connect(connection_url, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
-    })
+    }, (error => {
+    }));
+}
+exports.disconnect = async function () {
+    await mongoose.connection.close(true);
 }
 exports.mongoose = mongoose
