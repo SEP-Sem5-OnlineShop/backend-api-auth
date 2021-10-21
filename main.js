@@ -1,25 +1,15 @@
 // read variables in .env
 require("dotenv").config()
 
-const express = require("express")
-const cors = require("cors")
 const connection = require("./database/connection")
-const apiRoutes = require("./routes/auth")
-const appRoutes = require("./routes/app")
-const cookieParser = require("cookie-parser")
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const initializeSocket = require("./socket/index")
+const app = require('./app')
 
 const PORT = Number(process.env.PORT) || 8000
 
-const app = express();
 const httpServer = createServer(app);
-
-// middlewares
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(cookieParser())
 
 const corsOptions = {
     origin: function (origin, callback) {
@@ -31,16 +21,11 @@ const corsOptions = {
     },
     credentials: true
 }
-
-app.use(cors(corsOptions))
-// app.use(cors())
+// connect db
+connection.connect().then(() => {console.log('Connected to the db!')})
 
 // socket instance
 const io = new Server(httpServer, {cors : corsOptions});
 initializeSocket(io)
-
-// connect db
-connection.connect().then(() => {console.log('Connected to the db!')})
-app.use('/api', [apiRoutes, appRoutes])
 
 httpServer.listen(PORT, () => console.log(`Listening at port ${PORT}`))
