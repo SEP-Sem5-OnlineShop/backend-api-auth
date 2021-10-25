@@ -8,7 +8,7 @@ const {
     updatePassword
 } = require('../../../models/user');
 
-describe('vendor actions', () => {
+describe('user', () => {
     // describe('createUser', () => {
     //     it ('should return created user', async () => {
     //         mockingoose(UserSchema).toReturn(
