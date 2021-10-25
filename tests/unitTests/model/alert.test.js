@@ -11,7 +11,7 @@ const {
 describe('alert', () => {
 
     describe('setAlert', () => {
-        it ('should return relevant user', async () => {
+        it ('should create alert', async () => {
             mockingoose(AlertSchema).toReturn(
                 {
                 user_id: '614f6ab86728ee0a9450195c',
@@ -25,7 +25,7 @@ describe('alert', () => {
     });
 
     describe('removeAlert', () => {
-        it ('should return relevant user', async () => {
+        it ('should remove relevant alert', async () => {
             mockingoose(AlertSchema).toReturn(
                 {
                 _id: '6176bb506790883b30293be2',
@@ -40,7 +40,7 @@ describe('alert', () => {
     });
     
     describe('getdetailsAlert', () => {
-        it ('should return relevant user', async () => {
+        it ('should return relevant alert', async () => {
             mockingoose(AlertSchema).toReturn(
                 {
                 _id: '6176bb506790883b30293be2',
@@ -55,7 +55,7 @@ describe('alert', () => {
     });
     
     describe('getCustomerAlertList', () => {
-        it ('should return relevant user', async () => {
+        it ('should return relevant alert list', async () => {
             mockingoose(AlertSchema).toReturn([
                 {
                 _id: '6176bb506790883b30293be2',

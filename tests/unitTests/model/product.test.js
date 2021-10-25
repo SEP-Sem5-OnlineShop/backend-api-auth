@@ -243,4 +243,28 @@ describe('product', () => {
             expect(results[0].product_name).toBe('Burger with Fries1');
           });
         });
+      
+        // describe('addReview', () => {
+        // it ('should return the list of products with given seller id and stock gt 0', async () => {
+        //     mockingoose(productSchema).toReturn(
+        //       {
+        //           _id: '6152e3cca58556299c756046',
+        //           discount: '0',
+        //           stock: '10',
+        //           rating:'4.8',
+        //           numReviews: '2',
+        //           product_name: 'Burger with Fries1',
+        //           seller:'613eb365af0d5b2c142fa366',
+        //           imageThumbnailUrl: '/img/item1.png',
+        //           description: 'product description',
+        //           price:'100',
+        //           status:'available',
+        //           created_at:'2021-09-22T10:55:31.953+00:00',
+        //           updated_at:'2021-09-26T18:02:13.379+00:00',
+
+        //         }, 'find');
+        //     const results = await addReview('6152e3cca58556299c756046',{customer_id:'613eb365af0d5b2c142fa366',rating:3,review:'good'});
+        //     expect(results.product_name).toBe('Burger with Fries1');
+        //   });
+        // });
   });

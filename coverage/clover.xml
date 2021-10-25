@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1635173264367" clover="3.2.0">
-  <project timestamp="1635173264367" name="All files">
-    <metrics statements="1057" coveredstatements="430" conditionals="186" coveredconditionals="10" methods="181" coveredmethods="25" elements="1424" coveredelements="465" complexity="0" loc="1057" ncloc="1057" packages="14" files="50" classes="50"/>
+<coverage generated="1635175969750" clover="3.2.0">
+  <project timestamp="1635175969751" name="All files">
+    <metrics statements="1057" coveredstatements="435" conditionals="186" coveredconditionals="10" methods="181" coveredmethods="28" elements="1424" coveredelements="473" complexity="0" loc="1057" ncloc="1057" packages="14" files="50" classes="50"/>
     <package name="backend-api-auth">
       <metrics statements="18" coveredstatements="14" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="app.js" path="C:\Users\Danuka\Documents\SEM5 - SE Project\backend-api-auth\app.js">
@@ -496,7 +496,7 @@
       </file>
     </package>
     <package name="backend-api-auth.models">
-      <metrics statements="381" coveredstatements="114" conditionals="68" coveredconditionals="0" methods="86" coveredmethods="18"/>
+      <metrics statements="381" coveredstatements="119" conditionals="68" coveredconditionals="0" methods="86" coveredmethods="21"/>
       <file name="admin.js" path="C:\Users\Danuka\Documents\SEM5 - SE Project\backend-api-auth\models\admin.js">
         <metrics statements="13" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
@@ -762,13 +762,13 @@
         <line num="121" count="0" type="stmt"/>
       </file>
       <file name="user.js" path="C:\Users\Danuka\Documents\SEM5 - SE Project\backend-api-auth\models\user.js">
-        <metrics statements="18" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="4"/>
+        <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
         <line num="28" count="2" type="stmt"/>
@@ -778,9 +778,9 @@
         <line num="41" count="2" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
         <line num="52" count="2" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
         <line num="57" count="2" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
       </file>
       <file name="vehicle.js" path="C:\Users\Danuka\Documents\SEM5 - SE Project\backend-api-auth\models\vehicle.js">
         <metrics statements="70" coveredstatements="9" conditionals="26" coveredconditionals="0" methods="11" coveredmethods="0"/>
