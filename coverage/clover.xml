@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1635167267518" clover="3.2.0">
-  <project timestamp="1635167267518" name="All files">
+<coverage generated="1635167402238" clover="3.2.0">
+  <project timestamp="1635167402238" name="All files">
     <metrics statements="1063" coveredstatements="421" conditionals="186" coveredconditionals="10" methods="182" coveredmethods="15" elements="1431" coveredelements="446" complexity="0" loc="1063" ncloc="1063" packages="14" files="50" classes="50"/>
     <package name="backend-api-auth">
       <metrics statements="18" coveredstatements="14" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
