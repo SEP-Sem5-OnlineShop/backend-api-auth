@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.18% </span>
+                <span class="strong">28.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/64</span>
+                <span class='fraction'>18/64</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.25% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.07% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.76% </span>
+                <span class="strong">30.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/59</span>
+                <span class='fraction'>18/59</span>
             </div>
         
             
@@ -223,7 +223,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,22 +238,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,9 +261,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -371,8 +371,8 @@ const refreshTokenStore = []
  * @param payload
  * @returns {*}
  */
-const issueNewAccessToken = (payload) =&gt; {
-    return jwt.sign(
+const issueNewAccessToken = <span class="fstat-no" title="function not covered" >(p</span>ayload) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return jwt.sign(</span>
         payload,
         process.env.JWT_SECRET_ACCESS,
         {expiresIn: process.env.JWT_EXP_TIME_ACCESS}
@@ -386,33 +386,33 @@ module.exports.issueNewAccessToken = issueNewAccessToken
  * @param payload
  * @returns {*}
  */
-const issueNewRefreshToken = (payload) =&gt; {
-    const refreshToken = jwt.sign(
+const issueNewRefreshToken = <span class="fstat-no" title="function not covered" >(p</span>ayload) =&gt; {
+    const refreshToken = <span class="cstat-no" title="statement not covered" >jwt.sign(</span>
         payload,
         process.env.JWT_SECRET_REFRESH,
         {expiresIn: process.env.JWT_EXP_TIME_REFRESH}
     )
 &nbsp;
-    const storedRefreshToken = refreshTokenStore.find(<span class="fstat-no" title="function not covered" >it</span>em =&gt; <span class="cstat-no" title="statement not covered" >item.telephone === payload.telephone)</span>
+    const storedRefreshToken = <span class="cstat-no" title="statement not covered" >refreshTokenStore.find(<span class="fstat-no" title="function not covered" >it</span>em =&gt; <span class="cstat-no" title="statement not covered" >item.telephone === payload.telephone)</span></span>
     // if token is not in the store for that telephone number, add it to the store
-    <span class="missing-if-branch" title="else path not taken" >E</span>if(!storedRefreshToken)
-        refreshTokenStore.push({
+<span class="cstat-no" title="statement not covered" >    if(!storedRefreshToken)</span>
+<span class="cstat-no" title="statement not covered" >        refreshTokenStore.push({</span>
             telephone: payload.telephone,
             token: refreshToken
         })
     // if the token is already in the store for that telephone, just update it
     else <span class="cstat-no" title="statement not covered" >storedRefreshToken.token = refreshToken</span>
-    return refreshToken
+<span class="cstat-no" title="statement not covered" >    return refreshToken</span>
 }
 module.exports.issueNewRefreshToken = issueNewRefreshToken
 /**
  * Returns a object with both refresh and access tokens
  * @param payload
  */
-module.exports.issueTokens = (payload) =&gt; {
-    const accessToken = issueNewAccessToken(payload)
-    const refreshToken = issueNewRefreshToken(payload)
-    return {
+module.exports.issueTokens = <span class="fstat-no" title="function not covered" >(p</span>ayload) =&gt; {
+    const accessToken = <span class="cstat-no" title="statement not covered" >issueNewAccessToken(payload)</span>
+    const refreshToken = <span class="cstat-no" title="statement not covered" >issueNewRefreshToken(payload)</span>
+<span class="cstat-no" title="statement not covered" >    return {</span>
         accessToken: accessToken,
         refreshToken: refreshToken
     }
@@ -511,7 +511,7 @@ module.exports.verifyResetPasswordToken = <span class="fstat-no" title="function
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Oct 21 2021 09:40:05 GMT+0530 (India Standard Time)
+                at Mon Oct 25 2021 19:30:06 GMT+0530 (India Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
