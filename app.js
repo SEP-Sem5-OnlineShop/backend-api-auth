@@ -23,12 +23,9 @@ const corsOptions = {
     credentials: true
 }
 
-app.use(cors())
-// app.use(cors(corsOptions))
+// app.use(cors())
+app.use(cors(corsOptions))
 
 app.use('/api', [apiRoutes, appRoutes])
-app.get('/home', function (req,res,next) {
-    return res.status(200).send({})
-})
 
 module.exports = app

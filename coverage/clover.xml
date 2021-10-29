@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1634789405708" clover="3.2.0">
-  <project timestamp="1634789405708" name="All files">
-    <metrics statements="1063" coveredstatements="418" conditionals="186" coveredconditionals="10" methods="182" coveredmethods="12" elements="1431" coveredelements="440" complexity="0" loc="1063" ncloc="1063" packages="14" files="50" classes="50"/>
+<coverage generated="1635172626443" clover="3.2.0">
+  <project timestamp="1635172626443" name="All files">
+    <metrics statements="1057" coveredstatements="416" conditionals="184" coveredconditionals="10" methods="180" coveredmethods="12" elements="1421" coveredelements="438" complexity="0" loc="1057" ncloc="1057" packages="14" files="50" classes="50"/>
     <package name="backend-api-auth">
-      <metrics statements="18" coveredstatements="14" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="C:\projects\OnTheWay-SEP\backend-api-auth\app.js">
-        <metrics statements="18" coveredstatements="14" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -15,15 +15,9 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
       </file>
     </package>
     <package name="backend-api-auth.controllers">
