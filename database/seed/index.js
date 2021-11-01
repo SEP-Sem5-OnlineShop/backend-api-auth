@@ -36,6 +36,6 @@ const Location = require("../schemas/locationSchema")
 Location.updateOne({_id: mongoose.Types.ObjectId("616cef771155e01cacc23b9e"),
 }, {
     $set: {
-        'location.coordinates': [6.745, 81.866]
+        'location.coordinates': [6.745, 81.8559]
     }
 }).then(() => {console.log("updated")})

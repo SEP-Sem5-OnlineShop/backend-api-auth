@@ -2,28 +2,28 @@ const alertHandler = require("./name-sapces/alert")
 const driverHandler = require("./name-sapces/driver")
 const mapHandler = require("./name-sapces/map")
 
+const InMemorySessionStore = require("./sessionStore")
+
 const initializeChangeStreams = require("../database/changeStreams")
 const { v4: uuidv4 } = require("uuid")
 
 const main = (io) => {
 
-    const sessionStorage = new Map()
+    const sessionStore = new InMemorySessionStore()
 
     const driverNameSpace = io.of("/driver")
     const mapNameSpace = io.of("/map")
 
     driverNameSpace.use((socket, next) => {
         const sessionID = socket.handshake.auth.sessionID;
-        console.log(sessionID, "outside if statement")
         if (sessionID) {
             // find existing session
-            const session = sessionStorage.get(sessionID);
-            console.log(session, "test")
+            const session = sessionStore.findSession(sessionID)
+            console.log(session)
             if (session) {
                 socket.sessionID = sessionID;
                 socket.userID = session.userID;
                 socket.username = session.username;
-                console.log(sessionID, session.userID, "inside if statement")
                 return next();
             }
         }
@@ -35,11 +35,22 @@ const main = (io) => {
         socket.sessionID = uuidv4();
         socket.userID = socket.handshake.auth.userID;
         socket.username = username;
-        sessionStorage.set([socket.sessionID], socket)
         next();
     });
 
     driverNameSpace.on("connection", socket => {
+        socket.on("disconnect", async () => {
+            const matchingSockets = await driverNameSpace.in(socket.userID).allSockets()
+            const isDisconnected = matchingSockets.size === 0
+            if (isDisconnected) {
+                // update the connection status of the session
+                sessionStore.saveSession(socket.sessionID, {
+                    userID: socket.userID,
+                    username: socket.username,
+                    connected: false,
+                });
+            }
+        })
         socket.emit("driver:session", {
             sessionID: socket.sessionID,
         });
