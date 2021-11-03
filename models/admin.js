@@ -1,4 +1,5 @@
 const Admin = require("../database/schemas/userSchema")
+const User = require('../database/schemas/userSchema')
 const bcrypt = require("bcrypt")
 // get a vendor
 module.exports.getAdmin = (id) => {
@@ -7,6 +8,17 @@ module.exports.getAdmin = (id) => {
     const ad=Admin.findOne({_id: id}).select('-password')
     return ad
     // return Product.find({_id: id})
+}
+
+module.exports.updateAdmin = async (data) => {
+    console.log(data)
+    return Admin.updateOne({email: data.email}, {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        telephone: data.telephone,
+        email: data.email,
+        
+    });
 }
 
 module.exports.createAdmin =async (data) => {
@@ -24,10 +36,12 @@ module.exports.createAdmin =async (data) => {
 }
 
 module.exports.createPassword = async (email, password) => {
+    console.log("create password");
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password, salt)
     try {
-        await User.updateOne({email: email}, {password: hashPassword})
+        console.log("create password");
+        await Admin.updateOne({email: email}, {password: hashPassword})
     }
     catch(e) {
         throw e

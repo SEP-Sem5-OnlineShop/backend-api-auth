@@ -14,7 +14,7 @@ router.post('/login', login)
 router.post('/login-admin', loginAdmin)
 router.post('/register', validator.userSchemaValidator, register)
 router.get('/token', tokenHandler.verifyRefreshToken, token)
-router.get('/logout', tokenHandler.verifyAccessToken, tokenHandler.removeRefreshToken, logout)
+// router.get('/logout', tokenHandler.verifyAccessToken, tokenHandler.removeRefreshToken, logout)
 router.post('/reset_password', UserController.resetPassword)
 router.post('/create_Password', UserController.createPassword)
 

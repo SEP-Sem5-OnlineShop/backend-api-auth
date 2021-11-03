@@ -19,6 +19,13 @@ module.exports.getEmail = (id) => {
     // return Product.find({_id: id})
 }
 
+module.exports.getNumberOfVendors =async () => {
+    // const count = await Vendor.count({ "role": "vendor" });
+    // console.log (count);
+    return await Vendor.countDocuments({ "role": "vendor" }).exec();
+    // return Product.find({_id: id})
+}
+
 
 // remove user
 module.exports.removeVendor = async (id) => {

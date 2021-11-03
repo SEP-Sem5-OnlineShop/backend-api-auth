@@ -46,7 +46,7 @@ const vendorSchema = new mongoose.Schema({
     permitNumber: {type: String, required: true},
     permitFileUrl: {type: String},
     description: {type: String},
-    status: {type: String, enum: ["pending, accepted, rejected, detailsRequested"]}
+    status: {type: String, enum: ["pending", "accepted", "rejected", "detailsRequested"]}
 })
 
 //base user schema
@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     firstName: {type: String, required: true,min: 2, max: 50,},
     lastName: {type: String, required: true,min: 2, max: 50,},
     telephone: {type: String, required: true, unique: true, min: 10, max: 13,},
-    role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver"]},
+    role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver","superAdmin"]},
     email: {type: String},
     password: {type: String, required: function(){return this.role === "customer"}},
     driver: {type: driverSchema, required: function () {return this.role === "driver"}},
