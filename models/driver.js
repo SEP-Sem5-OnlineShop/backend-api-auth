@@ -181,6 +181,19 @@ module.exports.updateImage = async (userId, imageUrl) => {
     }
 }
 
+module.exports.updateLocation = async (userId, coordinates) => {
+    try {
+        await Location.updateOne({ user_id: userId }, {
+            $set: {
+                'location.coordinates': coordinates
+            }
+        })
+    }
+    catch (e) {
+        throw e
+    }
+}
+
 module.exports.updateLoginStatus = async (userId, loginStatus) => {
     let session;
     try {

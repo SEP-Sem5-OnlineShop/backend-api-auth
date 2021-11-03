@@ -177,6 +177,22 @@ const DriverController = {
         }
     },
 
+    updateLocation: async function (req,res,next) {
+        try {
+            const result = await Driver.updateLocation(req.userData.userId, req.body.coordinates)
+
+            return res.status(200).send({
+                message: "Success",
+                data: "Your profile image is updated"
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
     removeVehicle: async function (req, res, next) {
         try {
             await Driver.removeVehicle(req.params.id)

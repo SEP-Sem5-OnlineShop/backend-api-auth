@@ -12,6 +12,7 @@ router.get('/drivers/:id', DriverController.getLoggedDriverList)
 router.get('/vehicles', VehicleController.getList)
 router.get('/driver/image', DriverController.getImage)
 router.put('/driver/image', DriverController.updateImage)
+router.put('/driver/location', DriverController.updateLocation)
 router.put('/driver/remove-vehicle/:id', DriverController.removeVehicle)
 
 module.exports = router
