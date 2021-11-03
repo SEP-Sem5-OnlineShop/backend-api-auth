@@ -1,7 +1,8 @@
-const Purchase = require("../database/schemas/purchaseSchema")
+const Purchase = require("../database/schemas/purchaseSchema");
+const DailyStock = require("../database/schemas/dailyStockSchema");
 
 //create a purchase
-module.exports.createPurchase = async (vendor_id,products) => {
+module.exports.createPurchase = async (vendor_id,products,dailystock_id) => {
     let p = [];
     let c = 0;
     for (var i in products) {
@@ -25,6 +26,19 @@ module.exports.createPurchase = async (vendor_id,products) => {
                 discount: 0,
             }
     );
+
+    p.map(async (item) => {
+        await DailyStock.findOneAndUpdate(
+            { "_id": dailystock_id, "dailyStock.productId": item.product_id },
+            { 
+                "$inc": {
+                    "dailyStock.$.stock": -item.items,
+                }
+            },
+            {useFindAndModify: false}
+        );
+    })
+
     return newPurchase;
 }
 // get a purchase
