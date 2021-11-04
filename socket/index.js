@@ -19,7 +19,7 @@ const main = (io) => {
         if (sessionID) {
             // find existing session
             const session = sessionStore.findSession(sessionID)
-            console.log(session)
+            console.log(session, "reconnected")
             if (session) {
                 socket.sessionID = sessionID;
                 socket.userID = session.userID;

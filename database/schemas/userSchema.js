@@ -13,6 +13,9 @@ const driverSchema = new mongoose.Schema({
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
     vehicleId: {type: mongoose.Schema.Types.ObjectID},
+    vehicle: {type: vehicleSchema},
+    shopName: {type: String, required: true},
+    shopImageUrl: {type: String, required: true},
     status: {type: String, enum: ["active", "disabled"]},
     loginStatus: {type: String, enum: ["login", "logout"]}
 })

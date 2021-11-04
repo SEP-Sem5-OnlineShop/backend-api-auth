@@ -10,7 +10,8 @@ module.exports = (io) => {
             const locationData = await locationModel.getLocation(change.documentKey ? change.documentKey._id || "" : "")
             locationData ? data = {
                 user_id: locationData["user_id"],
-                coordinates: locationData["location"]["coordinates"]
+                coordinates: locationData["location"]["coordinates"],
+                loginStatus: locationData["loginStatus"]
             } : {}
         }
         catch (e) {
