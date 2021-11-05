@@ -1,4 +1,5 @@
 const driverModel = require("../../models/driver")
+const InMemorySessionStore = require("../sessionStore")
 
 module.exports = (io, socket) => {
     const role = socket.handshake.auth.role

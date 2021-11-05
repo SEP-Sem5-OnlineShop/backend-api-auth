@@ -100,7 +100,7 @@ module.exports.removeVehicle = async (vendorId) => {
         await session.withTransaction(async () => {
             const updatedDriver = await User.updateMany(
                 {'driver.vendorId': vendorId},
-                {$unset: {'driver.vehicleId': ""}},
+                {$unset: {'driver.vehicleId': "", 'driver.vehicle': null}},
                 {session}
             )
             if(updatedDriver['nModified']) {

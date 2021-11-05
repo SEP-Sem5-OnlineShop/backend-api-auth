@@ -17,7 +17,19 @@ module.exports.updateLocation = async (user_id, coordinates) => {
 }
 
 module.exports.getLocation = async (_id) => {
-    return Location.findOne(
-        {_id: _id}
+    return Location.aggregate(
+        [
+            {
+                $match: {_id: _id}
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "user_id",
+                    foreignField: "_id",
+                    as: "user"
+                }
+            }
+        ]
     );
 }
