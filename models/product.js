@@ -170,3 +170,7 @@ module.exports.addReview = async (product_id,review) => {
         }
     );
 }
+
+module.exports.getProductListForCustomer = async () => {
+    return Product.find({ discount: { $gt: 0 } });
+}

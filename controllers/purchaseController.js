@@ -4,7 +4,7 @@ const Product = require('../models/product');
 const PurchaseController = {
     createPurchase: async function (req, res, next) {
         //create and return id
-        const newPurchase = await Purchase.createPurchase(req.params.vendor_id,req.body);
+        const newPurchase = await Purchase.createPurchase(req.params.vendor_id,req.body.pro,req.body.dailystock_id);
         res.status(200).send(newPurchase._id);
     },
     getPurchase: async function(req, res, next) {
