@@ -3,11 +3,9 @@ const alertController = require("../../controllers/alertController")
 module.exports = (io, socket) => {
 
     const createAlert = (payload) => {
-        console.log(payload)
         socket.to(payload.room).emit("alert:set", payload.payload)
     }
     const removeAlert = (payload) => {
-        console.log(payload)
         socket.to(payload.room).emit("alert:unset", payload.payload)
     }
 

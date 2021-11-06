@@ -15,6 +15,7 @@ module.exports = (io, socket) => {
         }
     }
     const setLogout = async (payload) => {
+        console.log("driver logged out", payload.userId)
         try {
             if(role === "driver") {
                 console.log("driver logged out", payload.userId)
