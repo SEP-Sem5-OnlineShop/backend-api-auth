@@ -175,3 +175,11 @@ module.exports.getLastPurchaseDay5 = async () => {
     //   console.log(purchases2)
       return purchases2;
 }
+
+module.exports.notify = (det) => {
+    return Purchase.findOneAndUpdate(
+        { _id: det.order_id},
+        { status: "closed",},
+        {useFindAndModify: false}
+    );
+}

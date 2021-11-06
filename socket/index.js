@@ -1,6 +1,5 @@
 const alertHandler = require("./name-sapces/alert")
 const driverHandler = require("./name-sapces/driver")
-const mapHandler = require("./name-sapces/map")
 
 const InMemorySessionStore = require("./sessionStore")
 
@@ -12,14 +11,14 @@ const main = (io) => {
     const sessionStore = new InMemorySessionStore()
 
     const driverNameSpace = io.of("/driver")
-    const mapNameSpace = io.of("/map")
 
     driverNameSpace.use((socket, next) => {
+        console.log("user connected")
         const sessionID = socket.handshake.auth.sessionID;
         if (sessionID) {
             // find existing session
             const session = sessionStore.findSession(sessionID)
-            console.log(session)
+            console.log(session, "reconnected")
             if (session) {
                 socket.sessionID = sessionID;
                 socket.userID = session.userID;
@@ -59,7 +58,6 @@ const main = (io) => {
         })
         driverHandler(driverNameSpace, socket)
         alertHandler(driverNameSpace, socket)
-        mapHandler(mapNameSpace, socket)
     })
 
     initializeChangeStreams(driverNameSpace)

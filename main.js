@@ -13,7 +13,7 @@ const httpServer = createServer(app);
 
 const corsOptions = {
     origin: function (origin, callback) {
-        if (['http://localhost:3000', 'https://ontheway-sep.netlify.app'].indexOf(origin) !== -1) {
+        if (['http://localhost:3000', 'https://ontheway-sep.netlify.app', 'https://sandbox.payhere.lk'].indexOf(origin) !== -1) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))

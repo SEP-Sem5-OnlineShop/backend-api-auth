@@ -3,6 +3,7 @@ const { mongoose } = require("../database/connection")
 const DailyStock = require("../database/schemas/dailyStockSchema")
 const Product = require("../database/schemas/productSchema")
 const User = require("../database/schemas/userSchema")
+const Vehicle = require("../database/schemas/vehicleSchemaMain")
 
 module.exports.create = async (data) => {
     let session;
@@ -11,10 +12,18 @@ module.exports.create = async (data) => {
         await session.withTransaction(async () => {
             const result = await DailyStock.create([data], {session})
             if(result[0]._id) {
+                const vehicle = await Vehicle.findOne({_id: data.vehicleId})
                 const updatedDriver = await User.updateOne(
                     {_id: data.driverId},
                     {$set: {
-                            'driver.vehicleId': mongoose.Types.ObjectId(data.vehicleId)
+                            'driver.vehicleId': mongoose.Types.ObjectId(data.vehicleId),
+                            'driver.vehicle': {
+                                plateNumber: vehicle.plateNumber,
+                                brand: vehicle.brand,
+                                model: vehicle.model,
+                                imageUrl: vehicle.imageUrl
+                            },
+                            'updatedAt': new Date()
                         }},
                     {session}
                 )
@@ -49,6 +58,7 @@ module.exports.update = async (data) => {
     try {
         session = await mongoose.connection.startSession()
         await session.withTransaction(async () => {
+            const vehicle = await Vehicle.findOne({_id: data.vehicleId})
 
             const start = new Date()
             start.setHours(0, 0, 0, 0)
@@ -63,9 +73,18 @@ module.exports.update = async (data) => {
                     if(err) throw err
                     if(stock.driverId !== mongoose.Types.ObjectId(data.driverId)) {
                         await User.updateOne({_id: stock.driverId},
-                            {$unset: {'driver.vehicleId': ""}})
+                            {$unset: {'driver.vehicleId': "", 'driver.vehicle': null}})
                         await User.updateOne({_id: data.driverId},
-                            {$set: {'driver.vehicleId': data.vehicleId}})
+                            {$set: {
+                                    'driver.vehicleId': mongoose.Types.ObjectId(data.vehicleId),
+                                    'driver.vehicle': {
+                                        plateNumber: vehicle.plateNumber,
+                                        brand: vehicle.brand,
+                                        model: vehicle.model,
+                                        imageUrl: vehicle.imageUrl
+                                    },
+                                    'driver.updatedAt': new Date()
+                                }})
                     }
 
                     await Promise.all(

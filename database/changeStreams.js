@@ -7,10 +7,12 @@ module.exports = (io) => {
         console.log(change)
         let data, error
         try {
-            const locationData = await locationModel.getLocation(change.documentKey ? change.documentKey._id || "" : "")
+            const [locationData] = await locationModel.getLocation(change.documentKey ? change.documentKey._id || "" : "")
             locationData ? data = {
                 user_id: locationData["user_id"],
-                coordinates: locationData["location"]["coordinates"]
+                coordinates: locationData["location"]["coordinates"],
+                loginStatus: locationData["loginStatus"],
+                user: locationData["user"][0]
             } : {}
         }
         catch (e) {

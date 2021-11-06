@@ -12,6 +12,9 @@ module.exports.createDriver = async (vendorId, data) => {
         try {
             await session.withTransaction(async () => {
                 const id = new mongoose.Types.ObjectId()
+                const vendor = await User.findOne(
+                    { _id: vendorId}
+                )
                 const driver = new User({
                     _id: id,
                     firstName: data.firstName,
@@ -20,13 +23,15 @@ module.exports.createDriver = async (vendorId, data) => {
                     telephone: data.telephone,
                     role: "driver",
                     vendorId: vendorId,
+                    shopName: vendor.shopName,
+                    shopImageUrl: vendor.imageUrl,
                     driver: {
                         licenseNumber: data.licenseNumber,
                         licenseFileUrl: data.licenseFileUrl || "",
                         vendorId: vendorId
                     }
-                }, { session })
-                await driver.save()
+                })
+                await driver.save({session})
                 await User.updateOne({ _id: vendorId },
                     {
                         $push: {
@@ -95,7 +100,7 @@ module.exports.removeVehicle = async (vendorId) => {
         await session.withTransaction(async () => {
             const updatedDriver = await User.updateMany(
                 {'driver.vendorId': vendorId},
-                {$unset: {'driver.vehicleId': ""}},
+                {$unset: {'driver.vehicleId': "", 'driver.vehicle': null}},
                 {session}
             )
             if(updatedDriver['nModified']) {
@@ -143,16 +148,30 @@ module.exports.getLoggedDriverList = async (vendorId) => {
 
 module.exports.getLoggedDriverListNearby = async ({lat, lng}) => {
     try {
-        return await Location.find(
-            {
-                location: {
-                    $near: {
-                        $geometry: { type: "Point",  coordinates: [ parseFloat(lat), parseFloat(lng) ] },
-                        $maxDistance: 5000
+        return await Location.aggregate(
+            [
+                {
+                    $geoNear: {
+                        near: { type: "Point",  coordinates: [ parseFloat(lat), parseFloat(lng) ] },
+                        distanceField: "dist.calculated",
+                        maxDistance: 5000
+                    },
+                },
+                {
+                    $match: {
+                        loginStatus: "login",
+                        role: "driver"
                     }
                 },
-                loginStatus: "login"
-            }
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'user_id',
+                        foreignField: '_id',
+                        as: 'user'
+                    }
+                }
+            ]
         )
     } catch (e) {
         throw e
@@ -182,15 +201,31 @@ module.exports.updateImage = async (userId, imageUrl) => {
 }
 
 module.exports.updateLocation = async (userId, coordinates) => {
+    let session;
     try {
-        await Location.updateOne({ user_id: userId }, {
-            $set: {
-                'location.coordinates': coordinates
+        session = await mongoose.connection.startSession()
+        await session.withTransaction(async () => {
+            const updatedLocation = await Location.updateOne({ user_id: userId }, {
+                $set: {
+                    'location.coordinates': coordinates
+                }
+            })
+            if(updatedLocation['nModified']) {
+                const updatedDriver = await User.updateOne(
+                    {_id: userId},
+                    {$set: { 'location.coordinates': coordinates }}
+                )
+                if(updatedDriver['nModified']) return session.commitTransaction()
+                return session.abortTransaction()
             }
+            return session.abortTransaction()
         })
     }
     catch (e) {
         throw e
+    }
+    finally {
+        session.endSession()
     }
 }
 
