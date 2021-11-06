@@ -101,6 +101,17 @@ const ProductController = {
         let userDetails = {_id:user._id, name:user.firstName+" "+user.lastName};
         res.status(200).send(userDetails);
     },
+    getProductListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getProductListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
     
 
 }
