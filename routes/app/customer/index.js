@@ -10,6 +10,7 @@ router.get('/customer/products/:vendor_id', ProductController.getVendorProductLi
 router.get('/customer/product/:id', ProductController.getProduct);
 router.get('/customer/vendors/:id', VendorController.getVendorDetailsForCustomer);
 router.get('/customer/vendorlist', VendorController.getVendorListForCustomer);
+router.get('/customer/home/productlist', ProductController.getProductListForCustomer);
 router.get('/customer/:customer_id/alerts/:product_id', AlertController.getdetailsAlert);
 router.get('/customer/alerts/:customer_id', AlertController.getCustomerAlertList);
 router.post('/customer/:customer_id/alerts/:product_id', AlertController.setAlert);
