@@ -7,7 +7,7 @@ const { Server } = require("socket.io");
 const initializeSocket = require("./socket/index")
 const app = require('./app')
 
-const PORT = Number(process.env.PORT) || 8000
+const PORT = 80
 
 const httpServer = createServer(app);
 
