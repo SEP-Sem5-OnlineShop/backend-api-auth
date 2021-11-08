@@ -12,27 +12,36 @@ const tokenHandler = require("../../utils/tokenHenadler")
 module.exports = async (req, res) => {
     const telephone = req.body.telephone
     const password = req.body.password
-    const user = await User.getUserByTelephone(telephone)
-    let tokens = ''
-    if(user) {
-        tokens = tokenHandler.issueTokens({
-            userId: user['_id'],
-            telephone: telephone,
-            email: user['email'],
-            role: user['role']
-            
-        })
-        // console.log(role)
-    }
-    else return res.status(401).send({message: "User is not registered!"})
+    try {
+        const user = await User.getUserByTelephone(telephone)
+        let tokens = ''
+        if(user) {
+            tokens = tokenHandler.issueTokens({
+                userId: user['_id'],
+                telephone: telephone,
+                email: user['email'],
+                role: user['role']
 
-    // compare the password with hash password
-    const isValid = await bcrypt.compare(password, user['password'])
-    if(!isValid) return res.status(400).send({message: "Password is incorrect!"})
-    delete user.password
-    return res.cookie('token', tokens.refreshToken, {httpOnly: true}).status(200).send({
-        message: "Success",
-        data: user,
-        accessToken: tokens.accessToken,
-    })
+            })
+            // console.log(role)
+        }
+        else return res.status(401).send({message: "User is not registered!"})
+
+        // compare the password with hash password
+        const isValid = await bcrypt.compare(password, user['password'])
+        if(!isValid) return res.status(400).send({message: "Password is incorrect!"})
+        delete user.password
+        return res.status(200).send({
+            message: "Success",
+            data: user,
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken
+        })
+    }
+    catch(e) {
+        return res.status(401).send({
+            message: "Failed",
+            data: e.message
+        })
+    }
 }

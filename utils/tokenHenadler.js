@@ -94,7 +94,7 @@ module.exports.verifyAccessToken = (req, res, next) => {
  */
 module.exports.verifyRefreshToken = (req, res, next) => {
     try {
-        const token = req.cookies.token
+        const token = req.body.refreshToken
         if(token) {
             const decoded = jwt.verify(token, process.env.JWT_SECRET_REFRESH || defaultRefreshSecret)
             req.userData = {
@@ -103,13 +103,11 @@ module.exports.verifyRefreshToken = (req, res, next) => {
                 role: decoded.role
             }
             // look for the token in the refreshTokenStore
-            console.log(refreshTokenStore, "refreshTokenStore")
             const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
             if(!storedRefreshToken) return res.status(401).send({message: "Token Expired!"})
             next()
         }
         else {
-            console.log("no token in the cookie")
             return res.status(401).send({message: "Token Expired!"})
         }
     }
@@ -120,7 +118,7 @@ module.exports.verifyRefreshToken = (req, res, next) => {
 }
 
 module.exports.removeRefreshToken = (req, res, next) => {
-    const token = req.cookies.token
+    const token = req.body.refreshToken
     if(token) {
         const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
         if(storedRefreshToken) storedRefreshToken.token = ''
