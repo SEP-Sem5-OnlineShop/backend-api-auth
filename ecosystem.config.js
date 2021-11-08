@@ -11,7 +11,7 @@ module.exports = {
       "JWT_EXP_TIME_REFRESH": "24h",
       "JWT_EXP_TIME_EMAIL_SERVICE": "24h",
       "JWT_EXP_TIME_RESET_PASS": "5m",
-      "PORT":"3000",
+      "PORT":"8000",
       "DB_NAME": "online_shop_db",
       "DB_USER": "admin",
       "DB_PASSWORD": "SPHS41nip3XYHyFB",
