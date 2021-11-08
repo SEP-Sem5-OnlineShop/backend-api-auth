@@ -103,11 +103,18 @@ module.exports.verifyRefreshToken = (req, res, next) => {
                 role: decoded.role
             }
             // look for the token in the refreshTokenStore
+            console.log(refreshTokenStore, "refreshTokenStore")
+            const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
+            if(!storedRefreshToken) return res.status(401).send({message: "Token Expired!"})
             next()
         }
-        else return res.status(401).send({message: "Token Expired!"})
+        else {
+            console.log("no token in the cookie")
+            return res.status(401).send({message: "Token Expired!"})
+        }
     }
     catch (error) {
+        console.log("error in method", error.message)
         res.status(401).send({message: "Token Expired!"})
     }
 }
