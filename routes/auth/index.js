@@ -11,6 +11,7 @@ const token = require("./token")
 const loginAdmin = require("./login-admin")
 
 router.post('/login', login)
+router.post('/test',tokenHandler.verifyAccessToken, (req,res) => res.send("success"))
 router.post('/login-admin', loginAdmin)
 router.post('/register', validator.userSchemaValidator, register)
 router.get('/token', tokenHandler.verifyRefreshToken, token)

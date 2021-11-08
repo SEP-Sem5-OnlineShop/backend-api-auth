@@ -103,6 +103,7 @@ module.exports.verifyRefreshToken = (req, res, next) => {
                 role: decoded.role
             }
             // look for the token in the refreshTokenStore
+            console.log(storedRefreshToken)
             const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
             if(!storedRefreshToken) return res.status(401).send({message: "Token Expired!"})
             next()
