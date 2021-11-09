@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cookieParser())
-const allowList = ['http://localhost:3000', 'https://ontheway-sep.netlify.app', 'http://20.102.65.167:3000']
+const allowList = ['http://localhost:3000', 'https://ontheway-sep.netlify.app', 'http://20.102.65.167']
 // const corsOptions = {
 //     origin: function (origin, callback) {
 //         console.log(origin)
