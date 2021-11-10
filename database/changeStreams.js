@@ -4,7 +4,6 @@ const locationModel = require("../models/locaiton")
 module.exports = (io) => {
 
     Location.watch().on("change", async (change) => {
-        console.log(change)
         let data, error
         try {
             const [locationData] = await locationModel.getLocation(change.documentKey ? change.documentKey._id || "" : "")
