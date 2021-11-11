@@ -76,6 +76,13 @@ const PurchaseController = {
         // res.status(200).send(purchase);
     },
 
+    getProduct: async function(req, res, next) {
+        console.log(req.params);
+        const product = await Purchase.getProduct(req.params.product_id);
+        res.status(200).send({product});
+    },
+
+
 }
 
 module.exports = PurchaseController;

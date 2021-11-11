@@ -1,5 +1,6 @@
 const Purchase = require("../database/schemas/purchaseSchema");
 const DailyStock = require("../database/schemas/dailyStockSchema");
+const Product=require("../database/schemas/productSchema");
 
 //create a purchase
 module.exports.createPurchase = async (vendor_id,products,dailystock_id) => {
@@ -181,5 +182,24 @@ module.exports.notify = (det) => {
         { _id: det.order_id},
         { status: "closed",},
         {useFindAndModify: false}
+    );
+}
+
+
+module.exports.getProduct=async (_id) => {
+    return Purchase.aggregate(
+        [
+            {
+                $match: {product_id: _id}
+            },
+            {
+                $lookup: {
+                    from: "products",
+                    localField: "product_id",
+                    foreignField: "product_id",
+                    as: "product"
+                }
+            }
+        ]
     );
 }
