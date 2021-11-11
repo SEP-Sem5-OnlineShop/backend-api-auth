@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
     imageThumbnailUrl: {type: String, required: true},
     imageUrl: {type: String, required: true},
     description: {type: String, required: true},
-    category: {type: String, enum: ["Fruit", "Vegetable", "Bakery", "Plant", "Desert", "Other"], default: "Other", required: true},
+    category: {type: String, enum: ["Fruit", "Vegetable", "Bakery", "Plant", "Dessert", "Other"], default: "Other", required: true},
     status: {type: String, enum: ["available", "notAvailable"], default: "available"},
     discount: {type: Number, default: 0},
     stock: {type: Number, default: 0},
