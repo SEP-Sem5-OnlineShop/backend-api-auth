@@ -16,18 +16,16 @@ const mongoose = require("mongoose")
 
 const productSchema = new mongoose.Schema({
     product_name: {type: String, required: true},
-    description:{type: String},
     seller: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true },
     price: {type: Number, required: true},
     imageThumbnailUrl: {type: String, required: true},
     imageUrl: {type: String, required: true},
     description: {type: String, required: true},
-    status: {type: String, enum: ["available, notAvailable"]},
-    numReviews: {type: String},
-    discount: {type: Number},
-    stock: {type: Number},
-    rating: {type: Number},
-    numReviews: {type: Number},
+    status: {type: String, enum: ["available", "notAvailable"], default: "available"},
+    discount: {type: Number, default: 0},
+    stock: {type: Number, default: 0},
+    rating: {type: Number, default: 0},
+    numReviews: {type: Number, default: 0},
     reviews: [reviewSchema],
 },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 

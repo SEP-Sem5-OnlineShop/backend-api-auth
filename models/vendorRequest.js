@@ -6,18 +6,7 @@ const Vendor = require("../database/schemas/userSchema")
  */
 module.exports.createRequest = (data) => {
         return new VendorRequest({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            telephone: data.telephone,
-            email: data.email,
-            nic: data.nic,
-            address:  data.address,
-            shopName: data.shopName,
-            permitId: data.permitId,
-            regionToBeCovered: data.regionToBeCovered,
-            numberOfVehicles: data.numberOfVehicles,
-            vehicles: data.vehicles,
-            imageUrl: data.imageUrl,
+            ...data,
             status: "pending"
         });
 }
@@ -45,28 +34,15 @@ module.exports.getRequestByEmail = async (email) => {
 
 // update user
 module.exports.updateRequest = async (data) => {
-        console.log(data)
-        return VendorRequest.updateOne({email: data.email}, {
-            firstName: data.fullName,
-            lastName: data.fullName,
-            telephone: data.telephone,
-            email: data.email,
-            nic: data.nic,
-            address: data.address,
-            shopName: data.shopName,
-            permitId: data.permitId,
-            regionToBeCovered: data.regionToBeCovered,
-            numberOfVehicles: data.numberOfVehicles,
-            vehicles: data.vehicles,
-            imageUrl: data.imageUrl
-        });
+        // console.log(data)
+        return VendorRequest.replaceOne({email: data.email}, data);
 }
 
 // update status after the create
 module.exports.updateStatus = async (id) => {
         // const st=(VendorRequest.findOne({_id:id}))
         // console.log(st.status)
-        console.log('this id-',id)
+        // console.log('this id-',id)
         return VendorRequest.updateOne({_id: id}, 
                 {'status':'accepted'}, function (err) {
                 if (err){
@@ -82,14 +58,14 @@ module.exports.updateStatus = async (id) => {
 module.exports.rejectRequest = async (id) => {
         // const st=(VendorRequest.findOne({_id:id}))
         // console.log(st.status)
-        console.log('this id-',id)
+        // console.log('this id-',id)
         return VendorRequest.updateOne({_id: id}, 
                 {'status':'rejected'}, function (err) {
                 if (err){
                     console.log(err)
                 }
                 else{
-                    console.log("Updated Docs");
+                    // console.log("Updated Docs");
                 }
             });
 }

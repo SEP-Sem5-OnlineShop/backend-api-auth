@@ -94,7 +94,7 @@ module.exports.verifyAccessToken = (req, res, next) => {
  */
 module.exports.verifyRefreshToken = (req, res, next) => {
     try {
-        const token = req.cookies.token
+        const token = req.body.refreshToken
         if(token) {
             const decoded = jwt.verify(token, process.env.JWT_SECRET_REFRESH || defaultRefreshSecret)
             req.userData = {
@@ -106,20 +106,22 @@ module.exports.verifyRefreshToken = (req, res, next) => {
             const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
             if(!storedRefreshToken) return res.status(401).send({message: "Token Expired!"})
             next()
-            return
         }
-        else return res.status(401).send({message: "Token Expired!"})
+        else {
+            return res.status(401).send({message: "Token Expired!"})
+        }
     }
     catch (error) {
+        console.log("error in method", error.message)
         res.status(401).send({message: "Token Expired!"})
     }
 }
 
 module.exports.removeRefreshToken = (req, res, next) => {
-    const token = req.cookies.token
+    const token = req.body.refreshToken
     if(token) {
         const storedRefreshToken = refreshTokenStore.find(item => item.token === token)
-        storedRefreshToken.token = ''
+        if(storedRefreshToken) storedRefreshToken.token = ''
     }
     else return res.status(401).send({message: "Token is invalid!"})
     next()

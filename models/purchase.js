@@ -1,24 +1,44 @@
-const Purchase = require("../database/schemas/purchaseSchema")
+const Purchase = require("../database/schemas/purchaseSchema");
+const DailyStock = require("../database/schemas/dailyStockSchema");
 
 //create a purchase
-module.exports.createPurchase = async (purchase) => {
+module.exports.createPurchase = async (vendor_id,products,dailystock_id) => {
+    let p = [];
+    let c = 0;
+    for (var i in products) {
+        p[c] = {product_id: products[i].productId , price:products[i].price , items:products[i].items };
+        c += 1;
+    }
+    let totItem = 0;
+    let totCost = 0;
+    // console.log(p);
+    for (var x in p){
+        totItem += p[x].items;
+        totCost += p[x].items*p[x].price;
+    }
     const newPurchase = await Purchase.create(
             {
-                    vendor_id: "613eb365af0d5b2c142fa326",
-                    customer_id: "613eba8b94acbe3710fed690",
-                    status: "open",
-                    totalItems: 1,
-                    totalCost: 100,
-                    products: [
-                        {
-                            product_id: '614ed9a74629cf154cb8d335',
-                            price: 100,
-                            items: 1,
-                        }
-                    ],
-                    discount: 0,
+                vendor_id: vendor_id,
+                status: "open",
+                totalItems: totItem,
+                totalCost: totCost,
+                products: p,
+                discount: 0,
             }
     );
+
+    p.map(async (item) => {
+        await DailyStock.findOneAndUpdate(
+            { "_id": dailystock_id, "dailyStock.productId": item.product_id },
+            { 
+                "$inc": {
+                    "dailyStock.$.stock": -item.items,
+                }
+            },
+            {useFindAndModify: false}
+        );
+    })
+
     return newPurchase;
 }
 // get a purchase
@@ -43,6 +63,13 @@ module.exports.addReview = (purchase_id,product_id,review) => {
                 "products.$.review": review.review,
             }
         },
+        {useFindAndModify: false}
+    );
+}
+module.exports.payPurchase = (order_id,customer_id) => {
+    return Purchase.findOneAndUpdate(
+        { _id: order_id},
+        { customer_id: customer_id, status: "closed",},
         {useFindAndModify: false}
     );
 }
@@ -147,4 +174,12 @@ module.exports.getLastPurchaseDay5 = async () => {
       
     //   console.log(purchases2)
       return purchases2;
+}
+
+module.exports.notify = (det) => {
+    return Purchase.findOneAndUpdate(
+        { _id: det.order_id},
+        { status: "closed",},
+        {useFindAndModify: false}
+    );
 }

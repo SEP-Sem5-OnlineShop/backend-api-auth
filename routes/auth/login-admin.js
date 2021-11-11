@@ -10,34 +10,39 @@ const tokenHandler = require("../../utils/tokenHenadler")
  * @returns {Promise<*>}
  */
 module.exports = async (req, res) => {
-    console.log('inside the login')
     const telephone = req.body.telephone
-    console.log(telephone)
     const password = req.body.password
-    console.log(password)
-    const user = await User.getUserByTelephone(telephone)
-    console.log(user.role)
-    let tokens = ''
-    if(user.role=='admin'||user.role=='superAdmin') {
-        tokens = tokenHandler.issueTokens({
-            userId: user['_id'],
-            telephone: telephone,
-            role: user['role']
-            
+    try {
+        const user = await User.getUserByTelephone(telephone)
+        let tokens = ''
+        if(user.role==='admin'||user.role==='superAdmin') {
+            tokens = tokenHandler.issueTokens({
+                userId: user['_id'],
+                telephone: telephone,
+                role: user['role']
+
+            })
+            // console.log(role)
+        }
+        else return res.status(401).send({message: "User is not registered!"})
+
+        // compare the password with hash password
+        const isValid = await bcrypt.compare(password, user['password'])
+        if(!isValid) return res.status(400).send({
+            message: "Password is incorrect!"
         })
-        // console.log(role)
+
+        return res.status(200).send({
+            message: "Success",
+            data: user,
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken
+        })
     }
-    else return res.status(401).send({message: "User is not registered!"})
-
-    // compare the password with hash password
-    const isValid = await bcrypt.compare(password, user['password'])
-    if(!isValid) return res.status(400).send({
-        message: "Password is incorrect!"
-    })
-
-    return res.cookie('token', tokens.refreshToken, {httpOnly: true}).status(200).send({
-        message: "Login Successful!",
-        data: user,
-        accessToken: tokens.accessToken,
-    })
+    catch (e) {
+        return res.status(401).send({
+            message: "Failed",
+            data: e.message
+        })
+    }
 }

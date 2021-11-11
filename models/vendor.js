@@ -29,8 +29,8 @@ module.exports.getNumberOfVendors =async () => {
 
 // remove user
 module.exports.removeVendor = async (id) => {
-    console.log('inside removeVendor');
-    console.log(id);
+    // console.log('inside removeVendor');
+    // console.log(id);
     // return Vendor.updateOne(filter: {_id: id}, update: {status:'rejected'});
 
     return Vendor.updateOne({_id: id}, 
@@ -51,8 +51,21 @@ module.exports.removeVendor = async (id) => {
  * @param data
  */
  module.exports.createVendor =async (data) => {
-    console.log("Inside")
-    console.log(data)
+    // console.log("Inside")
+    // console.log(data)
     return  new Vendor(data);
 }
 
+module.exports.addRating = async (vendor_id,rating) => {
+    const user = await module.exports.getVendor(vendor_id);
+    const newNumReviews = user.vendor.numReviews + 1;
+    const newRating = (user.vendor.rating*user.vendor.numReviews + rating)/ newNumReviews ;
+    return Vendor.findOneAndUpdate(
+        { "_id": vendor_id},
+        { 
+            "vendor.rating": newRating,
+            "vendor.numReviews": newNumReviews,
+        },
+        {useFindAndModify: false},
+    );
+}

@@ -71,7 +71,6 @@ const DriverController = {
     update: async function (req, res, next) {
         try {
             const result = await Driver.updateDriver(req.userData.userId, req.body)
-            console.log(result)
             return res.status(200).send({
                 message: "Success"
             })
@@ -84,9 +83,65 @@ const DriverController = {
     },
 
     getDriver: async function (req, res, next) {
+        try {
+            const driver = await Driver.getDriver(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: driver
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
+    },
+
+    getLoggedDriverList: async function (req, res, next) {
+        try {
+            const drivers = await Driver.getLoggedDriverList(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: drivers
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
     },
 
     getDrivers: async function (req, res, next) {
+        try {
+            const result = await Driver.getDriversList(req.userData.userId)
+            return res.status(200).send({
+                message: "Success",
+                data: result
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
+    getDriversNearby: async function (req, res, next) {
+        try {
+            const result = await Driver.getLoggedDriverListNearby(req.query)
+            return res.status(200).send({
+                message: "Success",
+                data: result
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
     },
 
     getImage: async function (req, res, next) {
@@ -108,7 +163,6 @@ const DriverController = {
 
     updateImage: async function (req,res,next) {
         try {
-            console.log(req.userData.userId, req.body.imageUrl)
             const result = await Driver.updateImage(req.userData.userId, req.body.imageUrl)
             
             return res.status(200).send({
@@ -119,6 +173,38 @@ const DriverController = {
         catch (e) {
             return res.status(400).send({
                 message: e.message
+            })
+        }
+    },
+
+    updateLocation: async function (req,res,next) {
+        try {
+            const result = await Driver.updateLocation(req.userData.userId, req.body.coordinates)
+
+            return res.status(200).send({
+                message: "Success",
+                data: "Your profile image is updated"
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: e.message
+            })
+        }
+    },
+
+    removeVehicle: async function (req, res, next) {
+        try {
+            await Driver.removeVehicle(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: "Vehicle removed"
+            })
+        }
+        catch (e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: e.message
             })
         }
     },

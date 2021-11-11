@@ -4,10 +4,6 @@ const mongoose = require("mongoose")
  * Defining the schemas for User model in the database
  * @type {module:mongoose.Schema<Document, Model<any, any, any>, undefined, ExtractMethods<Model<any, any, any>>>}
  */
-const locationSchema = new mongoose.Schema({
-    type: {type: String, required: true, default: "Point"},
-    coordinates: {type: Array, required: true,}
-})
 
 const vehicleSchema = require("./vehicleSchema")
 
@@ -16,13 +12,16 @@ const driverSchema = new mongoose.Schema({
     licenseFileUrl: {type: String},
     imageUrl: {type: String},
     vendorId: {type: String, required: true},
-    location: locationSchema,
-    status: {type: String, enum: ["active, disabled"]}
-})
-
-const customerSchema = new mongoose.Schema({
-    location: locationSchema,
-})
+    vehicleId: {type: mongoose.Schema.Types.ObjectID},
+    vehicle: {type: vehicleSchema},
+    shopName: {type: String, required: true},
+    shopImageUrl: {type: String, required: true},
+    status: {type: String, enum: ["active", "disabled"]},
+    loginStatus: {type: String, enum: ["login", "logout"]}
+},
+    {
+        timestamps: true,
+    })
 
 // Schemas specifically needed for vendor
 const productSchema = new mongoose.Schema({
@@ -41,13 +40,12 @@ const vendorDriverSchema = new mongoose.Schema({
 })
 const vendorSchema = new mongoose.Schema({
     imageUrl: {type: String, required: true},
-    location: locationSchema,
     address: {type: String,  required: true},
     regionToBeCovered: {type: String, required: true},
     nic: {type: String, required: true},
     products: [productSchema],
-    rating: {type: Number},
-    numReviews: {type: Number},
+    rating: {type: Number, default: 0},
+    numReviews: {type: Number, default: 0},
     drivers: [vendorDriverSchema],
     vehicles: [vehicleSchema],
     shopName: {type: String, required: true},
@@ -65,9 +63,12 @@ const userSchema = new mongoose.Schema({
     role: {type: String, required: true, enum: ["admin", "customer", "vendor", "driver","superAdmin"]},
     email: {type: String},
     password: {type: String, required: function(){return this.role === "customer"}},
-    customer: {type: customerSchema, required: this.role === "customer"},
-    driver: {type: driverSchema, required: this.role === "driver"},
-    vendor: {type: vendorSchema, required: this.role === "vendor"},
+    driver: {type: driverSchema, required: function () {return this.role === "driver"}},
+    vendor: {type: vendorSchema, required: function () {return this.role === "vendor"}},
+    location: {
+        type: {type: String, default: "Point", required: true, enum: ["Point"]},
+        coordinates: {type: [Number], default: [0,0], required: true },
+    }
 })
-
+userSchema.index({location: '2dsphere'})
 module.exports = mongoose.model('User', userSchema)

@@ -7,11 +7,11 @@ const { createJwtTokenForEmailVerifications, verifyEmailVerificationToken } = re
 const VendorController = {
     createVendor:async function(req, res, next) {
         try {
-            const vendorRequest =await Vendor.createVendor(req.body)
-            const vehicles = await Vehicle.create(req.body.vendor.vehicles || [])
+            const vendor =await Vendor.createVendor(req.body)
+            const vehicles = await Vehicle.create(req.body.vendor.vehicles || [], vendor._id)
             const token = createJwtTokenForEmailVerifications({ email: req.body.email })
-            // console.log(vendorRequest)
-            await vendorRequest.save()
+            // console.log(vendor)
+            await vendor.save()
             await sendEmail({
                 subject: "Verify your account",
                 to: req.body.email || "",
@@ -82,13 +82,14 @@ const VendorController = {
     getVendorDetailsForCustomer:async function(req, res, next) {
         console.log(req.params);
         const vUser = await Vendor.getVendor(req.params.id);
+
         const vendor = {
             vendor_id: vUser._id || "613eb365af0d5b2c142fa326",
-            vendor_name: vUser.vendor.vendor_name || "Yummy Backers",
+            vendor_name: vUser.vendor.shopName || "Yummy Bakers",
             vendor_description: vUser.vendor.vendor_description || "Healthy eating means eating a variety of foods that give you the nutrients you need to maintain your health, feel good, and have energy.",
-            imageUrl: vUser.vendor.imageUrl || "/img/vendor.jpg",
-            rating: vUser.vendor.rating || 4,
-            ratingCount: vUser.vendor.ratingCount || 2,
+            imageUrl: vUser.vendor.imageUrl || "5368f9d8-672a-4090-9be3-b7a95076bd43.jfif",
+            rating: vUser.vendor.rating || 0,
+            ratingCount: vUser.vendor.numReviews || 0,
         };
         res.status(200).send(vendor);
     },
@@ -100,9 +101,3 @@ const VendorController = {
 
 }
 module.exports = VendorController
-
-
-
-
-
-

@@ -12,7 +12,7 @@ const purchaseSchema = new mongoose.Schema({
     totalCost: {type: Number, required: true },
     products: [
         {
-            product_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User', required: true, unique: true},
+            product_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Product', required: true},
             price: {type: Number, required: true},
             items: {type: Number, required: true},
             rating: { type: Number},

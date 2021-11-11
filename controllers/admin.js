@@ -52,7 +52,6 @@ const adminController = {
             )
         }
         catch(e) {
-            console.log(e)
             return res.status(400).send(e)
         }
     },

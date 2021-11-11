@@ -1,30 +1,39 @@
 const Product = require('../models/product')
+const User = require("../models/user")
 
 const ProductController = {
     create: async function (req, res, next) {
         try {
-            await Product.create({...req.body, seller: req.userData.userId})
+            const product = await Product.create({...req.body, seller: req.userData.userId})
             return res.status(201).send({
-                message: "Successfully added a new product!"
+                message: "Success",
+                data: product
             })
         } catch (e) {
-            console.log(e)
-            return res.status(400).send({message: "Something went wrong!"})
+            return res.status(400).send(
+                {
+                    message: "Failed",
+                    data: e.message
+                })
         }
     },
     update: async function(req, res, next) {
         try {
-            const data = await Product.update(req.params.id, req.body)
+            const data = await Product.update(req.params.id, req.body, req.userData.userId)
+            return res.status(201).send({
+                message: "Success",
+                data: data
+            })
         }
         catch (e) {
-
+            return res.status(400).send({message: "Something went wrong!"})
         }
     },
     getList: async function(req, res, next) {
         try {
-            const products = await Product.getList()
+            const data = await Product.getList(req.userData.userId)
             return res.status(200).send({
-                data: products
+                data: data
             })
         }
         catch (e) {
@@ -39,6 +48,22 @@ const ProductController = {
         res.status(200).send({data: product})
     },
 
+    deleteProduct: async function(req, res, next) {
+        try {
+            const data = await Product.delete(req.params.id, req.userData.userId)
+            return res.status(202).send({
+                message: "Success",
+                data: data
+            })
+        }
+        catch (e) {
+            return  res.status(400).send({
+                message: "Failed",
+                data: e.message
+            })
+        }
+    },
+
     getProducts:async function(req, res, next) {
         // const productList=await Product.getProducts(req.params.id)
         const productList=await Product.getProducts(req.params.id)
@@ -51,22 +76,39 @@ const ProductController = {
     },
     
     getVendorProductList: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         try{
             const products = await Product.getVendorProductList(req.params.vendor_id);
             res.status(200).send(products);
         } catch (error) {
-            console.log("error error error")
+            // console.log("error error error")
             res.status(401).send(error);
         }
     },
     getVendorSellProductList: async function(req, res, next) {
-        console.log(req.params);
+        // console.log(req.params);
         try{
-            const products = await Product.getSellVendorProductList(req.params.vendor_id);
+            // console.log(req.params);
+            const products = await Product.getVendorSellProductList(req.params.vendor_id);
             res.status(200).send(products);
         } catch (error) {
-            console.log("error error error")
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
+    getCustomerForProductReview: async function(req, res, next) {
+        const user = await User.getUserById(req.params.customer_id)
+        let userDetails = {_id:user._id, name:user.firstName+" "+user.lastName};
+        res.status(200).send(userDetails);
+    },
+    getProductListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getProductListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
             res.status(401).send(error);
         }
     },

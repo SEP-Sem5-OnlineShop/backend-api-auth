@@ -19,7 +19,7 @@ const StockController = {
     },
     update: async (req, res, next) => {
         try {
-            const result = await Stock.update(req.body.vendorId, req.body.vehicleId, req.body)
+            const result = await Stock.update(req.body)
             return res.status(200).send({
                 message: "Success",
                 data: "Successfully updated today stock!"
@@ -35,10 +35,25 @@ const StockController = {
     },
     get: async (req, res, next) => {
         try {
-            const result = await Stock.get(req.body.vendorId, req.body.vehicleId)
+            const result = await Stock.get(req.params.id)
             return res.status(200).send({
                 message: "Success",
                 data: result
+            })
+        }
+        catch(e) {
+            return res.status(400).send({
+                message: "Failed",
+                data: "Check your internet connection!"
+            })
+        }
+    },
+    getByDriverId: async (req, res, next) => {
+        try {
+            const stock = await Stock.getByDriverId(req.params.id)
+            return res.status(200).send({
+                message: "Success",
+                data: stock
             })
         }
         catch(e) {
