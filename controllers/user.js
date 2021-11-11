@@ -15,7 +15,7 @@ module.exports = {
                     to: req.body.email || "",
                     from: process.env.EMAIL_SERVICE_ADDRESS,
                     html: `
-                    <div>Please use <a href="http://localhost:3000/create_password/${token}">this</a> link to reset your password</div>
+                    <div>Please use <a href="https://ontheway.thilinatlm.live/create_password/${token}">this</a> link to reset your password</div>
                     `
                 })
                 return res.status(200).send({

@@ -70,7 +70,7 @@ const VendorRequestController = {
                     from: process.env.EMAIL_SERVICE_ADDRESS,
                     html: `
                     <h4 style="color: #264A75">Hi ${email.split('@')[0]}</h4>
-                    <div>Please use <a href="http://localhost:3000/register/vendor/${token}">this</a> link to edit your previous request.</div>
+                    <div>Please use <a href="https://ontheway.thilinatlm.live/register/vendor/${token}">this</a> link to edit your previous request.</div>
                     `
                 })
                 return res.status(200).send(

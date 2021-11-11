@@ -19,7 +19,7 @@ const VendorController = {
                 html: `
                 <h4 style="color: #264A75">Hi ${req.body.firstName || ""} ${req.body.lastName || ""}</h4>
                 <div>We have created your vendor account</div>
-                <div>Please use <a href="http://localhost:3000/create_password/${token}">this</a> link to activate your account.</div>
+                <div>Please use <a href="https://ontheway.thilinatlm.live/create_password/${token}">this</a> link to activate your account.</div>
                 `
             })
             
