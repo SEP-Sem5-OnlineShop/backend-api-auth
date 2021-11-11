@@ -14,7 +14,8 @@ module.exports.create = async (data) => {
                 imageThumbnailUrl: data.imageThumbnailUrl,
                 imageUrl: data.imageUrl,
                 price: data.price,
-                description: data.description
+                description: data.description,
+                category: data.category
             })
             if (product && product._id)
                 await User.updateOne({ _id: data.seller },
