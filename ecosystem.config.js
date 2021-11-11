@@ -16,7 +16,7 @@ module.exports = {
       "DB_USER": "admin",
       "DB_PASSWORD": "SPHS41nip3XYHyFB",
       "EMAIL_SERVICE_ADDRESS": "ontheway.sep@gmail.com",
-      "EMAIL_SERVICE_REFRESH_TOKEN": "1//04W4y7vjglTgXCgYIARAAGAQSNwF-L9Ir7CLNIPnzaBsPV8naGV_RH-_nqlPUEfoHs_beeNHAKqaR_CIG1WLRD_fYSFKuPn5pS_Y",
+      "EMAIL_SERVICE_REFRESH_TOKEN": "1//04B1mBGlOAWVICgYIARAAGAQSNwF-L9IrMu1TMkbNLftg0FWLHlkl1CxSL5kHwEN4xQRB7vCPjA6f_HWKqzyUQ6L9_hsWKCsCTXk",
       "EMAIL_SERVICE_CLIENT_SECRET": "xJbgaQiiJqpSAllRHcBHPSe-",
       "EMAIL_SERVICE_CLIENT_ID": "1071300868663-ho9hnf90kls8t675k4jba76ufit1oekg.apps.googleusercontent.com",
       "EMAIL_SERVICE_REDIRECT_URL": "https://developers.google.com/oauthplayground"
