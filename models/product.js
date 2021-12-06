@@ -14,7 +14,8 @@ module.exports.create = async (data) => {
                 imageThumbnailUrl: data.imageThumbnailUrl,
                 imageUrl: data.imageUrl,
                 price: data.price,
-                description: data.description
+                description: data.description,
+                category: data.category
             })
             if (product && product._id)
                 await User.updateOne({ _id: data.seller },
@@ -173,4 +174,19 @@ module.exports.addReview = async (product_id,review) => {
 
 module.exports.getProductListForCustomer = async () => {
     return Product.find({ discount: { $gt: 0 } });
+}
+module.exports.getFruitsListForCustomer = async () => {
+    return Product.find({ category: "Fruit" });
+}
+module.exports.getVegetablesListForCustomer = async () => {
+    return Product.find({ category: "Vegetable" });
+}
+module.exports.getBakeryListForCustomer = async () => {
+    return Product.find({ category: "Bakery" });
+}
+module.exports.getPlantListForCustomer = async () => {
+    return Product.find({ category: "Plant" });
+}
+module.exports.getDessertListForCustomer = async () => {
+    return Product.find({ category: "Dessert" });
 }

@@ -112,6 +112,61 @@ const ProductController = {
             res.status(401).send(error);
         }
     },
+    getFruitsListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getFruitsListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
+    getVegetablesListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getVegetablesListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
+    getBakeryListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getBakeryListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
+    getPlantListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getPlantListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
+    getDessertListForCustomer: async function(req, res, next) {
+        // console.log(req.params);
+        try{
+            console.log(req.params);
+            const products = await Product.getDessertListForCustomer();
+            res.status(200).send(products);
+        } catch (error) {
+            // console.log("error error error")
+            res.status(401).send(error);
+        }
+    },
     
 
 }

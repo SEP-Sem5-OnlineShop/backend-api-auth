@@ -15,32 +15,34 @@ module.exports.createDriver = async (vendorId, data) => {
                 const vendor = await User.findOne(
                     { _id: vendorId}
                 )
-                const driver = new User({
-                    _id: id,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    telephone: data.telephone,
-                    role: "driver",
-                    vendorId: vendorId,
-                    shopName: vendor.shopName,
-                    shopImageUrl: vendor.imageUrl,
-                    driver: {
-                        licenseNumber: data.licenseNumber,
-                        licenseFileUrl: data.licenseFileUrl || "",
-                        vendorId: vendorId
-                    }
-                })
-                await driver.save({session})
-                await User.updateOne({ _id: vendorId },
-                    {
-                        $push: {
-                            'vendor.drivers': { ...data, _id: id }
+                if(vendor) {
+                    const driver = new User({
+                        _id: id,
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email,
+                        telephone: data.telephone,
+                        role: "driver",
+                        driver: {
+                            licenseNumber: data.licenseNumber,
+                            licenseFileUrl: data.licenseFileUrl || "",
+                            vendorId: vendorId,
+                            shopName: vendor.vendor.shopName,
+                            shopImageUrl: vendor.vendor.imageUrl,
                         }
-                    }, { session })
+                    })
+                    await driver.save({session})
+                    await User.updateOne({ _id: vendorId },
+                        {
+                            $push: {
+                                'vendor.drivers': { ...data, _id: id }
+                            }
+                        }, { session })
+                }
             })
         }
         catch (e) {
+            console.log(e)
             throw e
         }
         finally {
